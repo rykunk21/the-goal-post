@@ -1,0 +1,78 @@
+# NCAAB Predictor Configuration
+
+# Model Architecture
+model:
+  vae:
+    input_dim: 80  # Game features
+    latent_dim: 16  # Latent team representations
+    hidden_dims: [128, 64]
+    beta: 0.1  # KL divergence weight
+    lambda_infonce: 0.1  # InfoNCE loss weight
+    frozen: true  # Toggle frozen/trainable encoder
+
+  transition_nn:
+    input_dim: 74  # [mu_A(16) + sigma_A(16) + mu_B(16) + sigma_B(16) + context(10)]
+    hidden_dims: [128, 64, 32]
+    output_dim: 8  # Transition probabilities
+    
+  mcmc:
+    iterations: 10000
+    seed: 42
+
+# Training
+training:
+  vae:
+    epochs: 100
+    batch_size: 32
+    learning_rate: 0.001
+    optimizer: adam
+    
+  nn:
+    epochs: 50
+    batch_size: 32
+    learning_rate: 0.0001
+    optimizer: adam
+    
+  bayesian:
+    inter_year_variance: 0.25
+    season_start_month: 11
+    cross_season_decay: 0.7
+    min_games_for_stability: 5
+
+# Data
+data:
+  # steve.js database path (for accessing existing data)
+  steve_js_db: ~/repos/steve.js/data/bot.db
+  
+  # Local model storage
+  model_dir: data/models
+  
+  # Feature dimensions
+  feature_dim: 80
+  context_dim: 10
+
+# API
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 4
+  
+# Metrics Thresholds (from research/TEST_METRICS.md)
+metrics:
+  betting_edge:
+    hit_rate_threshold: 0.55  # 55%
+    roi_threshold: 0.05  # 5%
+    
+  training_stability:
+    loss_variance_threshold: 0.01
+    gradient_norm_threshold: 10.0
+    epoch_variance_threshold: 0.05
+    
+  latent_space:
+    reconstruction_mse_threshold: 0.1
+    transition_prob_mse_threshold: 0.02
+    
+  mcmc:
+    stability_std_threshold: 0.01  # 1%
+    score_mae_threshold: 5.0  # 5 points
+    latency_threshold_ms: 500

@@ -1,0 +1,549 @@
+"""
+Database operations for NCAAB prediction system.
+Matches Steve.js schema from migrations 003 and 006.
+"""
+
+import json
+import sqlite3
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Optional
+
+# Database path - located at ~/repos/ncaab-predictor/data/ncaab.db
+DB_PATH = Path(__file__).parent.parent.parent / "data" / "ncaab.db"
+
+
+def _get_connection() -> sqlite3.Connection:
+    """Get a database connection with row factory."""
+    conn = sqlite3.connect(str(DB_PATH))
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def _row_to_dict(row: sqlite3.Row) -> dict:
+    """Convert a sqlite3.Row to a dictionary."""
+    if row is None:
+        return None
+    return dict(row)
+
+
+# ==================== Initialization ====================
+
+
+def init_game_ids_table() -> None:
+    """
+    Create game_ids table if not exists.
+    Matches Steve.js migration 003 schema.
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS game_ids (
+            game_id TEXT PRIMARY KEY,
+            sport TEXT NOT NULL DEFAULT 'mens-college-basketball',
+            home_team_id TEXT,
+            away_team_id TEXT,
+            game_date DATE NOT NULL,
+            processed BOOLEAN NOT NULL DEFAULT 0,
+            
+            -- InfoNCE training labels: transition probability vectors
+            transition_probabilities_home BLOB,
+            transition_probabilities_away BLOB,
+            labels_extracted BOOLEAN NOT NULL DEFAULT 0,
+            
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            
+            FOREIGN KEY (home_team_id) REFERENCES teams(team_id),
+            FOREIGN KEY (away_team_id) REFERENCES teams(team_id)
+        )
+    """)
+    
+    # Create indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_game_ids_home_team ON game_ids(home_team_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_game_ids_away_team ON game_ids(away_team_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_game_ids_processed ON game_ids(processed)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_game_ids_date ON game_ids(game_date)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_game_ids_sport ON game_ids(sport)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_game_ids_labels_extracted ON game_ids(labels_extracted)")
+    
+    conn.commit()
+    conn.close()
+
+
+def init_teams_table() -> None:
+    """
+    Create teams table if not exists.
+    Matches Steve.js migration 003 schema with additions from 006.
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS teams (
+            team_id TEXT PRIMARY KEY,
+            statbroadcast_gid TEXT NOT NULL,
+            team_name TEXT NOT NULL,
+            sport TEXT NOT NULL DEFAULT 'mens-college-basketball',
+            conference TEXT,
+            
+            -- VAE posterior latent team representation (JSON blob)
+            -- Contains: {"mu": [16-dim array], "sigma": [16-dim array], "games_processed": int, "last_season": "2023-24", "last_updated": "2024-01-15"}
+            statistical_representation TEXT,
+            
+            -- Player roster for injury analysis (JSON array)
+            player_roster TEXT,
+            
+            -- Sync tracking
+            last_synced TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            
+            -- Migration 006 additions
+            model_version TEXT DEFAULT 'v1.0',
+            representation_type TEXT DEFAULT 'bayesian_posterior',
+            
+            -- Allow multiple teams with same statbroadcast_gid for multi-sport support
+            UNIQUE(statbroadcast_gid, sport)
+        )
+    """)
+    
+    # Create indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_teams_statbroadcast_gid ON teams(statbroadcast_gid)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_teams_sport ON teams(sport)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_teams_conference ON teams(conference)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_teams_last_synced ON teams(last_synced)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_teams_representation_type ON teams(representation_type)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_teams_model_version ON teams(model_version)")
+    
+    conn.commit()
+    conn.close()
+
+
+def init_database() -> None:
+    """Initialize all tables."""
+    init_teams_table()
+    init_game_ids_table()
+
+
+# ==================== Game ID Operations ====================
+
+
+def store_game_id_locally(
+    game_id: str,
+    home_team_id: Optional[str] = None,
+    away_team_id: Optional[str] = None,
+    game_date: Optional[str] = None,
+    sport: str = "mens-college-basketball"
+) -> bool:
+    """
+    Store a game ID in the local database.
+    
+    Args:
+        game_id: The StatBroadcast/ESPN game ID
+        home_team_id: Home team ID (e.g., "KEN" for Kentucky)
+        away_team_id: Away team ID (e.g., "MSU" for Michigan State)
+        game_date: Game date in YYYY-MM-DD format
+        sport: Sport identifier
+    
+    Returns:
+        True if stored successfully, False if already exists
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            INSERT INTO game_ids (game_id, sport, home_team_id, away_team_id, game_date, processed, labels_extracted)
+            VALUES (?, ?, ?, ?, ?, 0, 0)
+        """, (game_id, sport, home_team_id, away_team_id, game_date))
+        conn.commit()
+        return True
+    except sqlite3.IntegrityError:
+        # Already exists
+        return False
+    finally:
+        conn.close()
+
+
+def get_all_stored_game_ids() -> list[dict]:
+    """
+    Retrieve all stored game IDs.
+    
+    Returns:
+        List of game ID records as dictionaries
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT game_id, sport, home_team_id, away_team_id, game_date, 
+               processed, labels_extracted, created_at, updated_at
+        FROM game_ids
+        ORDER BY game_date DESC, game_id
+    """)
+    
+    rows = cursor.fetchall()
+    conn.close()
+    
+    return [_row_to_dict(row) for row in rows]
+
+
+def get_unprocessed_game_ids() -> list[str]:
+    """
+    Get list of game IDs that haven't been processed.
+    
+    Returns:
+        List of unprocessed game IDs
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT game_id FROM game_ids WHERE processed = 0 ORDER BY game_date")
+    rows = cursor.fetchall()
+    conn.close()
+    
+    return [row[0] for row in rows]
+
+
+def is_game_id_stored(game_id: str) -> bool:
+    """
+    Check if a game ID exists in the local database.
+    
+    Args:
+        game_id: The game ID to check
+    
+    Returns:
+        True if game exists, False otherwise
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT 1 FROM game_ids WHERE game_id = ?", (game_id,))
+    result = cursor.fetchone()
+    conn.close()
+    
+    return result is not None
+
+
+def mark_game_processed(game_id: str) -> None:
+    """Mark a game as processed."""
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        UPDATE game_ids 
+        SET processed = 1, updated_at = CURRENT_TIMESTAMP
+        WHERE game_id = ?
+    """, (game_id,))
+    conn.commit()
+    conn.close()
+
+
+# ==================== Team Latent Operations ====================
+
+
+def store_team_latent(
+    team_id: str,
+    latent_vector: list[float],
+    statbroadcast_gid: Optional[str] = None,
+    team_name: Optional[str] = None,
+    sport: str = "mens-college-basketball",
+    metadata: Optional[dict] = None
+) -> None:
+    """
+    Store a team's 16-dimensional latent representation.
+    
+    Args:
+        team_id: Team identifier (e.g., "KEN", "MSU")
+        latent_vector: 16-dimensional latent vector
+        statbroadcast_gid: StatBroadcast team ID
+        team_name: Full team name
+        sport: Sport identifier
+        metadata: Additional metadata (games_processed, last_season, etc.)
+    """
+    if len(latent_vector) != 16:
+        raise ValueError(f"Latent vector must be 16 dimensions, got {len(latent_vector)}")
+    
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    # Build representation JSON
+    representation = {
+        "mu": latent_vector,
+        "sigma": [1.0] * 16,  # Default sigma
+        "model_version": "v1.0",
+        "type": "bayesian_posterior"
+    }
+    
+    if metadata:
+        representation.update(metadata)
+    
+    representation_json = json.dumps(representation)
+    now = datetime.now().isoformat()
+    
+    cursor.execute("""
+        INSERT INTO teams (team_id, statbroadcast_gid, team_name, sport, statistical_representation, last_synced, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(team_id) DO UPDATE SET
+            statistical_representation = excluded.statistical_representation,
+            last_synced = excluded.last_synced,
+            updated_at = excluded.updated_at
+    """, (team_id, statbroadcast_gid or team_id, team_name or team_id, sport, representation_json, now, now))
+    
+    conn.commit()
+    conn.close()
+
+
+def fetch_team_latent(team_id: str) -> Optional[list[float]]:
+    """
+    Retrieve a team's latent representation.
+    
+    Args:
+        team_id: Team identifier
+    
+    Returns:
+        16-dimensional latent vector or None if not found
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT statistical_representation 
+        FROM teams 
+        WHERE team_id = ?
+    """, (team_id,))
+    
+    row = cursor.fetchone()
+    conn.close()
+    
+    if row is None or row[0] is None:
+        return None
+    
+    representation = json.loads(row[0])
+    return representation.get("mu")
+
+
+def fetch_team_full_representation(team_id: str) -> Optional[dict]:
+    """
+    Retrieve full team representation including sigma and metadata.
+    
+    Args:
+        team_id: Team identifier
+    
+    Returns:
+        Full representation dict or None if not found
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT statistical_representation 
+        FROM teams 
+        WHERE team_id = ?
+    """, (team_id,))
+    
+    row = cursor.fetchone()
+    conn.close()
+    
+    if row is None or row[0] is None:
+        return None
+    
+    return json.loads(row[0])
+
+
+def update_team_from_game(
+    team_id: str,
+    statbroadcast_gid: str,
+    team_name: str,
+    conference: Optional[str] = None
+) -> None:
+    """
+    Update team metadata from game XML data.
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        INSERT INTO teams (team_id, statbroadcast_gid, team_name, conference, sport, last_synced)
+        VALUES (?, ?, ?, ?, 'mens-college-basketball', CURRENT_TIMESTAMP)
+        ON CONFLICT(team_id) DO UPDATE SET
+            statbroadcast_gid = excluded.statbroadcast_gid,
+            team_name = excluded.team_name,
+            conference = COALESCE(excluded.conference, teams.conference),
+            last_synced = CURRENT_TIMESTAMP
+    """, (team_id, statbroadcast_gid, team_name, conference))
+    
+    conn.commit()
+    conn.close()
+
+
+# ==================== Transition Probabilities ====================
+
+
+def store_transition_probs(
+    game_id: str,
+    home_probs: list[float],
+    away_probs: list[float]
+) -> None:
+    """
+    Store 8-dimensional transition probability vectors for a game.
+    
+    Args:
+        game_id: The game ID
+        home_probs: 8-dimensional transition probs for home team
+        away_probs: 8-dimensional transition probs for away team
+    
+    Note:
+        - home_probs[0-3]: home team in states 0-3
+        - home_probs[4-7]: home team in states 4-7
+        - Same for away_probs
+    """
+    if len(home_probs) != 8 or len(away_probs) != 8:
+        raise ValueError("Transition probabilities must be 8 dimensions")
+    
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    # Store as JSON blobs (can also use BLOB for binary)
+    home_bytes = json.dumps(home_probs).encode('utf-8')
+    away_bytes = json.dumps(away_probs).encode('utf-8')
+    
+    cursor.execute("""
+        UPDATE game_ids 
+        SET transition_probabilities_home = ?,
+            transition_probabilities_away = ?,
+            labels_extracted = 1,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE game_id = ?
+    """, (home_bytes, away_bytes, game_id))
+    
+    conn.commit()
+    conn.close()
+
+
+def fetch_transition_probs(game_id: str) -> Optional[tuple[list[float], list[float]]]:
+    """
+    Retrieve transition probabilities for a game.
+    
+    Args:
+        game_id: The game ID
+    
+    Returns:
+        Tuple of (home_probs, away_probs) or None if not found
+    """
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT transition_probabilities_home, transition_probabilities_away
+        FROM game_ids
+        WHERE game_id = ?
+    """, (game_id,))
+    
+    row = cursor.fetchone()
+    conn.close()
+    
+    if row is None or row[0] is None:
+        return None
+    
+    home_probs = json.loads(row[0].decode('utf-8'))
+    away_probs = json.loads(row[1].decode('utf-8'))
+    
+    return (home_probs, away_probs)
+
+
+def get_games_with_labels() -> list[dict]:
+    """Get all games that have transition probability labels."""
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT game_id, home_team_id, away_team_id, game_date
+        FROM game_ids
+        WHERE labels_extracted = 1
+        ORDER BY game_date DESC
+    """)
+    
+    rows = cursor.fetchall()
+    conn.close()
+    
+    return [_row_to_dict(row) for row in rows]
+
+
+# ==================== Utility Functions ====================
+
+
+def get_team_info(team_id: str) -> Optional[dict]:
+    """Get full team information."""
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT * FROM teams WHERE team_id = ?
+    """, (team_id,))
+    
+    row = cursor.fetchone()
+    conn.close()
+    
+    return _row_to_dict(row)
+
+
+def get_all_teams() -> list[dict]:
+    """Get all teams."""
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT * FROM teams ORDER BY team_name")
+    rows = cursor.fetchall()
+    conn.close()
+    
+    return [_row_to_dict(row) for row in rows]
+
+
+def delete_game(game_id: str) -> bool:
+    """Delete a game from the database."""
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    cursor.execute("DELETE FROM game_ids WHERE game_id = ?", (game_id,))
+    deleted = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    
+    return deleted
+
+
+def get_database_stats() -> dict:
+    """Get database statistics."""
+    conn = _get_connection()
+    cursor = conn.cursor()
+    
+    stats = {}
+    
+    # Count teams
+    cursor.execute("SELECT COUNT(*) FROM teams")
+    stats["teams_count"] = cursor.fetchone()[0]
+    
+    # Count games
+    cursor.execute("SELECT COUNT(*) FROM game_ids")
+    stats["games_count"] = cursor.fetchone()[0]
+    
+    # Count processed games
+    cursor.execute("SELECT COUNT(*) FROM game_ids WHERE processed = 1")
+    stats["processed_games"] = cursor.fetchone()[0]
+    
+    # Count games with labels
+    cursor.execute("SELECT COUNT(*) FROM game_ids WHERE labels_extracted = 1")
+    stats["games_with_labels"] = cursor.fetchone()[0]
+    
+    conn.close()
+    return stats
+
+
+if __name__ == "__main__":
+    # Initialize database when run directly
+    init_database()
+    print(f"Database initialized at: {DB_PATH}")
+    print(f"Stats: {get_database_stats()}")

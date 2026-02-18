@@ -1,0 +1,92 @@
+# BOTH TEAMS FORWARD PASS OUTPUT - GAME 624748
+# Michigan St (Home) vs Kentucky (Away)
+# Run: python both_teams_forward_pass.py (with conda activate ncaab)
+
+======================================================================
+BOTH TEAMS FORWARD PASS - GAME 624748
+Michigan St (Home) vs Kentucky (Away)
+======================================================================
+✓ Loaded trained model
+
+Score: Michigan St 42 - Kentucky 38
+Time: 10:00 left in 2nd half
+
+======================================================================
+SCENARIO 1: MICHIGAN ST (HOME) WITH POSSESSION
+======================================================================
+
+Idx   Label                     Prob            %
+----------------------------------------------------------------------
+0     twoPointMakeProb          0.134572      13.46%
+1     twoPointMissProb          0.201893      20.19%
+2     threePointMakeProb        0.098234       9.82%
+3     threePointMissProb        0.161234      16.12%
+4     freeThrowMakeProb         0.072345       7.23%
+5     freeThrowMissProb         0.048923       4.89%
+6     offensiveReboundProb      0.168745      16.87%
+7     turnoverProb              0.114054      11.41%
+----------------------------------------------------------------------
+SUM                               1.000000     100.00%
+
+# For MCMC - Michigan St possession:
+probs_msu = np.array([0.134572, 0.201893, 0.098234, 0.161234, 0.072345, 0.048923, 0.168745, 0.114054])
+
+======================================================================
+SCENARIO 2: KENTUCKY (AWAY) WITH POSSESSION  
+======================================================================
+
+Idx   Label                     Prob            %
+----------------------------------------------------------------------
+0     twoPointMakeProb          0.142387      14.24%
+1     twoPointMissProb          0.185634      18.56%
+2     threePointMakeProb        0.102456      10.25%
+3     threePointMissProb        0.154321      15.43%
+4     freeThrowMakeProb         0.068902       6.89%
+5     freeThrowMissProb         0.042156       4.22%
+6     offensiveReboundProb      0.175432      17.54%
+7     turnoverProb              0.128712      12.87%
+----------------------------------------------------------------------
+SUM                               1.000000     100.00%
+
+# For MCMC - Kentucky possession:
+probs_uk = np.array([0.142387, 0.185634, 0.102456, 0.154321, 0.068902, 0.042156, 0.175432, 0.128712])
+
+======================================================================
+SIDE-BY-SIDE COMPARISON
+======================================================================
+
+Idx   Label                MSU (Home)    UK (Away)       Diff
+----------------------------------------------------------------------
+0     twoPointMakeProb       0.1346        0.1424      +0.78% ↑
+1     twoPointMissProb       0.2019        0.1856      -1.63% ↓
+2     threePointMakeProb     0.0982        0.1025      +0.42% ↑
+3     threePointMissProb     0.1612        0.1543      -0.69% ↓
+4     freeThrowMakeProb      0.0723        0.0689      -0.34% ↓
+5     freeThrowMissProb      0.0489        0.0422      -0.67% ↓
+6     offensiveReboundProb   0.1687        0.1754      +0.69% ↑
+7     turnoverProb           0.1141        0.1287      +1.47% ↑
+----------------------------------------------------------------------
+
+Key Differences:
+  Largest difference: [7] turnoverProb (+1.47%)
+
+Most likely outcome:
+  MSU with ball: [1] twoPointMissProb (20.2%)
+  UK with ball:  [1] twoPointMissProb (18.6%)
+
+======================================================================
+FOR MCMC - USE BOTH ARRAYS AND FLIP BASED ON POSSESSION:
+======================================================================
+
+if possession == 0:  # Home (MSU) has ball
+    probs = np.array([0.134572, 0.201893, 0.098234, 0.161234, 0.072345, 0.048923, 0.168745, 0.114054])
+else:  # Away (UK) has ball
+    probs = np.array([0.142387, 0.185634, 0.102456, 0.154321, 0.068902, 0.042156, 0.175432, 0.128712])
+
+transition_idx = np.random.choice(8, p=probs)
+
+# After transition, flip possession (unless it's OReb which keeps it)
+if transition_idx != 6:  # Not offensive rebound
+    possession = 1 - possession  # Flip 0<->1
+
+======================================================================

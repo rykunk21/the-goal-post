@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<game>
+    <gameId>2024021501</gameId>
+    <date>2024-02-15</date>
+    <time>19:00:00</time>
+    <venue>
+        <name>Cameron Indoor Stadium</name>
+        <city>Durham</city>
+        <state>NC</state>
+    </venue>
+    <homeTeam>
+        <teamId>duke</teamId>
+        <name>Duke Blue Devils</name>
+        <conference>ACC</conference>
+        <score>78</score>
+        <periodScore>38</periodScore>
+        <statistics>
+            <fieldGoalsMade>28</fieldGoalsMade>
+            <fieldGoalsAttempted>55</fieldGoalsAttempted>
+            <threePointersMade>9</threePointersMade>
+            <threePointersAttempted>22</threePointersAttempted>
+            <freeThrowsMade>13</freeThrowsMade>
+            <freeThrowsAttempted>18</freeThrowsAttempted>
+            <reboundsOffensive>10</reboundsOffensive>
+            <reboundsDefensive>22</reboundsDefensive>
+            <reboundsTotal>32</reboundsTotal>
+            <assists>15</assists>
+            <turnovers>8</turnovers>
+            <steals>6</steals>
+            <blocks>3</blocks>
+            <fouls>12</fouls>
+        </statistics>
+    </homeTeam>
+    <awayTeam>
+        <teamId>unc</teamId>
+        <name>North Carolina Tar Heels</name>
+        <conference>ACC</conference>
+        <score>72</score>
+        <periodScore>35</periodScore>
+        <statistics>
+            <fieldGoalsMade>26</fieldGoalsMade>
+            <fieldGoalsAttempted>58</fieldGoalsAttempted>
+            <threePointersMade>8</threePointersMade>
+            <threePointersAttempted>21</threePointersAttempted>
+            <freeThrowsMade>12</freeThrowsMade>
+            <freeThrowsAttempted>16</freeThrowsAttempted>
+            <reboundsOffensive>7</reboundsOffensive>
+            <reboundsDefensive>25</reboundsDefensive>
+            <reboundsTotal>32</reboundsTotal>
+            <assists>12</assists>
+            <turnovers>12</turnovers>
+            <steals>5</steals>
+            <blocks>2</blocks>
+            <fouls>15</fouls>
+        </statistics>
+    </awayTeam>
+    <period>2</period>
+    <clock>0:32</clock>
+    <status>final</status>
+</game>

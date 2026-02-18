@@ -1,0 +1,780 @@
+<?xml version="1.0"?>
+<bbgame source="StatBroadcast Listener" version="1.0" generated="11/18/2025" coords="N">
+  <venue gameid="16960" sbid="623619" competitionid="41097" competitionname="2025 State Farm Champions Classic" date="11/18/2025" location="Madison Square Garden - New York" time="06:30 PM ET" attend="0" schednote="" start="06:36 PM ET" end="08:40 PM ET" duration="2:03" visid="MSU" visname="Michigan St." homeid="KEN" homename="Kentucky" leaguegame="N" neutralgame="N" postseason="N" gender="M">
+    <officials text="Pat Driscoll, Don Daily, Keith Kimble"></officials>
+    <notes></notes>
+    <rules prds="2" minutes="20" minutesot="5" fouls="5" qh="H"></rules>
+  </venue>
+  <status complete="Y" period="2" periodtype="REGULAR" clock="00:00" running="F" arrow="V" poss="V" periodstatus="CONFIRMED" gamestatus="COMPLETE"></status>
+  <team vh="V" id="MSU" name="Michigan St." record="">
+    <linescore line="44,39" score="83">
+      <lineprd prd="1" score="44"></lineprd>
+      <lineprd prd="2" score="39"></lineprd>
+    </linescore>
+    <totals>
+      <stats fgm="32" fga="64" fgm3="11" fga3="22" ftm="8" fta="10" tp="83" blk="4" stl="5" ast="25" min="200" oreb="10" dreb="32" treb="42" pf="17" tf="0" drawn="15" to="13" deadball="2,0" fgpct="50" fg3pct="50" ftpct="80"></stats>
+      <special vh="V" pts_to="15" pts_ch2="8" pts_paint="30" pts_fastb="8" pts_bench="34" ties="1" leads="4" poss_count="71" poss_time="" score_count="36" score_time="" lead_time="2059" tied_time="62" large_lead="24" large_lead_t="2nd-02:34" biggest_run="9"></special>
+      <statsbyprd prd="1" fgm="17" fga="33" fgm3="7" fga3="13" ftm="3" fta="4" tp="44" blk="3" stl="2" ast="11" min="100" oreb="5" dreb="19" treb="24" pf="8" tf="0" to="6"></statsbyprd>
+      <statsbyprd prd="2" fgm="15" fga="31" fgm3="4" fga3="9" ftm="5" fta="6" tp="39" blk="1" stl="3" ast="14" min="100" oreb="5" dreb="13" treb="18" pf="9" tf="0" to="7"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" br="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" of="0" drawn="0" to="0" eff="0"></season>
+    </totals>
+    <player uni="0" pno="3" code="1930360" name="Kohler,Jaxon" checkname="KOHLER,JAXON" class="" gp="1" gs="1" pos="F" oncourt="N">
+      <stats fgm="8" fga="12" fgm3="2" fga3="2" ftm="2" fta="2" tp="20" blk="1" stl="0" ast="2" min="27" oreb="1" dreb="4" treb="5" pf="1" tf="0" to="2" drawn="1" plusminus="13" blkrcvd="0" eff="22" pts_paint="10" pts_fastb="2" pts_ch2="4" dq="0"></stats>
+      <statsbyprd prd="1" fgm="5" fga="6" fgm3="2" fga3="2" ftm="0" fta="0" tp="12" blk="1" stl="0" ast="1" min="15" oreb="0" dreb="4" treb="4" pf="1" tf="0" to="2" pts_paint="4" pts_fastb="0" pts_ch2="2" dq="" drawn="0" plusminus="13" blkrcvd="0" eff="15"></statsbyprd>
+      <statsbyprd prd="2" fgm="3" fga="6" fgm3="0" fga3="0" ftm="2" fta="2" tp="8" blk="0" stl="0" ast="1" min="12" oreb="1" dreb="0" treb="1" pf="0" tf="0" to="0" pts_paint="6" pts_fastb="2" pts_ch2="2" dq="" drawn="1" plusminus="0" blkrcvd="0" eff="7"></statsbyprd>
+      <season gp="3" fgm="14" fga="33" fgm3="3" fga3="12" ftm="12" fta="15" tp="43" blk="3" stl="3" ast="6" min="92" oreb="16" dreb="24" treb="40" pf="2" tf="" to="6" drawn="13" plusminus="36" blkrcvd="1" eff="77"></season>
+    </player>
+    <player uni="1" pno="7" code="2119925" name="Fears Jr.,Jeremy" checkname="FEARS JR.,JEREMY" class="" gp="1" gs="1" pos="G" oncourt="N">
+      <stats fgm="2" fga="3" fgm3="0" fga3="0" ftm="4" fta="4" tp="8" blk="0" stl="3" ast="13" min="31" oreb="0" dreb="6" treb="6" pf="1" tf="0" to="2" drawn="5" plusminus="19" blkrcvd="1" eff="27" pts_paint="4" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="2" fgm3="0" fga3="0" ftm="2" fta="2" tp="4" blk="0" stl="1" ast="5" min="16" oreb="0" dreb="2" treb="2" pf="0" tf="0" to="2" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="" drawn="2" plusminus="11" blkrcvd="1" eff="9"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="1" fgm3="0" fga3="0" ftm="2" fta="2" tp="4" blk="0" stl="2" ast="8" min="15" oreb="0" dreb="4" treb="4" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="" drawn="3" plusminus="8" blkrcvd="0" eff="18"></statsbyprd>
+      <season gp="3" fgm="8" fga="24" fgm3="3" fga3="8" ftm="14" fta="16" tp="33" blk="0" stl="6" ast="28" min="99" oreb="3" dreb="10" treb="13" pf="7" tf="" to="7" drawn="16" plusminus="43" blkrcvd="2" eff="62"></season>
+    </player>
+    <player uni="2" pno="9" code="2313668" name="Teng,Kur" checkname="TENG,KUR" class="" gp="1" gs="0" pos="G" oncourt="N">
+      <stats fgm="6" fga="12" fgm3="3" fga3="7" ftm="0" fta="0" tp="15" blk="0" stl="1" ast="2" min="18" oreb="0" dreb="1" treb="1" pf="2" tf="0" to="0" drawn="0" plusminus="17" blkrcvd="0" eff="13" pts_paint="0" pts_fastb="3" pts_ch2="2" dq="0"></stats>
+      <statsbyprd prd="1" fgm="3" fga="6" fgm3="1" fga3="3" ftm="0" fta="0" tp="7" blk="0" stl="1" ast="1" min="9" oreb="0" dreb="1" treb="1" pf="1" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="2" dq="" drawn="0" plusminus="11" blkrcvd="0" eff="7"></statsbyprd>
+      <statsbyprd prd="2" fgm="3" fga="6" fgm3="2" fga3="4" ftm="0" fta="0" tp="8" blk="0" stl="0" ast="1" min="9" oreb="0" dreb="0" treb="0" pf="1" tf="0" to="0" pts_paint="0" pts_fastb="3" pts_ch2="0" dq="" drawn="0" plusminus="6" blkrcvd="0" eff="6"></statsbyprd>
+      <season gp="3" fgm="6" fga="15" fgm3="4" fga3="10" ftm="0" fta="0" tp="16" blk="1" stl="0" ast="3" min="41" oreb="0" dreb="3" treb="3" pf="3" tf="" to="2" drawn="0" plusminus="21" blkrcvd="0" eff="9"></season>
+    </player>
+    <player uni="3" pno="15" code="2539349" name="Ward,Cameron" checkname="WARD,CAMERON" class="" gp="1" gs="0" pos="F" oncourt="N">
+      <stats fgm="4" fga="6" fgm3="0" fga3="0" ftm="0" fta="0" tp="8" blk="0" stl="0" ast="0" min="17" oreb="2" dreb="2" treb="4" pf="1" tf="0" to="2" drawn="0" plusminus="11" blkrcvd="1" eff="8" pts_paint="6" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="2" fgm3="0" fga3="0" ftm="0" fta="0" tp="2" blk="0" stl="0" ast="0" min="7" oreb="1" dreb="2" treb="3" pf="1" tf="0" to="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="10" blkrcvd="1" eff="3"></statsbyprd>
+      <statsbyprd prd="2" fgm="3" fga="4" fgm3="0" fga3="0" ftm="0" fta="0" tp="6" blk="0" stl="0" ast="0" min="10" oreb="1" dreb="0" treb="1" pf="0" tf="0" to="1" pts_paint="6" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="1" blkrcvd="0" eff="5"></statsbyprd>
+      <season gp="3" fgm="13" fga="21" fgm3="0" fga3="1" ftm="4" fta="11" tp="30" blk="0" stl="2" ast="1" min="48" oreb="8" dreb="10" treb="18" pf="5" tf="" to="2" drawn="7" plusminus="18" blkrcvd="3" eff="33"></season>
+    </player>
+    <player uni="6" pno="14" code="2539344" name="Scott,Jordan" checkname="SCOTT,JORDAN" class="" gp="1" gs="0" pos="F" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="1" fta="2" tp="1" blk="1" stl="0" ast="1" min="12" oreb="2" dreb="1" treb="3" pf="3" tf="0" to="2" drawn="3" plusminus="19" blkrcvd="0" eff="3" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="1" min="6" oreb="1" dreb="1" treb="2" pf="1" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="1" plusminus="11" blkrcvd="0" eff="3"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="1" fta="2" tp="1" blk="1" stl="0" ast="0" min="6" oreb="1" dreb="0" treb="1" pf="2" tf="0" to="2" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="2" plusminus="8" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="3" fgm="3" fga="10" fgm3="0" fga3="6" ftm="6" fta="9" tp="12" blk="1" stl="1" ast="2" min="54" oreb="5" dreb="8" treb="13" pf="4" tf="" to="0" drawn="7" plusminus="9" blkrcvd="0" eff="22"></season>
+    </player>
+    <player uni="8" pno="6" code="2115900" name="Glenn,Kaleb" checkname="GLENN,KALEB" class="" gp="0" gs="0" pos="F" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0"></season>
+    </player>
+    <player uni="9" pno="1" code="1603155" name="Fort,Trey" checkname="FORT,TREY" class="" gp="1" gs="1" pos="G" oncourt="N">
+      <stats fgm="5" fga="12" fgm3="3" fga3="8" ftm="0" fta="0" tp="13" blk="0" stl="0" ast="1" min="18" oreb="0" dreb="2" treb="2" pf="2" tf="0" to="1" drawn="1" plusminus="2" blkrcvd="0" eff="8" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="3" fga="8" fgm3="2" fga3="6" ftm="0" fta="0" tp="8" blk="0" stl="0" ast="0" min="11" oreb="0" dreb="2" treb="2" pf="2" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="6" blkrcvd="0" eff="5"></statsbyprd>
+      <statsbyprd prd="2" fgm="2" fga="4" fgm3="1" fga3="2" ftm="0" fta="0" tp="5" blk="0" stl="0" ast="1" min="7" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="1" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="" drawn="1" plusminus="-4" blkrcvd="0" eff="3"></statsbyprd>
+      <season gp="3" fgm="5" fga="18" fgm3="3" fga3="14" ftm="3" fta="3" tp="16" blk="2" stl="1" ast="1" min="49" oreb="1" dreb="6" treb="7" pf="2" tf="" to="4" drawn="1" plusminus="7" blkrcvd="0" eff="9"></season>
+    </player>
+    <player uni="10" pno="2" code="1689215" name="Wojcik,Denham" checkname="WOJCIK,DENHAM" class="" gp="1" gs="0" pos="G" oncourt="Y">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="2" min="3" oreb="0" dreb="0" treb="0" pf="1" tf="0" to="0" drawn="0" plusminus="-5" blkrcvd="0" eff="2" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="2" min="3" oreb="0" dreb="0" treb="0" pf="1" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-5" blkrcvd="0" eff="2"></statsbyprd>
+      <season gp="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="1" min="4" oreb="0" dreb="1" treb="1" pf="1" tf="" to="0" drawn="0" plusminus="-3" blkrcvd="0" eff="1"></season>
+    </player>
+    <player uni="15" pno="4" code="1930365" name="Cooper,Carson" checkname="COOPER,CARSON" class="" gp="1" gs="1" pos="C" oncourt="N">
+      <stats fgm="1" fga="7" fgm3="0" fga3="1" ftm="0" fta="0" tp="2" blk="1" stl="0" ast="2" min="23" oreb="2" dreb="4" treb="6" pf="2" tf="0" to="0" drawn="3" plusminus="8" blkrcvd="2" eff="5" pts_paint="2" pts_fastb="0" pts_ch2="2" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="3" fgm3="0" fga3="0" ftm="0" fta="0" tp="2" blk="1" stl="0" ast="1" min="11" oreb="2" dreb="1" treb="3" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="0" pts_ch2="2" dq="" drawn="2" plusminus="1" blkrcvd="0" eff="5"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="4" fgm3="0" fga3="1" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="1" min="12" oreb="0" dreb="3" treb="3" pf="1" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="1" plusminus="7" blkrcvd="2" eff="0"></statsbyprd>
+      <season gp="3" fgm="13" fga="22" fgm3="0" fga3="0" ftm="10" fta="18" tp="36" blk="3" stl="5" ast="4" min="75" oreb="7" dreb="8" treb="15" pf="8" tf="" to="3" drawn="11" plusminus="18" blkrcvd="0" eff="46"></season>
+    </player>
+    <player uni="20" pno="5" code="1930369" name="Sanders,Nick" checkname="SANDERS,NICK" class="" gp="1" gs="0" pos="G" oncourt="Y">
+      <stats fgm="0" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="1" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="-3" blkrcvd="1" eff="-1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="1" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-3" blkrcvd="1" eff="-1"></statsbyprd>
+      <season gp="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="1" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="2" blkrcvd="0" eff="1"></season>
+    </player>
+    <player uni="35" pno="10" code="2313673" name="McCulloch,Jesse" checkname="MCCULLOCH,JESSE" class="" gp="1" gs="0" pos="F" oncourt="Y">
+      <stats fgm="3" fga="3" fgm3="2" fga3="2" ftm="0" fta="0" tp="8" blk="0" stl="0" ast="0" min="9" oreb="0" dreb="2" treb="2" pf="3" tf="0" to="0" drawn="1" plusminus="2" blkrcvd="0" eff="10" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="2" fga="2" fgm3="1" fga3="1" ftm="0" fta="0" tp="5" blk="0" stl="0" ast="0" min="4" oreb="0" dreb="1" treb="1" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="7" blkrcvd="0" eff="6"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="1" fgm3="1" fga3="1" ftm="0" fta="0" tp="3" blk="0" stl="0" ast="0" min="6" oreb="0" dreb="1" treb="1" pf="2" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="1" plusminus="-5" blkrcvd="0" eff="4"></statsbyprd>
+      <season gp="3" fgm="2" fga="4" fgm3="0" fga3="1" ftm="0" fta="0" tp="4" blk="0" stl="1" ast="0" min="15" oreb="0" dreb="1" treb="1" pf="3" tf="" to="1" drawn="1" plusminus="-4" blkrcvd="0" eff="1"></season>
+    </player>
+    <player uni="40" pno="11" code="2313674" name="Walton,Brennan" checkname="WALTON,BRENNAN" class="" gp="1" gs="0" pos="F" oncourt="Y">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="1" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="-3" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="1" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-3" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0"></season>
+    </player>
+    <player uni="43" pno="12" code="2313675" name="Walton,Colin" checkname="WALTON,COLIN" class="" gp="1" gs="0" pos="F" oncourt="Y">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="1" oreb="0" dreb="1" treb="1" pf="0" tf="0" to="0" drawn="0" plusminus="-3" blkrcvd="0" eff="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="1" oreb="0" dreb="1" treb="1" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-3" blkrcvd="0" eff="1"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0"></season>
+    </player>
+    <player uni="55" pno="8" code="2119938" name="Carr,Coen" checkname="CARR,COEN" class="" gp="1" gs="1" pos="F" oncourt="N">
+      <stats fgm="2" fga="6" fgm3="1" fga3="2" ftm="1" fta="2" tp="6" blk="1" stl="1" ast="2" min="30" oreb="0" dreb="6" treb="6" pf="0" tf="0" to="3" drawn="1" plusminus="5" blkrcvd="1" eff="8" pts_paint="2" pts_fastb="3" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="3" fgm3="1" fga3="1" ftm="1" fta="2" tp="4" blk="1" stl="0" ast="2" min="16" oreb="0" dreb="4" treb="4" pf="0" tf="0" to="1" pts_paint="0" pts_fastb="1" pts_ch2="0" dq="" drawn="1" plusminus="9" blkrcvd="0" eff="7"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="3" fgm3="0" fga3="1" ftm="0" fta="0" tp="2" blk="0" stl="1" ast="0" min="14" oreb="0" dreb="2" treb="2" pf="0" tf="0" to="2" pts_paint="2" pts_fastb="2" pts_ch2="0" dq="" drawn="0" plusminus="-4" blkrcvd="1" eff="1"></statsbyprd>
+      <season gp="3" fgm="13" fga="23" fgm3="0" fga3="3" ftm="9" fta="14" tp="35" blk="3" stl="3" ast="10" min="88" oreb="6" dreb="9" treb="15" pf="8" tf="" to="6" drawn="9" plusminus="27" blkrcvd="2" eff="44"></season>
+    </player>
+    <player uni="99" pno="13" code="2319605" name="Ugochukwu,Divine" checkname="UGOCHUKWU,DIVINE" class="" gp="1" gs="0" pos="G" oncourt="N">
+      <stats fgm="1" fga="2" fgm3="0" fga3="0" ftm="0" fta="0" tp="2" blk="0" stl="0" ast="0" min="8" oreb="0" dreb="1" treb="1" pf="1" tf="0" to="0" drawn="0" plusminus="3" blkrcvd="0" eff="2" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="4" oreb="0" dreb="1" treb="1" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="6" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="2" blk="0" stl="0" ast="0" min="4" oreb="0" dreb="0" treb="0" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-3" blkrcvd="0" eff="2"></statsbyprd>
+      <season gp="3" fgm="1" fga="9" fgm3="0" fga3="5" ftm="1" fta="2" tp="3" blk="0" stl="0" ast="4" min="28" oreb="1" dreb="0" treb="1" pf="2" tf="" to="1" drawn="1" plusminus="-9" blkrcvd="1" eff="-4"></season>
+    </player>
+    <player uni="TM" code="TM" name="TEAM" checkname="TEAM" class="" gp="1">
+      <stats oreb="3" dreb="2" treb="5" pf="0" tf="0" to="1" dq="0"></stats>
+      <statsbyprd prd="1" oreb="1" dreb="0" treb="1" pf="0" tf="0" to="0" dq="0"></statsbyprd>
+      <statsbyprd prd="2" oreb="2" dreb="2" treb="4" pf="0" tf="0" to="1" dq="0"></statsbyprd>
+    </player>
+  </team>
+  <team vh="H" id="KEN" name="Kentucky" record="">
+    <linescore line="27,39" score="66">
+      <lineprd prd="1" score="27"></lineprd>
+      <lineprd prd="2" score="39"></lineprd>
+    </linescore>
+    <totals>
+      <stats fgm="20" fga="57" fgm3="7" fga3="30" ftm="19" fta="22" tp="66" blk="6" stl="7" ast="13" min="200" oreb="6" dreb="22" treb="28" pf="15" tf="0" drawn="17" to="9" deadball="2,0" fgpct="35.1" fg3pct="23" ftpct="86.4"></stats>
+      <special vh="H" pts_to="17" pts_ch2="6" pts_paint="24" pts_fastb="16" pts_bench="22" ties="1" leads="3" poss_count="68" poss_time="" score_count="29" score_time="" lead_time="279" tied_time="62" large_lead="5" large_lead_t="1st-18:34" biggest_run="7"></special>
+      <statsbyprd prd="1" fgm="8" fga="29" fgm3="4" fga3="15" ftm="7" fta="9" tp="27" blk="2" stl="3" ast="7" min="100" oreb="3" dreb="11" treb="14" pf="6" tf="0" to="4"></statsbyprd>
+      <statsbyprd prd="2" fgm="12" fga="28" fgm3="3" fga3="15" ftm="12" fta="13" tp="39" blk="4" stl="4" ast="6" min="100" oreb="3" dreb="11" treb="14" pf="9" tf="0" to="5"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" br="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" of="0" drawn="0" to="0" eff="0"></season>
+    </totals>
+    <player uni="00" pno="2" code="1897589" name="Oweh,Otega" checkname="OWEH,OTEGA" class="" gp="1" gs="1" pos="G" oncourt="N">
+      <stats fgm="4" fga="12" fgm3="2" fga3="5" ftm="2" fta="2" tp="12" blk="1" stl="0" ast="3" min="31" oreb="0" dreb="4" treb="4" pf="1" tf="0" to="1" drawn="1" plusminus="-18" blkrcvd="2" eff="11" pts_paint="2" pts_fastb="2" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="2" fga="6" fgm3="1" fga3="2" ftm="0" fta="0" tp="5" blk="0" stl="0" ast="2" min="15" oreb="0" dreb="2" treb="2" pf="0" tf="0" to="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-13" blkrcvd="2" eff="4"></statsbyprd>
+      <statsbyprd prd="2" fgm="2" fga="6" fgm3="1" fga3="3" ftm="2" fta="2" tp="7" blk="1" stl="0" ast="1" min="16" oreb="0" dreb="2" treb="2" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="2" pts_ch2="0" dq="" drawn="1" plusminus="-5" blkrcvd="0" eff="7"></statsbyprd>
+      <season gp="4" fgm="18" fga="39" fgm3="3" fga3="12" ftm="13" fta="15" tp="52" blk="1" stl="3" ast="8" min="89" oreb="3" dreb="12" treb="15" pf="8" tf="" to="10" drawn="14" plusminus="53" blkrcvd="2" eff="50"></season>
+    </player>
+    <player uni="1" pno="1" code="1890518" name="Aberdeen,Denzel" checkname="ABERDEEN,DENZEL" class="" gp="1" gs="1" pos="G" oncourt="N">
+      <stats fgm="1" fga="8" fgm3="1" fga3="5" ftm="7" fta="8" tp="10" blk="0" stl="3" ast="2" min="31" oreb="1" dreb="0" treb="1" pf="4" tf="0" to="3" drawn="5" plusminus="-14" blkrcvd="1" eff="5" pts_paint="0" pts_fastb="3" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="4" fgm3="1" fga3="2" ftm="6" fta="6" tp="9" blk="0" stl="2" ast="2" min="14" oreb="1" dreb="0" treb="1" pf="2" tf="0" to="1" pts_paint="0" pts_fastb="3" pts_ch2="0" dq="" drawn="3" plusminus="-5" blkrcvd="0" eff="10"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="4" fgm3="0" fga3="3" ftm="1" fta="2" tp="1" blk="0" stl="1" ast="0" min="17" oreb="0" dreb="0" treb="0" pf="2" tf="0" to="2" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="2" plusminus="-9" blkrcvd="1" eff="-5"></statsbyprd>
+      <season gp="4" fgm="23" fga="41" fgm3="7" fga3="19" ftm="8" fta="9" tp="61" blk="0" stl="4" ast="12" min="95" oreb="3" dreb="16" treb="19" pf="6" tf="" to="3" drawn="6" plusminus="87" blkrcvd="1" eff="73"></season>
+    </player>
+    <player uni="2" pno="15" code="2506864" name="Johnson,Jasper" checkname="JOHNSON,JASPER" class="" gp="1" gs="0" pos="G" oncourt="Y">
+      <stats fgm="3" fga="7" fgm3="1" fga3="4" ftm="1" fta="1" tp="8" blk="0" stl="0" ast="0" min="14" oreb="1" dreb="1" treb="2" pf="0" tf="0" to="0" drawn="1" plusminus="-3" blkrcvd="0" eff="6" pts_paint="4" pts_fastb="0" pts_ch2="2" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="2" fgm3="0" fga3="1" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="8" oreb="0" dreb="1" treb="1" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-12" blkrcvd="0" eff="-1"></statsbyprd>
+      <statsbyprd prd="2" fgm="3" fga="5" fgm3="1" fga3="3" ftm="1" fta="1" tp="8" blk="0" stl="0" ast="0" min="6" oreb="1" dreb="0" treb="1" pf="0" tf="0" to="0" pts_paint="4" pts_fastb="0" pts_ch2="2" dq="" drawn="1" plusminus="9" blkrcvd="0" eff="7"></statsbyprd>
+      <season gp="4" fgm="9" fga="23" fgm3="6" fga3="16" ftm="4" fta="5" tp="28" blk="1" stl="1" ast="16" min="69" oreb="1" dreb="7" treb="8" pf="6" tf="" to="7" drawn="2" plusminus="44" blkrcvd="1" eff="27"></season>
+    </player>
+    <player uni="3" pno="8" code="2289114" name="Williams,Kam" checkname="WILLIAMS,KAM" class="" gp="1" gs="0" pos="G" oncourt="Y">
+      <stats fgm="2" fga="6" fgm3="1" fga3="5" ftm="0" fta="0" tp="5" blk="0" stl="1" ast="1" min="17" oreb="0" dreb="1" treb="1" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="4" pts_paint="2" pts_fastb="2" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="3" fgm3="1" fga3="3" ftm="0" fta="0" tp="3" blk="0" stl="0" ast="0" min="8" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-7" blkrcvd="0" eff="1"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="3" fgm3="0" fga3="2" ftm="0" fta="0" tp="2" blk="0" stl="1" ast="1" min="9" oreb="0" dreb="1" treb="1" pf="0" tf="0" to="0" pts_paint="2" pts_fastb="2" pts_ch2="0" dq="" drawn="0" plusminus="7" blkrcvd="0" eff="3"></statsbyprd>
+      <season gp="4" fgm="5" fga="12" fgm3="3" fga3="10" ftm="0" fta="0" tp="13" blk="3" stl="1" ast="3" min="66" oreb="4" dreb="8" treb="12" pf="4" tf="" to="1" drawn="0" plusminus="62" blkrcvd="0" eff="20"></season>
+    </player>
+    <player uni="4" pno="14" code="2506861" name="Jelavic,Andrija" checkname="JELAVIC,ANDRIJA" class="" gp="1" gs="0" pos="F" oncourt="Y">
+      <stats fgm="0" fga="2" fgm3="0" fga3="1" ftm="0" fta="0" tp="0" blk="1" stl="0" ast="0" min="10" oreb="0" dreb="0" treb="0" pf="2" tf="0" to="0" drawn="0" plusminus="-4" blkrcvd="0" eff="-1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="4" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-9" blkrcvd="0" eff="-1"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="1" fgm3="0" fga3="1" ftm="0" fta="0" tp="0" blk="1" stl="0" ast="0" min="6" oreb="0" dreb="0" treb="0" pf="2" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="5" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="4" fgm="13" fga="25" fgm3="2" fga3="10" ftm="2" fta="3" tp="30" blk="0" stl="1" ast="1" min="63" oreb="5" dreb="13" treb="18" pf="6" tf="" to="4" drawn="2" plusminus="35" blkrcvd="0" eff="29"></season>
+    </player>
+    <player uni="5" pno="9" code="2319782" name="Chandler,Collin" checkname="CHANDLER,COLLIN" class="" gp="1" gs="1" pos="G" oncourt="N">
+      <stats fgm="4" fga="9" fgm3="2" fga3="6" ftm="0" fta="0" tp="10" blk="2" stl="1" ast="1" min="26" oreb="0" dreb="4" treb="4" pf="4" tf="0" to="0" drawn="1" plusminus="-19" blkrcvd="0" eff="13" pts_paint="4" pts_fastb="3" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="3" fga="6" fgm3="1" fga3="3" ftm="0" fta="0" tp="7" blk="1" stl="1" ast="0" min="14" oreb="0" dreb="2" treb="2" pf="2" tf="0" to="0" pts_paint="4" pts_fastb="3" pts_ch2="0" dq="" drawn="1" plusminus="-13" blkrcvd="0" eff="8"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="3" fgm3="1" fga3="3" ftm="0" fta="0" tp="3" blk="1" stl="0" ast="1" min="12" oreb="0" dreb="2" treb="2" pf="2" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-6" blkrcvd="0" eff="5"></statsbyprd>
+      <season gp="4" fgm="14" fga="25" fgm3="13" fga3="23" ftm="4" fta="6" tp="45" blk="3" stl="2" ast="14" min="92" oreb="3" dreb="12" treb="15" pf="11" tf="" to="4" drawn="4" plusminus="53" blkrcvd="0" eff="55"></season>
+    </player>
+    <player uni="9" pno="10" code="2319783" name="Noah,Trent" checkname="NOAH,TRENT" class="" gp="1" gs="0" pos="F" oncourt="Y">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="1" tp="0" blk="0" stl="1" ast="1" min="10" oreb="1" dreb="1" treb="2" pf="1" tf="0" to="2" drawn="1" plusminus="-1" blkrcvd="0" eff="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="1" tp="0" blk="0" stl="0" ast="0" min="6" oreb="1" dreb="1" treb="2" pf="0" tf="0" to="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="1" plusminus="-4" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="1" ast="1" min="4" oreb="0" dreb="0" treb="0" pf="1" tf="0" to="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="3" blkrcvd="0" eff="1"></statsbyprd>
+      <season gp="2" fgm="3" fga="8" fgm3="2" fga3="7" ftm="0" fta="0" tp="8" blk="1" stl="3" ast="0" min="31" oreb="0" dreb="5" treb="5" pf="2" tf="" to="0" drawn="1" plusminus="29" blkrcvd="0" eff="11"></season>
+    </player>
+    <player uni="10" pno="6" code="2105470" name="Garrison,Brandon" checkname="GARRISON,BRANDON" class="" gp="1" gs="1" pos="F" oncourt="N">
+      <stats fgm="1" fga="2" fgm3="0" fga3="0" ftm="0" fta="0" tp="2" blk="0" stl="0" ast="2" min="20" oreb="0" dreb="4" treb="4" pf="2" tf="0" to="0" drawn="2" plusminus="-16" blkrcvd="0" eff="7" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="1" min="12" oreb="0" dreb="2" treb="2" pf="1" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="2" plusminus="-13" blkrcvd="0" eff="2"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="1" fgm3="0" fga3="0" ftm="0" fta="0" tp="2" blk="0" stl="0" ast="1" min="9" oreb="0" dreb="2" treb="2" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="-3" blkrcvd="0" eff="5"></statsbyprd>
+      <season gp="4" fgm="12" fga="15" fgm3="0" fga3="1" ftm="5" fta="6" tp="29" blk="2" stl="1" ast="7" min="83" oreb="5" dreb="15" treb="20" pf="13" tf="" to="5" drawn="6" plusminus="60" blkrcvd="0" eff="43"></season>
+    </player>
+    <player uni="11" pno="3" code="1916847" name="Horn,Walker" checkname="HORN,WALKER" class="" gp="0" gs="0" pos="G" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="3" fgm="0" fga="2" fgm3="0" fga3="2" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="2" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="-2"></season>
+    </player>
+    <player uni="15" pno="4" code="2093107" name="Lowe,Jaland" checkname="LOWE,JALAND" class="" gp="0" gs="0" pos="G" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="2" fgm="4" fga="15" fgm3="2" fga3="7" ftm="5" fta="6" tp="15" blk="1" stl="2" ast="10" min="47" oreb="1" dreb="2" treb="3" pf="4" tf="" to="3" drawn="4" plusminus="20" blkrcvd="3" eff="13"></season>
+    </player>
+    <player uni="20" pno="12" code="2333131" name="Tow,Zach" checkname="TOW,ZACH" class="" gp="0" gs="0" pos="F" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="3" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="2" oreb="0" dreb="0" treb="0" pf="1" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="-1"></season>
+    </player>
+    <player uni="21" pno="11" code="2322708" name="Quaintance,Jayden" checkname="QUAINTANCE,JAYDEN" class="" gp="0" gs="0" pos="F" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0"></season>
+    </player>
+    <player uni="22" pno="13" code="2506855" name="Hawthorne,Braydon" checkname="HAWTHORNE,BRAYDON" class="" gp="0" gs="0" pos="F" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0"></season>
+    </player>
+    <player uni="23" pno="5" code="2099732" name="Dioubate,Mouhamed" checkname="DIOUBATE,MOUHAMED" class="" gp="1" gs="1" pos="F" oncourt="N">
+      <stats fgm="4" fga="9" fgm3="0" fga3="4" ftm="2" fta="2" tp="10" blk="1" stl="1" ast="0" min="21" oreb="0" dreb="2" treb="2" pf="1" tf="0" to="1" drawn="2" plusminus="-9" blkrcvd="0" eff="8" pts_paint="8" pts_fastb="4" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="1" fga="5" fgm3="0" fga3="4" ftm="0" fta="0" tp="2" blk="0" stl="0" ast="0" min="10" oreb="0" dreb="0" treb="0" pf="1" tf="0" to="0" pts_paint="2" pts_fastb="2" pts_ch2="0" dq="" drawn="0" plusminus="-5" blkrcvd="0" eff="-2"></statsbyprd>
+      <statsbyprd prd="2" fgm="3" fga="4" fgm3="0" fga3="0" ftm="2" fta="2" tp="8" blk="1" stl="1" ast="0" min="10" oreb="0" dreb="2" treb="2" pf="0" tf="0" to="1" pts_paint="6" pts_fastb="2" pts_ch2="0" dq="" drawn="2" plusminus="-4" blkrcvd="0" eff="10"></statsbyprd>
+      <season gp="4" fgm="19" fga="28" fgm3="1" fga3="7" ftm="9" fta="13" tp="48" blk="3" stl="4" ast="6" min="80" oreb="8" dreb="19" treb="27" pf="7" tf="" to="5" drawn="15" plusminus="65" blkrcvd="0" eff="78"></season>
+    </player>
+    <player uni="24" pno="16" code="2506866" name="Moreno,Malachi" checkname="MORENO,MALACHI" class="" gp="1" gs="0" pos="C" oncourt="Y">
+      <stats fgm="1" fga="2" fgm3="0" fga3="0" ftm="7" fta="8" tp="9" blk="1" stl="0" ast="3" min="20" oreb="2" dreb="2" treb="4" pf="0" tf="0" to="2" drawn="4" plusminus="-1" blkrcvd="1" eff="13" pts_paint="2" pts_fastb="2" pts_ch2="4" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="1" fgm3="0" fga3="0" ftm="1" fta="2" tp="1" blk="1" stl="0" ast="2" min="9" oreb="0" dreb="2" treb="2" pf="0" tf="0" to="1" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="1" plusminus="-4" blkrcvd="1" eff="3"></statsbyprd>
+      <statsbyprd prd="2" fgm="1" fga="1" fgm3="0" fga3="0" ftm="6" fta="6" tp="8" blk="0" stl="0" ast="1" min="11" oreb="2" dreb="0" treb="2" pf="0" tf="0" to="1" pts_paint="2" pts_fastb="2" pts_ch2="4" dq="" drawn="3" plusminus="3" blkrcvd="0" eff="10"></statsbyprd>
+      <season gp="4" fgm="17" fga="29" fgm3="0" fga3="0" ftm="8" fta="17" tp="42" blk="1" stl="0" ast="6" min="74" oreb="11" dreb="19" treb="30" pf="2" tf="" to="4" drawn="11" plusminus="52" blkrcvd="5" eff="58"></season>
+    </player>
+    <player uni="33" pno="7" code="2137345" name="Potter,Reece" checkname="POTTER,REECE" class="" gp="0" gs="0" pos="F" oncourt="N">
+      <stats fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="0"></stats>
+      <statsbyprd prd="1" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <statsbyprd prd="2" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="0" to="0" pts_paint="0" pts_fastb="0" pts_ch2="0" dq="" drawn="0" plusminus="0" blkrcvd="0" eff="0"></statsbyprd>
+      <season gp="0" fgm="0" fga="0" fgm3="0" fga3="0" ftm="0" fta="0" tp="0" blk="0" stl="0" ast="0" min="0" oreb="0" dreb="0" treb="0" pf="0" tf="" to="0" drawn="0" plusminus="0" blkrcvd="0" eff="0"></season>
+    </player>
+    <player uni="TM" code="TM" name="TEAM" checkname="TEAM" class="" gp="1">
+      <stats oreb="1" dreb="3" treb="4" pf="0" tf="0" to="0" dq="0"></stats>
+      <statsbyprd prd="1" oreb="1" dreb="1" treb="2" pf="0" tf="0" to="0" dq="0"></statsbyprd>
+      <statsbyprd prd="2" oreb="0" dreb="2" treb="2" pf="0" tf="0" to="0" dq="0"></statsbyprd>
+    </player>
+  </team>
+  <byprdsummaries>
+    <byprdsummary prd="1">
+      <summary vh="V" score="44" fgm="17" fga="33" fgm3="7" fga3="13" ftm="3" fta="4" blk="3" stl="2" ast="11" oreb="5" dreb="19" treb="24" pf="8" tf="0" to="6" fgpct="51.5" fg3pct="53.8" ftpct="75"></summary>
+      <special vh="V" pts_to="8" pts_ch2="6" pts_paint="10" pts_fastb="1" pts_bench="14" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="2059" tied_time="-" large_lead="24" large_lead_t=""></special>
+      <summary vh="H" score="27" fgm="8" fga="29" fgm3="4" fga3="15" ftm="7" fta="9" blk="2" stl="3" ast="7" oreb="3" dreb="11" treb="14" pf="6" tf="0" to="4" fgpct="27.6" fg3pct="26.7" ftpct="77.8"></summary>
+      <special vh="H" pts_to="9" pts_ch2="0" pts_paint="6" pts_fastb="8" pts_bench="4" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="279" tied_time="-" large_lead="5" large_lead_t=""></special>
+    </byprdsummary>
+    <byprdsummary prd="2">
+      <summary vh="V" score="39" fgm="15" fga="31" fgm3="4" fga3="9" ftm="5" fta="6" blk="1" stl="3" ast="14" oreb="5" dreb="13" treb="18" pf="9" tf="0" to="7" fgpct="48.4" fg3pct="44.4" ftpct="83.3"></summary>
+      <special vh="V" pts_to="7" pts_ch2="2" pts_paint="20" pts_fastb="7" pts_bench="20" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="2059" tied_time="-" large_lead="24" large_lead_t=""></special>
+      <summary vh="H" score="39" fgm="12" fga="28" fgm3="3" fga3="15" ftm="12" fta="13" blk="4" stl="4" ast="6" oreb="3" dreb="11" treb="14" pf="9" tf="0" to="5" fgpct="42.9" fg3pct="20" ftpct="92.3"></summary>
+      <special vh="H" pts_to="8" pts_ch2="6" pts_paint="18" pts_fastb="8" pts_bench="18" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="279" tied_time="-" large_lead="5" large_lead_t=""></special>
+    </byprdsummary>
+  </byprdsummaries>
+  <plays format="tokens">
+    <period number="1" time="20:00" periodtype="REGULAR">
+      <summary vh="V" score="44" fgm="17" fga="33" fgm3="7" fga3="13" ftm="3" fta="4" blk="3" stl="2" ast="11" oreb="5" dreb="19" treb="24" pf="8" tf="0" to="6" fgpct="51.5" fg3pct="53.8" ftpct="75"></summary>
+      <special vh="V" pts_to="8" pts_ch2="6" pts_paint="10" pts_fastb="1" pts_bench="14" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="2059" tied_time="-" large_lead="24" large_lead_t=""></special>
+      <summary vh="H" score="27" fgm="8" fga="29" fgm3="4" fga3="15" ftm="7" fta="9" blk="2" stl="3" ast="7" oreb="3" dreb="11" treb="14" pf="6" tf="0" to="4" fgpct="27.6" fg3pct="26.7" ftpct="77.8"></summary>
+      <special vh="H" pts_to="9" pts_ch2="0" pts_paint="6" pts_fastb="8" pts_bench="4" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="279" tied_time="-" large_lead="5" large_lead_t=""></special>
+      <comment team="KEN" vh="H" time="19:58" checkname="TEAM" text="Jumpball won by KEN"></comment>
+      <play vh="H" team="KEN" time="19:41" uni="5" sequence="7" checkname="CHANDLER,COLLIN" hscore="2" vscore="0" action="GOOD" type="LAYUP"></play>
+      <play vh="H" team="KEN" time="19:41" uni="10" sequence="8" checkname="GARRISON,BRANDON" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="19:23" uni="0" sequence="9" checkname="KOHLER,JAXON" action="MISS" type="JUMPER" desc="HOOKSHOT" paint="N"></play>
+      <play vh="H" team="KEN" time="19:21" uni="10" sequence="10" checkname="GARRISON,BRANDON" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="18:55" uni="23" sequence="11" checkname="DIOUBATE,MOUHAMED" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="18:53" uni="0" sequence="12" checkname="KOHLER,JAXON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="18:49" uni="9" sequence="13" checkname="FORT,TREY" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="18:49" sequence="14" checkname="TEAM" action="REBOUND" uni="TM" type="DEADB" desc="OFF"></play>
+      <play vh="H" team="KEN" time="18:49" uni="23" sequence="15" checkname="DIOUBATE,MOUHAMED" action="FOUL" type="PERSONAL" drawnby="COOPER,CARSON" drawnuni="15"></play>
+      <play vh="V" team="MSU" time="18:41" uni="55" sequence="17" checkname="CARR,COEN" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="18:41" uni="5" sequence="18" checkname="CHANDLER,COLLIN" action="STEAL"></play>
+      <play vh="H" team="KEN" time="18:34" uni="5" sequence="19" checkname="CHANDLER,COLLIN" hscore="5" vscore="0" action="GOOD" type="3PTR" desc="" to="Y" fastb="Y"></play>
+      <play vh="H" team="KEN" time="18:34" uni="1" sequence="20" checkname="ABERDEEN,DENZEL" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="18:10" uni="0" sequence="21" checkname="KOHLER,JAXON" hscore="5" vscore="3" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="18:10" uni="55" sequence="22" checkname="CARR,COEN" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="17:51" uni="00" sequence="23" checkname="OWEH,OTEGA" action="MISS" type="DUNK" blocked="Y"></play>
+      <play vh="V" team="MSU" time="17:51" uni="55" sequence="24" checkname="CARR,COEN" action="BLOCK"></play>
+      <play vh="V" team="MSU" time="17:47" uni="9" sequence="25" checkname="FORT,TREY" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="17:35" uni="9" sequence="26" checkname="FORT,TREY" hscore="5" vscore="6" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="17:35" uni="1" sequence="27" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="17:15" uni="10" sequence="28" checkname="GARRISON,BRANDON" action="MISS" type="LAYUP" desc="DRIVING" paint="N"></play>
+      <play vh="V" team="MSU" time="17:14" uni="15" sequence="29" checkname="COOPER,CARSON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="16:54" uni="15" sequence="30" checkname="COOPER,CARSON" action="MISS" type="JUMPER" desc="HOOKSHOT" paint="N"></play>
+      <play vh="V" team="MSU" time="16:52" uni="15" sequence="31" checkname="COOPER,CARSON" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="16:51" uni="15" sequence="32" checkname="COOPER,CARSON" action="MISS" type="JUMPER" ch2="N" paint="N"></play>
+      <play vh="V" team="MSU" time="16:48" uni="15" sequence="33" checkname="COOPER,CARSON" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="16:43" uni="0" sequence="34" checkname="KOHLER,JAXON" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="16:43" uni="10" sequence="35" checkname="GARRISON,BRANDON" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="16:43" uni="24" sequence="36" checkname="MORENO,MALACHI" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="16:31" uni="0" sequence="37" checkname="KOHLER,JAXON" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="ABERDEEN,DENZEL" drawnuni="1"></play>
+      <play vh="H" team="KEN" time="16:31" uni="1" sequence="39" checkname="ABERDEEN,DENZEL" hscore="6" vscore="6" action="GOOD" type="FT" seq="1OF2" to="Y"></play>
+      <play vh="H" team="KEN" time="16:31" uni="1" sequence="40" checkname="ABERDEEN,DENZEL" hscore="7" vscore="6" action="GOOD" type="FT" seq="2OF2" to="Y"></play>
+      <play vh="V" team="MSU" time="16:19" uni="55" sequence="41" checkname="CARR,COEN" hscore="7" vscore="9" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="16:19" uni="1" sequence="42" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="16:09" uni="00" sequence="43" checkname="OWEH,OTEGA" hscore="10" vscore="9" action="GOOD" type="3PTR" desc="PULLUP"></play>
+      <play vh="H" team="KEN" time="16:09" uni="1" sequence="44" checkname="ABERDEEN,DENZEL" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="16:02" uni="1" sequence="45" checkname="ABERDEEN,DENZEL" action="FOUL" type="PERSONAL" drawnby="FEARS JR.,JEREMY" drawnuni="1"></play>
+      <play vh="V" team="MSU" time="15:50" uni="0" sequence="47" checkname="KOHLER,JAXON" hscore="10" vscore="12" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="15:50" uni="55" sequence="48" checkname="CARR,COEN" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="15:31" uni="23" sequence="49" checkname="DIOUBATE,MOUHAMED" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="15:28" uni="55" sequence="50" checkname="CARR,COEN" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="15:22" uni="55" sequence="51" checkname="CARR,COEN" action="MISS" type="LAYUP" desc="DRIVING" paint="N"></play>
+      <play vh="H" team="KEN" time="15:20" uni="5" sequence="52" checkname="CHANDLER,COLLIN" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="15:08" uni="1" sequence="54" checkname="ABERDEEN,DENZEL" action="TURNOVER" type="LOSTBALL"></play>
+      <play vh="V" team="MSU" time="15:08" uni="1" sequence="55" checkname="FEARS JR.,JEREMY" action="STEAL"></play>
+      <play vh="V" team="MSU" time="15:02" uni="9" sequence="56" checkname="FORT,TREY" action="MISS" type="LAYUP" desc="DRIVING" fastb="N" to="N"></play>
+      <play vh="H" team="KEN" time="15:00" uni="5" sequence="57" checkname="CHANDLER,COLLIN" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="14:54" uni="1" sequence="58" checkname="ABERDEEN,DENZEL" hscore="13" vscore="12" action="GOOD" type="3PTR" desc="" fastb="Y"></play>
+      <play vh="H" team="KEN" time="14:54" uni="00" sequence="59" checkname="OWEH,OTEGA" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="14:41" uni="9" sequence="60" checkname="FORT,TREY" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="14:37" uni="24" sequence="61" checkname="MORENO,MALACHI" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="14:26" uni="5" sequence="62" checkname="CHANDLER,COLLIN" hscore="15" vscore="12" action="GOOD" type="LAYUP"></play>
+      <play vh="H" team="KEN" time="14:26" uni="24" sequence="63" checkname="MORENO,MALACHI" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="14:10" uni="0" sequence="65" checkname="KOHLER,JAXON" hscore="15" vscore="14" action="GOOD" type="LAYUP" desc="DRIVING"></play>
+      <play vh="H" team="KEN" time="13:47" uni="24" sequence="66" checkname="MORENO,MALACHI" action="MISS" type="LAYUP" blocked="Y"></play>
+      <play vh="V" team="MSU" time="13:47" uni="0" sequence="67" checkname="KOHLER,JAXON" action="BLOCK"></play>
+      <play vh="V" team="MSU" time="13:45" uni="0" sequence="68" checkname="KOHLER,JAXON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="13:40" uni="1" sequence="69" checkname="FEARS JR.,JEREMY" action="TURNOVER" type="LOSTBALL"></play>
+      <play vh="H" team="KEN" time="13:40" uni="1" sequence="70" checkname="ABERDEEN,DENZEL" action="STEAL"></play>
+      <play vh="H" team="KEN" time="13:36" uni="23" sequence="71" checkname="DIOUBATE,MOUHAMED" hscore="17" vscore="14" action="GOOD" type="DUNK" to="Y" fastb="Y"></play>
+      <play vh="H" team="KEN" time="13:36" uni="00" sequence="72" checkname="OWEH,OTEGA" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="13:18" uni="9" sequence="73" checkname="FORT,TREY" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="13:15" sequence="74" checkname="TEAM" action="REBOUND" type="DEF" uni="TM"></play>
+      <play time="13:15" sequence="75" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="13:15" uni="1" sequence="76" checkname="ABERDEEN,DENZEL" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="13:15" uni="23" sequence="77" checkname="DIOUBATE,MOUHAMED" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="13:15" uni="2" sequence="78" checkname="JOHNSON,JASPER" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="13:15" uni="4" sequence="79" checkname="JELAVIC,ANDRIJA" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:15" uni="1" sequence="80" checkname="FEARS JR.,JEREMY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="13:15" uni="9" sequence="81" checkname="FORT,TREY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="13:15" uni="15" sequence="82" checkname="COOPER,CARSON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="13:15" uni="55" sequence="83" checkname="CARR,COEN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="13:15" uni="2" sequence="84" checkname="TENG,KUR" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:15" uni="3" sequence="85" checkname="WARD,CAMERON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:15" uni="6" sequence="86" checkname="SCOTT,JORDAN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:15" uni="99" sequence="87" checkname="UGOCHUKWU,DIVINE" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:09" uni="2" sequence="88" checkname="TENG,KUR" action="FOUL" type="PERSONAL" drawnby="CHANDLER,COLLIN" drawnuni="5"></play>
+      <play vh="H" team="KEN" time="13:05" uni="24" sequence="90" checkname="MORENO,MALACHI" action="TURNOVER" type="BADPASS"></play>
+      <play vh="V" team="MSU" time="13:05" uni="2" sequence="91" checkname="TENG,KUR" action="STEAL"></play>
+      <play vh="V" team="MSU" time="12:52" uni="2" sequence="92" checkname="TENG,KUR" hscore="17" vscore="17" action="GOOD" type="3PTR" desc="" to="Y"></play>
+      <play vh="V" team="MSU" time="12:52" uni="6" sequence="93" checkname="SCOTT,JORDAN" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="12:37" uni="00" sequence="94" checkname="OWEH,OTEGA" action="MISS" type="JUMPER" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="12:34" uni="99" sequence="95" checkname="UGOCHUKWU,DIVINE" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="12:09" uni="3" sequence="96" checkname="WARD,CAMERON" hscore="17" vscore="19" action="GOOD" type="JUMPER" desc="STEPBACK"></play>
+      <play vh="H" team="KEN" time="11:58" uni="5" sequence="97" checkname="CHANDLER,COLLIN" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="11:54" uni="3" sequence="98" checkname="WARD,CAMERON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="11:34" uni="3" sequence="99" checkname="WARD,CAMERON" action="MISS" type="LAYUP" desc="DRIVING" paint="N" blocked="Y"></play>
+      <play vh="H" team="KEN" time="11:34" uni="24" sequence="100" checkname="MORENO,MALACHI" action="BLOCK"></play>
+      <play vh="V" team="MSU" time="11:33" sequence="101" checkname="TEAM" action="REBOUND" type="OFF" uni="TM"></play>
+      <play time="11:33" sequence="102" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="11:33" uni="00" sequence="103" checkname="OWEH,OTEGA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="11:33" uni="5" sequence="104" checkname="CHANDLER,COLLIN" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="11:33" uni="24" sequence="105" checkname="MORENO,MALACHI" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="11:33" uni="3" sequence="106" checkname="WILLIAMS,KAM" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="11:33" uni="9" sequence="107" checkname="NOAH,TRENT" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="11:33" uni="10" sequence="108" checkname="GARRISON,BRANDON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="11:33" uni="0" sequence="109" checkname="KOHLER,JAXON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="11:33" uni="15" sequence="110" checkname="COOPER,CARSON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="11:28" uni="10" sequence="111" checkname="GARRISON,BRANDON" action="FOUL" type="PERSONAL" drawnby="COOPER,CARSON" drawnuni="15"></play>
+      <play vh="V" team="MSU" time="11:28" uni="99" sequence="113" checkname="UGOCHUKWU,DIVINE" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="11:28" uni="1" sequence="114" checkname="FEARS JR.,JEREMY" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="11:12" uni="15" sequence="115" checkname="COOPER,CARSON" hscore="17" vscore="21" action="GOOD" type="JUMPER" desc="HOOKSHOT" ch2="Y"></play>
+      <play vh="H" team="KEN" time="10:42" uni="4" sequence="116" checkname="JELAVIC,ANDRIJA" action="MISS" type="JUMPER" desc="STEPBACK" paint="N"></play>
+      <play vh="V" team="MSU" time="10:40" uni="1" sequence="117" checkname="FEARS JR.,JEREMY" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="10:21" uni="2" sequence="118" checkname="TENG,KUR" hscore="17" vscore="23" action="GOOD" type="JUMPER" paint="Y"></play>
+      <play vh="V" team="MSU" time="10:21" uni="15" sequence="119" checkname="COOPER,CARSON" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="10:13" uni="15" sequence="120" checkname="COOPER,CARSON" action="FOUL" type="PERSONAL" drawnby="GARRISON,BRANDON" drawnuni="10"></play>
+      <play vh="H" team="KEN" time="10:13" uni="2" sequence="122" checkname="JOHNSON,JASPER" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="10:13" uni="1" sequence="123" checkname="ABERDEEN,DENZEL" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="10:13" uni="6" sequence="124" checkname="SCOTT,JORDAN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="10:13" uni="55" sequence="125" checkname="CARR,COEN" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="10:02" uni="1" sequence="126" checkname="ABERDEEN,DENZEL" action="MISS" type="JUMPER" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="09:59" uni="1" sequence="127" checkname="FEARS JR.,JEREMY" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="09:34" uni="1" sequence="128" checkname="FEARS JR.,JEREMY" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="09:21" uni="3" sequence="129" checkname="WILLIAMS,KAM" action="MISS" type="3PTR" desc="" to="N"></play>
+      <play vh="V" team="MSU" time="09:18" uni="55" sequence="130" checkname="CARR,COEN" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="09:09" uni="2" sequence="131" checkname="TENG,KUR" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="09:07" uni="10" sequence="132" checkname="GARRISON,BRANDON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="09:07" uni="3" sequence="133" checkname="WARD,CAMERON" action="FOUL" type="PERSONAL" drawnby="GARRISON,BRANDON" drawnuni="10"></play>
+      <play vh="H" team="KEN" time="09:07" uni="3" sequence="135" checkname="WILLIAMS,KAM" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="09:07" uni="4" sequence="136" checkname="JELAVIC,ANDRIJA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="09:07" uni="00" sequence="137" checkname="OWEH,OTEGA" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="09:07" uni="23" sequence="138" checkname="DIOUBATE,MOUHAMED" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="09:07" uni="3" sequence="139" checkname="WARD,CAMERON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="09:07" uni="15" sequence="140" checkname="COOPER,CARSON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="09:07" uni="0" sequence="141" checkname="KOHLER,JAXON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="09:07" uni="35" sequence="142" checkname="MCCULLOCH,JESSE" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="08:53" uni="00" sequence="143" checkname="OWEH,OTEGA" hscore="19" vscore="23" action="GOOD" type="JUMPER" paint="Y"></play>
+      <play vh="V" team="MSU" time="08:30" uni="0" sequence="144" checkname="KOHLER,JAXON" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="08:30" uni="1" sequence="145" checkname="ABERDEEN,DENZEL" action="STEAL"></play>
+      <play vh="H" team="KEN" time="08:13" uni="23" sequence="146" checkname="DIOUBATE,MOUHAMED" action="MISS" type="3PTR" desc="" to="N"></play>
+      <play vh="V" team="MSU" time="08:09" uni="55" sequence="147" checkname="CARR,COEN" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="08:01" uni="35" sequence="148" checkname="MCCULLOCH,JESSE" hscore="19" vscore="25" action="GOOD" type="LAYUP"></play>
+      <play vh="V" team="MSU" time="08:01" uni="2" sequence="149" checkname="TENG,KUR" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="07:45" uni="9" sequence="150" checkname="NOAH,TRENT" action="TURNOVER" type="BADPASS"></play>
+      <play time="07:45" sequence="151" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="07:45" uni="9" sequence="152" checkname="NOAH,TRENT" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="07:45" uni="5" sequence="153" checkname="CHANDLER,COLLIN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="07:45" uni="2" sequence="154" checkname="TENG,KUR" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="07:45" uni="9" sequence="155" checkname="FORT,TREY" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="07:18" uni="35" sequence="156" checkname="MCCULLOCH,JESSE" hscore="19" vscore="28" action="GOOD" type="3PTR" desc="" to="Y"></play>
+      <play vh="V" team="MSU" time="07:18" uni="1" sequence="157" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="07:01" uni="5" sequence="158" checkname="CHANDLER,COLLIN" action="MISS" type="JUMPER"></play>
+      <play vh="V" team="MSU" time="06:58" uni="35" sequence="159" checkname="MCCULLOCH,JESSE" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="06:52" uni="9" sequence="160" checkname="FORT,TREY" hscore="19" vscore="31" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="06:52" uni="1" sequence="278" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="06:51" sequence="162" checkname="TEAM" action="TIMEOUT" type="30SEC"></play>
+      <play vh="H" team="KEN" time="06:38" uni="5" sequence="163" checkname="CHANDLER,COLLIN" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="06:35" uni="1" sequence="164" checkname="ABERDEEN,DENZEL" action="REBOUND" type="OFF"></play>
+      <play vh="H" team="KEN" time="06:33" uni="1" sequence="165" checkname="ABERDEEN,DENZEL" action="MISS" type="JUMPER" ch2="N"></play>
+      <play vh="V" team="MSU" time="06:30" uni="55" sequence="166" checkname="CARR,COEN" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="06:28" uni="5" sequence="167" checkname="CHANDLER,COLLIN" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="CARR,COEN" drawnuni="55"></play>
+      <play vh="H" team="KEN" time="06:28" uni="10" sequence="169" checkname="GARRISON,BRANDON" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="06:28" uni="23" sequence="170" checkname="DIOUBATE,MOUHAMED" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="06:28" uni="3" sequence="171" checkname="WILLIAMS,KAM" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="06:28" uni="24" sequence="172" checkname="MORENO,MALACHI" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="06:28" uni="55" sequence="173" checkname="CARR,COEN" hscore="19" vscore="32" action="GOOD" type="FT" seq="1OF2" fastb="Y"></play>
+      <play vh="V" team="MSU" time="06:28" uni="55" sequence="174" checkname="CARR,COEN" action="MISS" type="FT" seq="2OF2" fastb="N"></play>
+      <play vh="H" team="KEN" time="06:26" uni="00" sequence="175" checkname="OWEH,OTEGA" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="06:10" uni="9" sequence="176" checkname="FORT,TREY" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="ABERDEEN,DENZEL" drawnuni="1"></play>
+      <play vh="H" team="KEN" time="06:10" uni="1" sequence="178" checkname="ABERDEEN,DENZEL" hscore="20" vscore="32" action="GOOD" type="FT" seq="1OF2"></play>
+      <play vh="H" team="KEN" time="06:10" uni="1" sequence="179" checkname="ABERDEEN,DENZEL" hscore="21" vscore="32" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="06:02" uni="1" sequence="180" checkname="FEARS JR.,JEREMY" hscore="21" vscore="34" action="GOOD" type="LAYUP" desc="DRIVING"></play>
+      <play vh="H" team="KEN" time="05:56" uni="1" sequence="181" checkname="ABERDEEN,DENZEL" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="05:54" uni="0" sequence="182" checkname="KOHLER,JAXON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="05:41" uni="55" sequence="183" checkname="CARR,COEN" action="MISS" type="JUMPER"></play>
+      <play vh="H" team="KEN" time="05:37" uni="24" sequence="184" checkname="MORENO,MALACHI" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="05:31" uni="35" sequence="185" checkname="MCCULLOCH,JESSE" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="MORENO,MALACHI" drawnuni="24"></play>
+      <play vh="H" team="KEN" time="05:31" uni="24" sequence="187" checkname="MORENO,MALACHI" action="MISS" type="FT" seq="1OF2"></play>
+      <play vh="H" team="KEN" time="05:31" sequence="188" checkname="TEAM" action="REBOUND" uni="TM" type="DEADB" desc="OFF"></play>
+      <play vh="V" team="MSU" time="05:31" uni="35" sequence="189" checkname="MCCULLOCH,JESSE" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="05:31" uni="3" sequence="190" checkname="WARD,CAMERON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="05:31" uni="24" sequence="191" checkname="MORENO,MALACHI" hscore="22" vscore="34" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="05:18" uni="0" sequence="192" checkname="KOHLER,JAXON" hscore="22" vscore="36" action="GOOD" type="JUMPER" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="05:18" uni="1" sequence="193" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="05:06" uni="00" sequence="194" checkname="OWEH,OTEGA" action="TURNOVER" type="LOSTBALL"></play>
+      <play vh="V" team="MSU" time="05:06" uni="1" sequence="195" checkname="FEARS JR.,JEREMY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="05:06" uni="99" sequence="196" checkname="UGOCHUKWU,DIVINE" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="05:06" uni="00" sequence="197" checkname="OWEH,OTEGA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="05:06" uni="1" sequence="198" checkname="ABERDEEN,DENZEL" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="05:06" uni="2" sequence="199" checkname="JOHNSON,JASPER" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="05:06" uni="9" sequence="200" checkname="NOAH,TRENT" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="04:37" uni="9" sequence="201" checkname="FORT,TREY" action="MISS" type="3PTR" desc="PULLUP" to="N"></play>
+      <play vh="V" team="MSU" time="04:33" uni="3" sequence="202" checkname="WARD,CAMERON" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="04:25" uni="0" sequence="203" checkname="KOHLER,JAXON" hscore="22" vscore="38" action="GOOD" type="JUMPER" desc="HOOKSHOT" ch2="Y" to="Y" paint="Y"></play>
+      <play vh="H" team="KEN" time="04:12" uni="3" sequence="204" checkname="WILLIAMS,KAM" hscore="25" vscore="38" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="04:12" uni="24" sequence="205" checkname="MORENO,MALACHI" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="03:53" uni="99" sequence="206" checkname="UGOCHUKWU,DIVINE" action="MISS" type="JUMPER"></play>
+      <play vh="H" team="KEN" time="03:50" uni="9" sequence="207" checkname="NOAH,TRENT" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="03:44" uni="3" sequence="208" checkname="WILLIAMS,KAM" action="MISS" type="3PTR" desc="PULLUP" fastb="N"></play>
+      <play vh="V" team="MSU" time="03:42" uni="9" sequence="209" checkname="FORT,TREY" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="03:33" uni="9" sequence="210" checkname="FORT,TREY" hscore="25" vscore="40" action="GOOD" type="JUMPER" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="03:33" uni="0" sequence="211" checkname="KOHLER,JAXON" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="03:11" uni="2" sequence="212" checkname="JOHNSON,JASPER" action="MISS" type="3PTR" desc="STEPBACK"></play>
+      <play vh="H" team="KEN" time="03:08" uni="9" sequence="213" checkname="NOAH,TRENT" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="03:08" uni="9" sequence="214" checkname="FORT,TREY" action="FOUL" type="PERSONAL" qualifiers="ONEANDONE" drawnby="NOAH,TRENT" drawnuni="9"></play>
+      <play time="03:08" sequence="216" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="03:08" uni="5" sequence="217" checkname="CHANDLER,COLLIN" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="03:08" uni="24" sequence="218" checkname="MORENO,MALACHI" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="03:08" uni="1" sequence="219" checkname="ABERDEEN,DENZEL" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="03:08" uni="10" sequence="220" checkname="GARRISON,BRANDON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="03:08" uni="0" sequence="221" checkname="KOHLER,JAXON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="03:08" uni="9" sequence="222" checkname="FORT,TREY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="03:08" uni="55" sequence="223" checkname="CARR,COEN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="03:08" uni="2" sequence="224" checkname="TENG,KUR" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="03:08" uni="6" sequence="225" checkname="SCOTT,JORDAN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="03:08" uni="15" sequence="226" checkname="COOPER,CARSON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="03:05" uni="9" sequence="227" checkname="NOAH,TRENT" action="MISS" type="FT" seq="1OF1" ch2="N"></play>
+      <play vh="V" team="MSU" time="03:04" uni="3" sequence="228" checkname="WARD,CAMERON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="02:55" uni="99" sequence="229" checkname="UGOCHUKWU,DIVINE" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="02:55" uni="1" sequence="230" checkname="FEARS JR.,JEREMY" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="02:48" uni="3" sequence="231" checkname="WARD,CAMERON" action="TURNOVER" type="BADPASS"></play>
+      <play vh="V" team="MSU" time="02:36" uni="6" sequence="232" checkname="SCOTT,JORDAN" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="ABERDEEN,DENZEL" drawnuni="1"></play>
+      <play vh="H" team="KEN" time="02:36" uni="1" sequence="234" checkname="ABERDEEN,DENZEL" hscore="26" vscore="40" action="GOOD" type="FT" seq="1OF2" to="Y"></play>
+      <play vh="H" team="KEN" time="02:36" uni="9" sequence="235" checkname="NOAH,TRENT" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="02:36" uni="00" sequence="236" checkname="OWEH,OTEGA" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="02:36" uni="1" sequence="237" checkname="ABERDEEN,DENZEL" hscore="27" vscore="40" action="GOOD" type="FT" seq="2OF2" to="Y"></play>
+      <play vh="H" team="KEN" time="02:14" uni="1" sequence="238" checkname="ABERDEEN,DENZEL" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="FEARS JR.,JEREMY" drawnuni="1"></play>
+      <play vh="V" team="MSU" time="02:14" uni="1" sequence="240" checkname="FEARS JR.,JEREMY" hscore="27" vscore="41" action="GOOD" type="FT" seq="1OF2"></play>
+      <play vh="V" team="MSU" time="02:14" uni="3" sequence="241" checkname="WARD,CAMERON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="02:14" uni="55" sequence="242" checkname="CARR,COEN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="02:14" uni="1" sequence="243" checkname="FEARS JR.,JEREMY" hscore="27" vscore="42" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="H" team="KEN" time="01:49" uni="00" sequence="244" checkname="OWEH,OTEGA" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="01:46" uni="2" sequence="245" checkname="TENG,KUR" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="01:26" uni="2" sequence="246" checkname="TENG,KUR" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="01:23" uni="00" sequence="247" checkname="OWEH,OTEGA" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="01:12" uni="00" sequence="248" checkname="OWEH,OTEGA" action="MISS" type="LAYUP" desc="DRIVING" blocked="Y"></play>
+      <play vh="V" team="MSU" time="01:12" uni="15" sequence="250" checkname="COOPER,CARSON" action="BLOCK"></play>
+      <play vh="V" team="MSU" time="01:11" uni="6" sequence="249" checkname="SCOTT,JORDAN" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="01:05" sequence="251" checkname="TEAM" action="TIMEOUT" type="30SEC"></play>
+      <play vh="H" team="KEN" time="01:05" uni="1" sequence="252" checkname="ABERDEEN,DENZEL" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="01:05" uni="3" sequence="253" checkname="WILLIAMS,KAM" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="01:05" uni="5" sequence="254" checkname="CHANDLER,COLLIN" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="01:05" uni="23" sequence="255" checkname="DIOUBATE,MOUHAMED" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="01:05" uni="15" sequence="256" checkname="COOPER,CARSON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="01:05" uni="0" sequence="257" checkname="KOHLER,JAXON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="00:54" uni="1" sequence="258" checkname="FEARS JR.,JEREMY" action="MISS" type="JUMPER" desc="PULLUP" paint="N" blocked="Y"></play>
+      <play vh="H" team="KEN" time="00:54" uni="5" sequence="259" checkname="CHANDLER,COLLIN" action="BLOCK"></play>
+      <play vh="H" team="KEN" time="00:51" uni="2" sequence="260" checkname="JOHNSON,JASPER" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="00:47" uni="2" sequence="261" checkname="JOHNSON,JASPER" action="MISS" type="JUMPER" paint="N"></play>
+      <play vh="V" team="MSU" time="00:45" uni="0" sequence="262" checkname="KOHLER,JAXON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="00:26" uni="2" sequence="268" checkname="TENG,KUR" action="MISS" type="LAYUP" desc="DRIVING"></play>
+      <play vh="H" team="KEN" time="00:24" uni="5" sequence="265" checkname="CHANDLER,COLLIN" action="FOUL" type="PERSONAL" drawnby="SCOTT,JORDAN" drawnuni="6"></play>
+      <play vh="V" team="MSU" time="00:24" uni="6" sequence="269" checkname="SCOTT,JORDAN" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="00:02" uni="2" sequence="267" checkname="TENG,KUR" hscore="27" vscore="44" action="GOOD" type="JUMPER" ch2="Y"></play>
+      <play vh="V" team="MSU" time="00:02" uni="0" sequence="270" checkname="KOHLER,JAXON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="00:02" uni="2" sequence="271" checkname="TENG,KUR" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="00:02" uni="3" sequence="272" checkname="WARD,CAMERON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="00:02" uni="15" sequence="273" checkname="COOPER,CARSON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="00:00" uni="23" sequence="274" checkname="DIOUBATE,MOUHAMED" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="H" team="KEN" time="00:00" sequence="275" checkname="TEAM" action="REBOUND" type="OFF" uni="TM"></play>
+      <clock time="00:00"></clock>
+    </period>
+    <period number="2" time="20:00" periodtype="REGULAR">
+      <summary vh="V" score="39" fgm="15" fga="31" fgm3="4" fga3="9" ftm="5" fta="6" blk="1" stl="3" ast="14" oreb="5" dreb="13" treb="18" pf="9" tf="0" to="7" fgpct="48.4" fg3pct="44.4" ftpct="83.3"></summary>
+      <special vh="V" pts_to="7" pts_ch2="2" pts_paint="20" pts_fastb="7" pts_bench="20" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="2059" tied_time="-" large_lead="24" large_lead_t=""></special>
+      <summary vh="H" score="39" fgm="12" fga="28" fgm3="3" fga3="15" ftm="12" fta="13" blk="4" stl="4" ast="6" oreb="3" dreb="11" treb="14" pf="9" tf="0" to="5" fgpct="42.9" fg3pct="20" ftpct="92.3"></summary>
+      <special vh="H" pts_to="8" pts_ch2="6" pts_paint="18" pts_fastb="8" pts_bench="18" ties="" leads="" poss_count="" poss_time="" score_count="" score_time="" lead_time="279" tied_time="-" large_lead="5" large_lead_t=""></special>
+      <play vh="H" team="KEN" time="20:00" uni="2" sequence="279" checkname="JOHNSON,JASPER" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="20:00" uni="1" sequence="280" checkname="ABERDEEN,DENZEL" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="20:00" uni="3" sequence="281" checkname="WARD,CAMERON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="20:00" uni="6" sequence="282" checkname="SCOTT,JORDAN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="20:00" uni="0" sequence="283" checkname="KOHLER,JAXON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="20:00" uni="9" sequence="284" checkname="FORT,TREY" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="19:35" uni="5" sequence="287" checkname="CHANDLER,COLLIN" action="FOUL" type="PERSONAL" drawnby="FORT,TREY" drawnuni="9"></play>
+      <play vh="V" team="MSU" time="19:23" uni="55" sequence="289" checkname="CARR,COEN" action="MISS" type="LAYUP" blocked="Y"></play>
+      <play vh="H" team="KEN" time="19:23" uni="00" sequence="290" checkname="OWEH,OTEGA" action="BLOCK"></play>
+      <play vh="V" team="MSU" time="19:23" sequence="291" checkname="TEAM" action="REBOUND" type="OFF" uni="TM"></play>
+      <play vh="H" team="KEN" time="19:19" uni="10" sequence="293" checkname="GARRISON,BRANDON" action="FOUL" type="PERSONAL" drawnby="FEARS JR.,JEREMY" drawnuni="1"></play>
+      <play vh="V" team="MSU" time="19:10" uni="9" sequence="295" checkname="FORT,TREY" action="MISS" type="JUMPER" desc="PULLUP" ch2="N"></play>
+      <play vh="H" team="KEN" time="19:07" uni="10" sequence="296" checkname="GARRISON,BRANDON" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="19:04" uni="00" sequence="297" checkname="OWEH,OTEGA" hscore="29" vscore="44" action="GOOD" type="DUNK" fastb="Y"></play>
+      <play vh="H" team="KEN" time="19:04" uni="10" sequence="298" checkname="GARRISON,BRANDON" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="18:44" uni="0" sequence="299" checkname="KOHLER,JAXON" action="MISS" type="LAYUP" desc="DRIVING"></play>
+      <play vh="H" team="KEN" time="18:44" sequence="300" checkname="TEAM" action="REBOUND" type="DEF" uni="TM"></play>
+      <play vh="H" team="KEN" time="18:27" uni="23" sequence="301" checkname="DIOUBATE,MOUHAMED" action="MISS" type="LAYUP" desc="DRIVING"></play>
+      <play vh="V" team="MSU" time="18:24" uni="15" sequence="302" checkname="COOPER,CARSON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="18:21" uni="55" sequence="303" checkname="CARR,COEN" hscore="29" vscore="46" action="GOOD" type="DUNK" desc="ALLEYOOP" fastb="Y"></play>
+      <play vh="V" team="MSU" time="18:21" uni="1" sequence="304" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="18:08" uni="00" sequence="305" checkname="OWEH,OTEGA" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="18:05" uni="15" sequence="306" checkname="COOPER,CARSON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="17:54" uni="55" sequence="307" checkname="CARR,COEN" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="17:51" uni="23" sequence="308" checkname="DIOUBATE,MOUHAMED" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="17:42" uni="1" sequence="309" checkname="FEARS JR.,JEREMY" action="FOUL" type="PERSONAL" drawnby="DIOUBATE,MOUHAMED" drawnuni="23"></play>
+      <play vh="H" team="KEN" time="17:28" uni="10" sequence="311" checkname="GARRISON,BRANDON" hscore="31" vscore="46" action="GOOD" type="JUMPER" desc="HOOKSHOT" paint="Y"></play>
+      <play vh="V" team="MSU" time="17:10" uni="1" sequence="312" checkname="FEARS JR.,JEREMY" hscore="31" vscore="48" action="GOOD" type="JUMPER" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="17:10" uni="15" sequence="313" checkname="COOPER,CARSON" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="16:54" uni="1" sequence="314" checkname="ABERDEEN,DENZEL" action="TURNOVER" type="BADPASS"></play>
+      <play vh="V" team="MSU" time="16:54" uni="55" sequence="315" checkname="CARR,COEN" action="STEAL"></play>
+      <play vh="V" team="MSU" time="16:48" uni="0" sequence="316" checkname="KOHLER,JAXON" hscore="31" vscore="50" action="GOOD" type="LAYUP" to="Y" fastb="Y"></play>
+      <play vh="V" team="MSU" time="16:48" uni="9" sequence="317" checkname="FORT,TREY" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="16:25" uni="15" sequence="318" checkname="COOPER,CARSON" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="DIOUBATE,MOUHAMED" drawnuni="23"></play>
+      <play vh="H" team="KEN" time="16:25" uni="23" sequence="320" checkname="DIOUBATE,MOUHAMED" hscore="32" vscore="50" action="GOOD" type="FT" seq="1OF2"></play>
+      <play vh="H" team="KEN" time="16:25" uni="10" sequence="321" checkname="GARRISON,BRANDON" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="16:25" uni="24" sequence="322" checkname="MORENO,MALACHI" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="16:25" uni="0" sequence="323" checkname="KOHLER,JAXON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="16:25" uni="9" sequence="324" checkname="FORT,TREY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="16:25" uni="2" sequence="325" checkname="TENG,KUR" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="16:25" uni="3" sequence="326" checkname="WARD,CAMERON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="16:25" uni="23" sequence="327" checkname="DIOUBATE,MOUHAMED" hscore="33" vscore="50" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="16:12" uni="15" sequence="328" checkname="COOPER,CARSON" action="MISS" type="DUNK" blocked="Y"></play>
+      <play vh="H" team="KEN" time="16:12" uni="23" sequence="329" checkname="DIOUBATE,MOUHAMED" action="BLOCK"></play>
+      <play vh="H" team="KEN" time="16:10" uni="23" sequence="330" checkname="DIOUBATE,MOUHAMED" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="16:09" uni="23" sequence="331" checkname="DIOUBATE,MOUHAMED" action="TURNOVER" type="BADPASS"></play>
+      <play vh="V" team="MSU" time="16:09" uni="1" sequence="332" checkname="FEARS JR.,JEREMY" action="STEAL"></play>
+      <play vh="V" team="MSU" time="16:04" uni="15" sequence="333" checkname="COOPER,CARSON" action="MISS" type="DUNK" to="N" blocked="Y"></play>
+      <play vh="H" team="KEN" time="16:04" uni="5" sequence="334" checkname="CHANDLER,COLLIN" action="BLOCK"></play>
+      <comment time="16:04" checkname="TEAM" text="HELDBALL"></comment>
+      <play vh="H" team="KEN" time="16:04" uni="5" sequence="336" checkname="CHANDLER,COLLIN" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="15:48" uni="23" sequence="337" checkname="DIOUBATE,MOUHAMED" hscore="35" vscore="50" action="GOOD" type="LAYUP" desc="DRIVING"></play>
+      <play vh="H" team="KEN" time="15:26" uni="5" sequence="338" checkname="CHANDLER,COLLIN" action="FOUL" type="PERSONAL" drawnby="COOPER,CARSON" drawnuni="15"></play>
+      <play time="15:26" sequence="340" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="15:26" uni="5" sequence="341" checkname="CHANDLER,COLLIN" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="15:26" uni="9" sequence="342" checkname="NOAH,TRENT" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="15:26" uni="55" sequence="343" checkname="CARR,COEN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="15:26" uni="6" sequence="344" checkname="SCOTT,JORDAN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="15:22" uni="3" sequence="345" checkname="WARD,CAMERON" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="15:22" uni="9" sequence="346" checkname="NOAH,TRENT" action="STEAL"></play>
+      <play vh="H" team="KEN" time="15:18" uni="23" sequence="347" checkname="DIOUBATE,MOUHAMED" hscore="37" vscore="50" action="GOOD" type="DUNK" fastb="Y" to="Y"></play>
+      <play vh="H" team="KEN" time="15:18" uni="9" sequence="348" checkname="NOAH,TRENT" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="14:44" uni="2" sequence="349" checkname="TENG,KUR" hscore="37" vscore="53" action="GOOD" type="3PTR" desc="STEPBACK"></play>
+      <play vh="V" team="MSU" time="14:44" uni="1" sequence="350" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="14:23" uni="1" sequence="351" checkname="ABERDEEN,DENZEL" action="TURNOVER" type="BADPASS"></play>
+      <play vh="V" team="MSU" time="14:11" uni="15" sequence="352" checkname="COOPER,CARSON" action="MISS" type="JUMPER" to="N"></play>
+      <play vh="V" team="MSU" time="14:09" uni="6" sequence="353" checkname="SCOTT,JORDAN" action="REBOUND" type="OFF"></play>
+      <play vh="H" team="KEN" time="14:09" uni="9" sequence="354" checkname="NOAH,TRENT" action="FOUL" type="PERSONAL" drawnby="SCOTT,JORDAN" drawnuni="6"></play>
+      <play vh="H" team="KEN" time="14:09" uni="23" sequence="356" checkname="DIOUBATE,MOUHAMED" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="14:09" uni="4" sequence="357" checkname="JELAVIC,ANDRIJA" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:56" uni="6" sequence="358" checkname="SCOTT,JORDAN" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="13:56" uni="1" sequence="359" checkname="ABERDEEN,DENZEL" action="STEAL"></play>
+      <play vh="H" team="KEN" time="13:52" uni="9" sequence="360" checkname="NOAH,TRENT" action="TURNOVER" type="BADPASS"></play>
+      <play vh="V" team="MSU" time="13:52" uni="1" sequence="361" checkname="FEARS JR.,JEREMY" action="STEAL"></play>
+      <play vh="V" team="MSU" time="13:46" uni="2" sequence="362" checkname="TENG,KUR" hscore="37" vscore="56" action="GOOD" type="3PTR" desc="" fastb="Y" to="Y"></play>
+      <play vh="V" team="MSU" time="13:46" uni="1" sequence="363" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="13:35" uni="4" sequence="364" checkname="JELAVIC,ANDRIJA" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="13:31" uni="24" sequence="365" checkname="MORENO,MALACHI" action="REBOUND" type="OFF"></play>
+      <play vh="H" team="KEN" time="13:31" uni="24" sequence="366" checkname="MORENO,MALACHI" hscore="39" vscore="56" action="GOOD" type="LAYUP" ch2="Y"></play>
+      <play vh="V" team="MSU" time="13:02" uni="3" sequence="367" checkname="WARD,CAMERON" action="MISS" type="LAYUP"></play>
+      <play vh="V" team="MSU" time="13:02" uni="3" sequence="368" checkname="WARD,CAMERON" action="REBOUND" type="OFF"></play>
+      <comment time="13:02" checkname="TEAM" text="HELDBALL"></comment>
+      <play vh="V" team="MSU" time="13:02" uni="1" sequence="370" checkname="FEARS JR.,JEREMY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="13:02" uni="15" sequence="371" checkname="COOPER,CARSON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="13:02" uni="0" sequence="372" checkname="KOHLER,JAXON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="13:02" uni="99" sequence="373" checkname="UGOCHUKWU,DIVINE" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="12:51" uni="2" sequence="374" checkname="TENG,KUR" action="MISS" type="3PTR" desc="" ch2="N"></play>
+      <play vh="H" team="KEN" time="12:48" uni="00" sequence="375" checkname="OWEH,OTEGA" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="12:39" uni="6" sequence="376" checkname="SCOTT,JORDAN" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="OWEH,OTEGA" drawnuni="00"></play>
+      <play vh="H" team="KEN" time="12:39" uni="1" sequence="378" checkname="ABERDEEN,DENZEL" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="12:39" uni="9" sequence="379" checkname="NOAH,TRENT" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="12:39" uni="2" sequence="380" checkname="JOHNSON,JASPER" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="12:39" uni="3" sequence="381" checkname="WILLIAMS,KAM" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="12:39" uni="2" sequence="382" checkname="TENG,KUR" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="12:39" uni="6" sequence="383" checkname="SCOTT,JORDAN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="12:39" uni="9" sequence="384" checkname="FORT,TREY" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="12:39" uni="55" sequence="385" checkname="CARR,COEN" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="12:39" uni="00" sequence="386" checkname="OWEH,OTEGA" hscore="40" vscore="56" action="GOOD" type="FT" seq="1OF2"></play>
+      <play vh="H" team="KEN" time="12:39" uni="00" sequence="387" checkname="OWEH,OTEGA" hscore="41" vscore="56" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="12:20" uni="99" sequence="388" checkname="UGOCHUKWU,DIVINE" hscore="41" vscore="58" action="GOOD" type="LAYUP" desc="DRIVING"></play>
+      <play vh="V" team="MSU" time="12:20" uni="0" sequence="389" checkname="KOHLER,JAXON" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="12:03" uni="2" sequence="390" checkname="JOHNSON,JASPER" hscore="43" vscore="58" action="GOOD" type="LAYUP" desc="DRIVING"></play>
+      <play vh="H" team="KEN" time="12:03" uni="24" sequence="391" checkname="MORENO,MALACHI" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="12:03" uni="99" sequence="392" checkname="UGOCHUKWU,DIVINE" action="FOUL" type="PERSONAL" ft="1" qualifiers="SHOOTING" drawnby="JOHNSON,JASPER" drawnuni="2"></play>
+      <play vh="V" team="MSU" time="12:03" uni="3" sequence="394" checkname="WARD,CAMERON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="12:03" uni="35" sequence="395" checkname="MCCULLOCH,JESSE" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="12:03" uni="2" sequence="396" checkname="JOHNSON,JASPER" hscore="44" vscore="58" action="GOOD" type="FT" seq="1OF1"></play>
+      <play vh="H" team="KEN" time="11:46" uni="4" sequence="397" checkname="JELAVIC,ANDRIJA" action="FOUL" type="PERSONAL" drawnby="MCCULLOCH,JESSE" drawnuni="35"></play>
+      <play time="11:46" sequence="399" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="11:46" uni="4" sequence="400" checkname="JELAVIC,ANDRIJA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="11:46" uni="23" sequence="401" checkname="DIOUBATE,MOUHAMED" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="11:25" uni="0" sequence="402" checkname="KOHLER,JAXON" action="MISS" type="JUMPER" desc="STEPBACK"></play>
+      <play vh="V" team="MSU" time="11:24" sequence="403" checkname="TEAM" action="REBOUND" type="OFF" uni="TM"></play>
+      <play vh="V" team="MSU" time="11:24" sequence="404" checkname="TEAM" action="TURNOVER" type="SHOTCLOCK"></play>
+      <play vh="V" team="MSU" time="11:24" uni="99" sequence="405" checkname="UGOCHUKWU,DIVINE" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="11:24" uni="1" sequence="406" checkname="FEARS JR.,JEREMY" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="11:08" uni="35" sequence="407" checkname="MCCULLOCH,JESSE" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="MORENO,MALACHI" drawnuni="24"></play>
+      <play vh="H" team="KEN" time="11:08" uni="24" sequence="409" checkname="MORENO,MALACHI" hscore="45" vscore="58" action="GOOD" type="FT" seq="1OF2" to="Y"></play>
+      <play vh="H" team="KEN" time="11:08" uni="00" sequence="410" checkname="OWEH,OTEGA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="11:08" uni="1" sequence="411" checkname="ABERDEEN,DENZEL" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="11:08" uni="24" sequence="412" checkname="MORENO,MALACHI" hscore="46" vscore="58" action="GOOD" type="FT" seq="2OF2" to="Y"></play>
+      <play vh="H" team="KEN" time="11:08" uni="24" sequence="413" checkname="MORENO,MALACHI" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="11:08" uni="10" sequence="414" checkname="GARRISON,BRANDON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="10:58" uni="9" sequence="415" checkname="FORT,TREY" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="10:58" uni="3" sequence="416" checkname="WILLIAMS,KAM" action="STEAL"></play>
+      <play vh="H" team="KEN" time="10:55" uni="3" sequence="417" checkname="WILLIAMS,KAM" hscore="48" vscore="58" action="GOOD" type="DUNK" to="Y" fastb="Y"></play>
+      <play vh="V" team="MSU" time="10:34" uni="9" sequence="418" checkname="FORT,TREY" hscore="48" vscore="60" action="GOOD" type="JUMPER"></play>
+      <play vh="V" team="MSU" time="10:34" uni="1" sequence="419" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="10:27" uni="2" sequence="420" checkname="JOHNSON,JASPER" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="10:24" uni="1" sequence="421" checkname="FEARS JR.,JEREMY" action="REBOUND" type="DEF"></play>
+      <comment time="10:17" checkname="TEAM" text="HELDBALL"></comment>
+      <play vh="V" team="MSU" time="10:17" uni="55" sequence="423" checkname="CARR,COEN" action="TURNOVER" type="LOSTBALL"></play>
+      <play vh="H" team="KEN" time="10:17" uni="23" sequence="424" checkname="DIOUBATE,MOUHAMED" action="STEAL"></play>
+      <play vh="V" team="MSU" time="10:17" uni="9" sequence="425" checkname="FORT,TREY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="10:17" uni="2" sequence="426" checkname="TENG,KUR" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="09:57" uni="1" sequence="427" checkname="ABERDEEN,DENZEL" action="MISS" type="3PTR" desc="" to="N"></play>
+      <play vh="V" team="MSU" time="09:54" uni="35" sequence="428" checkname="MCCULLOCH,JESSE" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="09:46" uni="55" sequence="429" checkname="CARR,COEN" action="TURNOVER" type="BADPASS"></play>
+      <play vh="H" team="KEN" time="09:40" uni="3" sequence="430" checkname="WILLIAMS,KAM" action="MISS" type="3PTR" desc="" to="N"></play>
+      <play vh="H" team="KEN" time="09:37" uni="2" sequence="431" checkname="JOHNSON,JASPER" action="REBOUND" type="OFF"></play>
+      <play vh="H" team="KEN" time="09:37" uni="2" sequence="432" checkname="JOHNSON,JASPER" hscore="50" vscore="60" action="GOOD" type="LAYUP" ch2="Y" to="Y"></play>
+      <play vh="V" team="MSU" time="09:37" sequence="433" checkname="TEAM" action="TIMEOUT" type="30SEC"></play>
+      <play vh="V" team="MSU" time="09:10" uni="35" sequence="434" checkname="MCCULLOCH,JESSE" hscore="50" vscore="63" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="09:10" uni="2" sequence="435" checkname="TENG,KUR" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="08:45" uni="23" sequence="436" checkname="DIOUBATE,MOUHAMED" hscore="52" vscore="63" action="GOOD" type="JUMPER" paint="Y"></play>
+      <play vh="V" team="MSU" time="08:34" uni="2" sequence="437" checkname="TENG,KUR" hscore="52" vscore="65" action="GOOD" type="JUMPER"></play>
+      <play vh="V" team="MSU" time="08:34" uni="1" sequence="438" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="08:18" uni="1" sequence="439" checkname="ABERDEEN,DENZEL" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="08:15" sequence="440" checkname="TEAM" action="REBOUND" type="DEF" uni="TM"></play>
+      <play vh="H" team="KEN" time="08:15" uni="2" sequence="441" checkname="JOHNSON,JASPER" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="08:15" uni="3" sequence="442" checkname="WILLIAMS,KAM" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="08:15" uni="00" sequence="443" checkname="OWEH,OTEGA" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="08:15" uni="5" sequence="444" checkname="CHANDLER,COLLIN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="08:15" uni="35" sequence="445" checkname="MCCULLOCH,JESSE" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="08:15" uni="15" sequence="446" checkname="COOPER,CARSON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="08:15" uni="23" sequence="447" checkname="DIOUBATE,MOUHAMED" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="08:15" uni="4" sequence="448" checkname="JELAVIC,ANDRIJA" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="08:11" uni="1" sequence="449" checkname="ABERDEEN,DENZEL" action="FOUL" type="PERSONAL" drawnby="FEARS JR.,JEREMY" drawnuni="1"></play>
+      <play vh="V" team="MSU" time="07:55" uni="2" sequence="451" checkname="TENG,KUR" action="MISS" type="LAYUP" desc="DRIVING" paint="N"></play>
+      <play vh="H" team="KEN" time="07:53" uni="10" sequence="452" checkname="GARRISON,BRANDON" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="07:44" uni="00" sequence="453" checkname="OWEH,OTEGA" action="MISS" type="LAYUP" desc="DRIVING"></play>
+      <play vh="V" team="MSU" time="07:43" uni="15" sequence="454" checkname="COOPER,CARSON" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="07:35" uni="0" sequence="455" checkname="KOHLER,JAXON" hscore="52" vscore="67" action="GOOD" type="LAYUP"></play>
+      <play vh="V" team="MSU" time="07:35" uni="1" sequence="456" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="07:12" uni="00" sequence="457" checkname="OWEH,OTEGA" hscore="55" vscore="67" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="07:12" uni="5" sequence="458" checkname="CHANDLER,COLLIN" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="06:55" uni="2" sequence="459" checkname="TENG,KUR" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="06:53" uni="0" sequence="460" checkname="KOHLER,JAXON" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="06:51" uni="0" sequence="461" checkname="KOHLER,JAXON" hscore="55" vscore="69" action="GOOD" type="LAYUP" ch2="Y"></play>
+      <play vh="H" team="KEN" time="06:32" uni="00" sequence="462" checkname="OWEH,OTEGA" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="06:30" uni="55" sequence="463" checkname="CARR,COEN" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="06:10" uni="4" sequence="464" checkname="JELAVIC,ANDRIJA" action="FOUL" type="PERSONAL" qualifiers="ONEANDONE" drawnby="KOHLER,JAXON" drawnuni="0"></play>
+      <play time="06:10" sequence="466" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="H" team="KEN" time="06:10" uni="10" sequence="467" checkname="GARRISON,BRANDON" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="06:10" uni="4" sequence="468" checkname="JELAVIC,ANDRIJA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="06:10" uni="23" sequence="469" checkname="DIOUBATE,MOUHAMED" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="06:10" uni="24" sequence="470" checkname="MORENO,MALACHI" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="06:10" uni="55" sequence="471" checkname="CARR,COEN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="06:10" uni="0" sequence="473" checkname="KOHLER,JAXON" hscore="55" vscore="70" action="GOOD" type="FT" seq="1OF2"></play>
+      <play vh="V" team="MSU" time="06:10" uni="0" sequence="474" checkname="KOHLER,JAXON" hscore="55" vscore="71" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="06:10" uni="6" sequence="475" checkname="SCOTT,JORDAN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="06:04" uni="0" sequence="476" checkname="KOHLER,JAXON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="06:04" uni="3" sequence="477" checkname="WARD,CAMERON" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="06:00" uni="5" sequence="478" checkname="CHANDLER,COLLIN" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="05:59" sequence="479" checkname="TEAM" action="REBOUND" type="DEF" uni="TM"></play>
+      <play vh="V" team="MSU" time="05:30" uni="3" sequence="480" checkname="WARD,CAMERON" hscore="55" vscore="73" action="GOOD" type="DUNK" desc="ALLEYOOP"></play>
+      <play vh="V" team="MSU" time="05:30" uni="1" sequence="481" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="05:13" uni="00" sequence="482" checkname="OWEH,OTEGA" action="MISS" type="JUMPER" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="05:09" uni="1" sequence="483" checkname="FEARS JR.,JEREMY" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="05:03" uni="3" sequence="484" checkname="WARD,CAMERON" hscore="55" vscore="75" action="GOOD" type="LAYUP" desc="DRIVING"></play>
+      <play vh="V" team="MSU" time="05:03" uni="1" sequence="485" checkname="FEARS JR.,JEREMY" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="05:03" sequence="486" checkname="TEAM" action="TIMEOUT" type="30SEC"></play>
+      <play vh="H" team="KEN" time="05:03" uni="23" sequence="487" checkname="DIOUBATE,MOUHAMED" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="05:03" uni="3" sequence="488" checkname="WILLIAMS,KAM" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="04:51" uni="2" sequence="489" checkname="TENG,KUR" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="ABERDEEN,DENZEL" drawnuni="1"></play>
+      <play vh="H" team="KEN" time="04:51" uni="1" sequence="491" checkname="ABERDEEN,DENZEL" action="MISS" type="FT" seq="1OF2"></play>
+      <play vh="H" team="KEN" time="04:51" sequence="492" checkname="TEAM" action="REBOUND" uni="TM" type="DEADB" desc="OFF"></play>
+      <play vh="H" team="KEN" time="04:51" uni="1" sequence="493" checkname="ABERDEEN,DENZEL" hscore="56" vscore="75" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="04:51" uni="2" sequence="494" checkname="TENG,KUR" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="04:51" uni="55" sequence="495" checkname="CARR,COEN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="04:39" uni="6" sequence="496" checkname="SCOTT,JORDAN" action="FOUL" type="OFF"></play>
+      <play vh="V" team="MSU" time="04:39" uni="6" sequence="497" checkname="SCOTT,JORDAN" action="TURNOVER" type="OFFENSIVE"></play>
+      <play vh="H" team="KEN" time="04:29" uni="1" sequence="499" checkname="ABERDEEN,DENZEL" action="MISS" type="LAYUP" desc="DRIVING" to="N" blocked="Y"></play>
+      <play vh="V" team="MSU" time="04:29" uni="6" sequence="500" checkname="SCOTT,JORDAN" action="BLOCK"></play>
+      <play vh="V" team="MSU" time="04:26" uni="1" sequence="501" checkname="FEARS JR.,JEREMY" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="04:18" uni="00" sequence="502" checkname="OWEH,OTEGA" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="SCOTT,JORDAN" drawnuni="6"></play>
+      <play vh="V" team="MSU" time="04:18" uni="6" sequence="504" checkname="SCOTT,JORDAN" action="MISS" type="FT" seq="1OF2"></play>
+      <play vh="V" team="MSU" time="04:18" sequence="505" checkname="TEAM" action="REBOUND" uni="TM" type="DEADB" desc="OFF"></play>
+      <play vh="V" team="MSU" time="04:18" uni="6" sequence="506" checkname="SCOTT,JORDAN" hscore="56" vscore="76" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="H" team="KEN" time="04:04" uni="3" sequence="507" checkname="WILLIAMS,KAM" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="04:02" uni="1" sequence="508" checkname="FEARS JR.,JEREMY" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="03:33" uni="15" sequence="509" checkname="COOPER,CARSON" action="MISS" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="03:30" uni="00" sequence="510" checkname="OWEH,OTEGA" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="03:22" uni="5" sequence="511" checkname="CHANDLER,COLLIN" action="MISS" type="3PTR" desc=""></play>
+      <play vh="V" team="MSU" time="03:20" uni="55" sequence="512" checkname="CARR,COEN" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="03:08" uni="1" sequence="513" checkname="ABERDEEN,DENZEL" action="FOUL" type="PERSONAL" qualifiers="ONEANDONE" drawnby="FEARS JR.,JEREMY" drawnuni="1"></play>
+      <play time="03:08" sequence="515" checkname="TEAM" action="TIMEOUT" type="MEDIA"></play>
+      <play vh="V" team="MSU" time="03:08" uni="6" sequence="516" checkname="SCOTT,JORDAN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="03:08" uni="15" sequence="517" checkname="COOPER,CARSON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="03:08" uni="0" sequence="518" checkname="KOHLER,JAXON" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="03:08" uni="99" sequence="519" checkname="UGOCHUKWU,DIVINE" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="03:08" uni="1" sequence="520" checkname="FEARS JR.,JEREMY" hscore="56" vscore="77" action="GOOD" type="FT" seq="1OF2"></play>
+      <play vh="V" team="MSU" time="03:08" uni="1" sequence="521" checkname="FEARS JR.,JEREMY" hscore="56" vscore="78" action="GOOD" type="FT" seq="2OF2"></play>
+      <play vh="V" team="MSU" time="03:08" uni="1" sequence="522" checkname="FEARS JR.,JEREMY" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="03:08" uni="10" sequence="523" checkname="WOJCIK,DENHAM" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="02:54" uni="24" sequence="524" checkname="MORENO,MALACHI" action="TURNOVER" type="LOSTBALL"></play>
+      <play vh="V" team="MSU" time="02:34" uni="3" sequence="525" checkname="WARD,CAMERON" hscore="56" vscore="80" action="GOOD" type="DUNK" to="Y"></play>
+      <play vh="V" team="MSU" time="02:34" uni="10" sequence="526" checkname="WOJCIK,DENHAM" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="02:15" uni="5" sequence="527" checkname="CHANDLER,COLLIN" hscore="59" vscore="80" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="02:15" uni="00" sequence="528" checkname="OWEH,OTEGA" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="01:48" uni="0" sequence="529" checkname="KOHLER,JAXON" action="MISS" type="JUMPER" desc="TURNAROUND"></play>
+      <play vh="H" team="KEN" time="01:45" uni="5" sequence="530" checkname="CHANDLER,COLLIN" action="REBOUND" type="DEF"></play>
+      <play vh="V" team="MSU" time="01:42" uni="10" sequence="531" checkname="WOJCIK,DENHAM" action="FOUL" type="PERSONAL" ft="2" qualifiers="SHOOTING" drawnby="MORENO,MALACHI" drawnuni="24"></play>
+      <play vh="H" team="KEN" time="01:42" uni="24" sequence="533" checkname="MORENO,MALACHI" hscore="60" vscore="80" action="GOOD" type="FT" seq="1OF2" fastb="Y"></play>
+      <play vh="V" team="MSU" time="01:42" uni="0" sequence="534" checkname="KOHLER,JAXON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="01:42" uni="55" sequence="535" checkname="CARR,COEN" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="01:42" uni="9" sequence="536" checkname="FORT,TREY" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="01:42" uni="35" sequence="537" checkname="MCCULLOCH,JESSE" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="01:42" uni="24" sequence="538" checkname="MORENO,MALACHI" hscore="61" vscore="80" action="GOOD" type="FT" seq="2OF2" fastb="Y"></play>
+      <play vh="V" team="MSU" time="01:27" uni="9" sequence="539" checkname="FORT,TREY" hscore="61" vscore="83" action="GOOD" type="3PTR" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="01:27" uni="10" sequence="540" checkname="WOJCIK,DENHAM" action="ASSIST"></play>
+      <play vh="H" team="KEN" time="01:14" uni="1" sequence="541" checkname="ABERDEEN,DENZEL" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="H" team="KEN" time="01:13" uni="24" sequence="542" checkname="MORENO,MALACHI" action="REBOUND" type="OFF"></play>
+      <play vh="V" team="MSU" time="01:13" uni="35" sequence="543" checkname="MCCULLOCH,JESSE" action="FOUL" type="PERSONAL" qualifiers="ONEANDONE" drawnby="MORENO,MALACHI" drawnuni="24"></play>
+      <play vh="H" team="KEN" time="01:13" uni="1" sequence="545" checkname="ABERDEEN,DENZEL" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="01:13" uni="2" sequence="546" checkname="JOHNSON,JASPER" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="01:13" uni="00" sequence="547" checkname="OWEH,OTEGA" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="01:13" uni="9" sequence="548" checkname="NOAH,TRENT" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="01:13" uni="24" sequence="549" checkname="MORENO,MALACHI" hscore="62" vscore="83" action="GOOD" type="FT" seq="1OF2" ch2="Y"></play>
+      <play vh="H" team="KEN" time="01:13" uni="5" sequence="550" checkname="CHANDLER,COLLIN" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="01:13" uni="4" sequence="551" checkname="JELAVIC,ANDRIJA" action="SUB" type="IN"></play>
+      <play vh="H" team="KEN" time="01:13" uni="24" sequence="552" checkname="MORENO,MALACHI" hscore="63" vscore="83" action="GOOD" type="FT" seq="2OF2" ch2="Y"></play>
+      <play vh="V" team="MSU" time="00:43" uni="9" sequence="553" checkname="FORT,TREY" action="MISS" type="3PTR" desc="STEPBACK"></play>
+      <play vh="H" team="KEN" time="00:41" sequence="554" checkname="TEAM" action="REBOUND" type="DEF" uni="TM"></play>
+      <play vh="V" team="MSU" time="00:41" uni="99" sequence="557" checkname="UGOCHUKWU,DIVINE" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="00:41" uni="20" sequence="558" checkname="SANDERS,NICK" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="00:41" uni="40" sequence="559" checkname="WALTON,BRENNAN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="00:41" uni="43" sequence="560" checkname="WALTON,COLIN" action="SUB" type="IN"></play>
+      <play vh="V" team="MSU" time="00:41" uni="3" sequence="563" checkname="WARD,CAMERON" action="SUB" type="OUT"></play>
+      <play vh="V" team="MSU" time="00:41" uni="9" sequence="564" checkname="FORT,TREY" action="SUB" type="OUT"></play>
+      <play vh="H" team="KEN" time="00:30" uni="2" sequence="561" checkname="JOHNSON,JASPER" hscore="66" vscore="83" action="GOOD" type="3PTR" desc=""></play>
+      <play vh="H" team="KEN" time="00:30" uni="3" sequence="562" checkname="WILLIAMS,KAM" action="ASSIST"></play>
+      <play vh="V" team="MSU" time="00:07" uni="20" sequence="565" checkname="SANDERS,NICK" action="MISS" type="JUMPER" desc="PULLUP" blocked="Y"></play>
+      <play vh="H" team="KEN" time="00:07" uni="4" sequence="566" checkname="JELAVIC,ANDRIJA" action="BLOCK"></play>
+      <play vh="H" team="KEN" time="00:04" uni="3" sequence="567" checkname="WILLIAMS,KAM" action="REBOUND" type="DEF"></play>
+      <play vh="H" team="KEN" time="00:01" uni="2" sequence="568" checkname="JOHNSON,JASPER" action="MISS" type="3PTR" desc="PULLUP"></play>
+      <play vh="V" team="MSU" time="00:00" uni="43" sequence="569" checkname="WALTON,COLIN" action="REBOUND" type="DEF"></play>
+      <clock time="00:00"></clock>
+    </period>
+  </plays>
+</bbgame>

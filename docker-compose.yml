@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CONFIG_PATH=/app/config/default.yaml
+    restart: unless-stopped
+    
+  # Optional: PostgreSQL for production data
+  # postgres:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_DB: ncaab
+  #     POSTGRES_USER: ncaab
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:
