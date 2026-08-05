@@ -17,7 +17,7 @@ npm install puppeteer
 # https://the-odds-api.com
 
 # Set your API key in your environment
-export SPORT_API=your_key_here
+export ODDS_API=your_key_here
 ```
 
 ## Files
