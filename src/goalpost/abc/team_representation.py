@@ -4,15 +4,15 @@ from abc import ABC, abstractmethod
 from typing import Dict, List
 import numpy as np
 
-from ..domain.models import Game, Drive, GameContext
+from ..domain.models import Game, Possession, GameContext
 
 
 class TeamRepresentation(ABC):
     """Learn team embeddings from historical performance."""
 
     @abstractmethod
-    def fit(self, drives: List[Drive]) -> "TeamRepresentation":
-        """Learn representations from historical drives."""
+    def fit(self, possessions: List[Possession]) -> "TeamRepresentation":
+        """Learn representations from historical possessions."""
         pass
 
     @abstractmethod

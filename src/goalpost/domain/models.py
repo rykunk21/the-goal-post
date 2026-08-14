@@ -29,13 +29,15 @@ class PossessionResult(Enum):
 @dataclass
 class Play:
     """A single play / action."""
-    play_id: str
+    play_id: str = ""
     # NFL-specific (nullable for other sports)
     down: Optional[int] = None  # 1-4, null for NBA/MLB
     distance: Optional[int] = None  # yards to go, null for NBA/MLB
     yardline: Optional[int] = None  # 1-100, distance from opponent endzone
+    # NBA / court sports
+    shot_clock: Optional[int] = None
     # Universal
-    play_type: str  # pass, run, shot, at_bat, etc.
+    play_type: str = ""  # pass, run, shot, at_bat, etc.
     yards_gained: Optional[int] = None  # null for NBA (points instead)
     points_scored: int = 0  # 0 for most plays, 2/3/6/7 for scores
     epa: float = 0.0  # expected points added (sport-specific model)
@@ -54,8 +56,8 @@ class Possession:
     
     Called a 'drive' in NFL, 'possession' in NBA, 'inning half' in MLB, etc.
     """
-    possession_id: str
-    team: str
+    possession_id: str = ""
+    team: str = ""
     plays: List[Play] = field(default_factory=list)
     result: Optional[PossessionResult] = None
     quarter: int = 1
@@ -69,11 +71,11 @@ class Possession:
 @dataclass
 class Game:
     """A single game with all possessions."""
-    game_id: str
-    season: int
-    week: int
-    home_team: str
-    away_team: str
+    game_id: str = ""
+    season: int = 0
+    week: int = 0
+    home_team: str = ""
+    away_team: str = ""
     possessions: List[Possession] = field(default_factory=list)
     home_score: int = 0
     away_score: int = 0
@@ -98,7 +100,7 @@ class GameState:
     time_remaining: int = 0  # seconds in quarter/half/game
     quarter: int = 1
     period: int = 1  # synonym, for hockey/baseball
-    possession: str = ""  # team with ball
+    possession: str = ""  # team with ball / on offense
     timeouts_offense: int = 3
     timeouts_defense: int = 3
 
@@ -106,21 +108,21 @@ class GameState:
 @dataclass
 class GameContext:
     """Context for encoding a team representation."""
-    season: int
-    week: int
-    opponent_id: str
-    is_home: bool
+    season: int = 0
+    week: int = 0
+    opponent_id: str = ""
+    is_home: bool = False
     game_type: str = "REG"  # REG or POST
 
 
 @dataclass
 class Transition:
     """A state-action-next_state tuple for learning."""
-    state: GameState
-    action: str  # play category or outcome bucket
-    next_state: GameState
-    team_id: str
-    opponent_id: str
+    state: GameState = field(default_factory=GameState)
+    action: str = ""  # play category or outcome bucket
+    next_state: GameState = field(default_factory=GameState)
+    team_id: str = ""
+    opponent_id: str = ""
     drive_id: Optional[str] = None  # backward compat alias
     possession_id: Optional[str] = None
     game_id: Optional[str] = None
@@ -143,8 +145,8 @@ class GameOutcome:
 @dataclass
 class Market:
     """A betting market to price."""
-    market_key: str  # e.g. "spreads", "totals", "h2h"
-    side: str  # e.g. "home", "away", "over", "under"
+    market_key: str = ""  # e.g. "spreads", "totals", "h2h"
+    side: str = ""  # e.g. "home", "away", "over", "under"
     line: float = 0.0  # for spreads/totals
     odds: float = 0.0  # American odds
 
