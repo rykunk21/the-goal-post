@@ -3,8 +3,10 @@
 ## Pipeline (5 stages)
 
 ```
-Raw Data → DataSource → DriveExtractor → TeamRepresentation → TransitionModel → Simulator
+Raw Data → DataSource → PossessionExtractor → TeamRepresentation → TransitionModel → Simulator
 ```
+
+Note: `PossessionExtractor` is the universal name. In NFL, a "possession" is called a "drive." The concept is the same: a contiguous sequence of plays where one team has the ball, ending in some terminal event (score, turnover, end of period, etc.).
 
 ## Abstract Contracts (Python ABC)
 
@@ -15,14 +17,25 @@ Raw Data → DataSource → DriveExtractor → TeamRepresentation → Transition
 
 **Implementations:** `NFLVerseSource`, `SportradarSource`, `ESPNSource`, etc.
 
-### 2. `DriveExtractor` (ABC)
-- `extract(games: List[Game]) → List[Drive]` — group plays into drives
-- `compute_state_transitions(drives: List[Drive]) → List[Transition]` — (state, action, next_state)
+### 2. `PossessionExtractor` (ABC)
+- `extract(games: List[Game]) → List[Possession]` — group plays into possessions
+- `compute_state_transitions(possessions: List[Possession]) → List[Transition]` — (state, action, next_state)
 
-**Implementations:** `NFLDriveExtractor`, `NCAABDriveExtractor`, etc.
+**Sport-specific mapping:**
+
+| Sport | Possession Name | Terminal Events |
+|-------|----------------|-----------------|
+| NFL | Drive | TD, FG, Punt, Turnover, Safety, End of Half/Game |
+| NBA | Possession | Made basket, turnover, shot clock violation, end of quarter |
+| MLB | Inning half (or PA sequence) | 3 outs, runs scored, end of inning |
+| NHL | Shift / Zone time | Goal, penalty, line change, end of period |
+| Soccer | Possession | Goal, out of bounds, foul, end of half |
+| CFB | Drive | Same as NFL |
+
+**Implementations:** `NFLDriveExtractor`, `NBAPossessionExtractor`, `MLBInningExtractor`, etc.
 
 ### 3. `TeamRepresentation` (ABC)
-- `fit(drives: List[Drive]) → self` — learn from historical drives
+- `fit(possessions: List[Possession]) → self` — learn from historical possessions
 - `encode(team_id: str, context: GameContext) → np.ndarray` — emit latent z
 - `update(game: Game) → self` — in-season Bayesian update
 
@@ -50,41 +63,78 @@ class Game:
     week: int
     home_team: str
     away_team: str
-    drives: List[Drive]
+    possessions: List[Possession]
+    sport: str = "nfl"
 
 @dataclass
-class Drive:
-    drive_id: str
-    team: str  # posteam
+class Possession:
+    """A contiguous sequence of plays where one team controls the ball.
+    
+    Called a 'drive' in NFL, 'possession' in NBA, 'inning half' in MLB, etc.
+    """
+    possession_id: str
+    team: str
     plays: List[Play]
-    result: DriveResult  # TD, FG, Punt, Turnover, End of Half/Game
+    result: PossessionResult
+    sport: str = "nfl"
+
+class PossessionResult(Enum):
+    """Possible end states of a possession. Sport-specific subclasses extend this."""
+    # NFL / CFB
+    TOUCHDOWN = "td"
+    FIELD_GOAL = "fg"
+    PUNT = "punt"
+    TURNOVER = "turnover"
+    TURNOVER_ON_DOWNS = "turnover_on_downs"
+    SAFETY = "safety"
+    # Universal
+    END_OF_HALF = "end_of_half"
+    END_OF_GAME = "end_of_game"
+    # NBA
+    MADE_BASKET = "made_basket"
+    # MLB
+    THREE_OUTS = "three_outs"
+    # Hockey / Soccer
+    GOAL = "goal"
 
 @dataclass
 class Play:
     play_id: str
-    down: int
-    distance: int
-    yardline: int  # 1-100
-    play_type: str  # pass, run, penalty, etc.
-    yards_gained: int
-    epa: float
+    # NFL-specific (nullable for other sports)
+    down: Optional[int] = None
+    distance: Optional[int] = None
+    yardline: Optional[int] = None
+    # Universal
+    play_type: str
+    yards_gained: Optional[int] = None
+    points_scored: int = 0
+    epa: float = 0.0
 
 @dataclass
 class GameState:
-    down: int
-    distance: int
-    yardline: int
+    # NFL / CFB / continuous-field sports
+    down: Optional[int] = None
+    distance: Optional[int] = None
+    yardline: Optional[int] = None
+    # NBA / court sports
+    shot_clock: Optional[int] = None
+    # Universal
     score_diff: int
-    time_remaining: int  # seconds
-    possession: str  # team with ball
+    time_remaining: int
+    quarter: int = 1
+    period: int = 1
+    possession: str = ""
+    timeouts_offense: int = 3
+    timeouts_defense: int = 3
 
 @dataclass
 class Transition:
     state: GameState
-    action: str  # play category
+    action: str
     next_state: GameState
     team_id: str
     opponent_id: str
+    sport: str = "nfl"
 
 @dataclass
 class GameOutcome:
@@ -92,15 +142,19 @@ class GameOutcome:
     away_score: int
     total: int
     margin: int
-    first_half_margin: int  # for derivative markets
+    first_half_margin: int
+    home_possessions: int = 0
+    away_possessions: int = 0
+    metadata: Dict[str, Any] = field(default_factory=dict)
 ```
 
 ## Key Design Decisions
 
 1. **Stage isolation** — Each ABC defines a clear output contract. Stage N only depends on stage N-1's output, not its implementation.
 2. **Swappable sources** — `DataSource` handles NFL, college, etc. Same downstream code.
-3. **Testable by stage** — Can validate `DriveExtractor` independently from `TeamRepresentation`.
+3. **Testable by stage** — Can validate `PossessionExtractor` independently from `TeamRepresentation`.
 4. **In-season updates** — `TeamRepresentation.update()` allows Bayesian/online updates without full retraining.
+5. **Sport polymorphism** — Domain models use optional fields and sport tags rather than class hierarchies. A possession is a possession whether it's called a drive, an inning half, or a shift.
 
 ## Project Structure
 
@@ -112,20 +166,20 @@ goalpost/
 │   │   ├── abc/
 │   │   │   ├── __init__.py
 │   │   │   ├── data_source.py
-│   │   │   ├── drive_extractor.py
+│   │   │   ├── possession_extractor.py
 │   │   │   ├── team_representation.py
 │   │   │   ├── transition_model.py
 │   │   │   └── simulator.py
 │   │   ├── domain/
 │   │   │   ├── __init__.py
-│   │   │   └── models.py          # Game, Drive, Play, etc.
+│   │   │   └── models.py
 │   │   ├── data/
 │   │   │   ├── __init__.py
-│   │   │   ├── nflverse_source.py # DataSource impl
-│   │   │   └── nfl_drive_extractor.py  # DriveExtractor impl
+│   │   │   ├── nflverse_source.py
+│   │   │   └── nfl_drive_extractor.py
 │   │   └── representation/
 │   │       ├── __init__.py
-│   │       └── vae_encoder.py     # TeamRepresentation impl
+│   │       └── vae_encoder.py
 │   └── tests/
 ├── pyproject.toml
 └── README.md
@@ -133,7 +187,6 @@ goalpost/
 
 ## Next Steps
 
-1. Scaffold empty ABC files
-2. Implement `NFLVerseSource` + `NFLDriveExtractor` with nflreadpy
-3. Build a validation pipeline: download one season, extract drives, sanity-check counts
-4. Then tackle representation learning on top of working data
+1. Implement `NFLVerseSource.parse()` and `NFLDriveExtractor` with nflreadpy
+2. Build validation pipeline: download one season, extract possessions, sanity-check
+3. Then tackle representation learning on top of working data

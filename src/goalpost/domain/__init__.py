@@ -1,16 +1,27 @@
 """Domain models for GoalPost."""
 
-from .models import Game, Drive, Play, GameState, Transition, GameOutcome, Market, DriveResult, GameContext, TransitionMatrix
+from .models import (
+    Game,
+    Possession,
+    Play,
+    GameState,
+    Transition,
+    GameOutcome,
+    Market,
+    PossessionResult,
+    GameContext,
+    TransitionMatrix,
+)
 
 __all__ = [
     "Game",
-    "Drive",
+    "Possession",
     "Play",
     "GameState",
     "Transition",
     "GameOutcome",
     "Market",
-    "DriveResult",
+    "PossessionResult",
     "GameContext",
     "TransitionMatrix",
 ]

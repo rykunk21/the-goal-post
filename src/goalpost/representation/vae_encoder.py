@@ -4,7 +4,7 @@ from typing import List
 import numpy as np
 
 from ..abc.team_representation import TeamRepresentation
-from ..domain.models import Game, Drive, GameContext
+from ..domain.models import Game, Possession, GameContext
 
 
 class VAEEncoder(TeamRepresentation):
@@ -16,8 +16,8 @@ class VAEEncoder(TeamRepresentation):
         self._decoder = None
         self._team_embeddings: dict = {}
 
-    def fit(self, drives: List[Drive]) -> "VAEEncoder":
-        """Train VAE on historical drives."""
+    def fit(self, possessions: List[Possession]) -> "VAEEncoder":
+        """Train VAE on historical possessions."""
         # TODO: implement VAE training
         raise NotImplementedError("fit() not yet implemented")
 
