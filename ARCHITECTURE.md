@@ -31,8 +31,9 @@ Note: `PossessionExtractor` is the universal name. In NFL, a "possession" is cal
 | NHL | Shift / Zone time | Goal, penalty, line change, end of period |
 | Soccer | Possession | Goal, out of bounds, foul, end of half |
 | CFB | Drive | Same as NFL |
+| NCAAB | Possession | Made basket, turnover, shot clock, end of half |
 
-**Implementations:** `NFLDriveExtractor`, `NBAPossessionExtractor`, `MLBInningExtractor`, etc.
+**Implementations:** `NFLDriveExtractor`, `NCAABPossessionExtractor`, `MLBInningExtractor`, etc.
 
 ### 3. `TeamRepresentation` (ABC)
 - `fit(possessions: List[Possession]) → self` — learn from historical possessions
@@ -155,6 +156,49 @@ class GameOutcome:
 3. **Testable by stage** — Can validate `PossessionExtractor` independently from `TeamRepresentation`.
 4. **In-season updates** — `TeamRepresentation.update()` allows Bayesian/online updates without full retraining.
 5. **Sport polymorphism** — Domain models use optional fields and sport tags rather than class hierarchies. A possession is a possession whether it's called a drive, an inning half, or a shift.
+
+## Data Source Details
+
+### NFL — nflverse / nflreadpy
+
+**Coverage:** 1999–present, all regular season + playoff games
+**Format:** Polars DataFrame via `nflreadpy.load_pbp(seasons=[...])`
+**Play fields:** play_id, game_id, drive, posteam, defteam, down, ydstogo, yardline_100, play_type, yards_gained, epa, wp, air_yards, passer, rusher, receiver, penalty, turnover, scoring_play
+**Possession grouping:** Group by `(game_id, drive)` — each drive is a contiguous sequence of plays with one `posteam`
+**State transitions:** (down, distance, yardline, score_diff, time) → play outcome → next state
+
+### NCAAB — StatsBroadcast XML
+
+**Endpoint:** Game-by-game XML feed (same structure as standalone NCAAB script)
+**Format:** XML with `<plays>` → `<play>` elements, `<teams>`, `<game>` metadata
+**Play fields (XML → universal mapping):**
+
+| StatsBroadcast XML | Universal `Play` field | Notes |
+|---|---|---|
+| `id` | `play_id` | |
+| `type` | `play_type` | "2pt", "3pt", "ft", "rebound", "turnover", etc. |
+| `team` | derived | which team has possession |
+| `time` | derived | `GameState.time_remaining` |
+| `score` | derived | `GameState.score_diff` |
+| `player` | `passer` analog | scorer, rebounder, etc. |
+| `points` | `points_scored` | 0, 1, 2, or 3 |
+
+**NCAAB `GameState` specifics:**
+- `down`/`distance`/`yardline` → `None` (not applicable to basketball)
+- `shot_clock` → populated if available (30 sec default)
+- `score_diff`, `time_remaining`, `possession` → derived from running play sequence
+
+**Possession extraction for NCAAB:**
+A possession ends when:
+1. Made basket (opponent gains possession)
+2. Turnover (opponent gains possession)
+3. Defensive rebound (opponent gains possession)
+4. Shot clock violation (opponent gains possession)
+5. End of half/game
+
+**Key difference from NFL:** No fixed "down" system. State transitions are simpler (score, time, who has ball) but possessions are higher frequency (~70-80 per game vs ~10-12 drives).
+
+**Implementation:** `NCAABStatsBroadcastSource` (DataSource) + `NCAABPossessionExtractor` (PossessionExtractor)
 
 ## Project Structure
 
