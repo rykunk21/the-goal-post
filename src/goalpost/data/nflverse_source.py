@@ -39,13 +39,14 @@ class NFLVerseSource(DataSource):
 
         games = []
         for df in self._raw_data:
-            # Filter out rows with null game_id and drive
+            # Use fixed_drive (cleaned) instead of drive (raw)
+            # Filter out rows with null game_id and fixed_drive
             df = df.filter(
                 pl.col("game_id").is_not_null() &
-                pl.col("drive").is_not_null()
+                pl.col("fixed_drive").is_not_null()
             )
 
-            # Group by game_id
+            # Get game-level metadata
             game_ids = df["game_id"].unique().to_list()
 
             for game_id in game_ids:
@@ -57,6 +58,8 @@ class NFLVerseSource(DataSource):
                 week = int(first_row.get("week", 0))
                 home_team = str(first_row.get("home_team", ""))
                 away_team = str(first_row.get("away_team", ""))
+                home_score = int(first_row.get("home_score", 0) or 0)
+                away_score = int(first_row.get("away_score", 0) or 0)
 
                 # Build possessions from drives
                 possessions = self._build_possessions(game_df)
@@ -68,6 +71,8 @@ class NFLVerseSource(DataSource):
                     home_team=home_team,
                     away_team=away_team,
                     possessions=possessions,
+                    home_score=home_score,
+                    away_score=away_score,
                     sport="nfl",
                 )
                 games.append(game)
@@ -75,28 +80,36 @@ class NFLVerseSource(DataSource):
         return games
 
     def _build_possessions(self, game_df) -> List[Possession]:
-        """Group plays by drive within a game."""
+        """Group plays by fixed_drive within a game."""
         import polars as pl
 
         possessions = []
 
-        # Sort by play_id to ensure chronological order
+        # Sort by play_id BEFORE grouping to ensure chronological order
         game_df = game_df.sort("play_id")
 
-        # Group by drive - filter out null drives
-        game_df = game_df.filter(pl.col("drive").is_not_null())
-        drive_groups = game_df.group_by(["drive"])
+        # Group by fixed_drive (cleaned drive number)
+        game_df = game_df.filter(pl.col("fixed_drive").is_not_null())
 
-        for drive_num, drive_df in drive_groups:
+        # Use group_by with maintain_order=True to preserve sort order
+        for drive_num, drive_df in game_df.group_by("fixed_drive", maintain_order=True):
             drive_val = drive_num[0] if isinstance(drive_num, tuple) else drive_num
             if drive_val is None:
                 continue
             drive_num = int(drive_val)
-            drive_id = f"{drive_df['game_id'][0]}_d{drive_num}"
+            drive_id = f"{game_df['game_id'][0]}_d{drive_num}"
 
-            # Get team with possession from first play
-            first_play = drive_df.row(0, named=True)
-            posteam = str(first_play.get("posteam", "")) if first_play.get("posteam") else ""
+            # Get team with possession from first play with valid posteam
+            posteam = ""
+            first_play_row = None
+            for row in drive_df.iter_rows(named=True):
+                if row.get("posteam"):
+                    posteam = str(row.get("posteam"))
+                    first_play_row = row
+                    break
+
+            if first_play_row is None:
+                continue  # Skip drives with no valid posteam
 
             plays = []
             for row in drive_df.iter_rows(named=True):
@@ -107,7 +120,7 @@ class NFLVerseSource(DataSource):
                     yardline=int(row.get("yardline_100", 0)) if row.get("yardline_100") is not None else None,
                     play_type=str(row.get("play_type", "")) if row.get("play_type") else "",
                     yards_gained=int(row.get("yards_gained", 0)) if row.get("yards_gained") is not None else 0,
-                    points_scored=6 if row.get("td_team") else 0,
+                    points_scored=self._extract_points(row),
                     epa=float(row.get("epa", 0.0)) if row.get("epa") is not None else 0.0,
                     wp=float(row.get("wp", 0.5)) if row.get("wp") is not None else 0.5,
                     passer=str(row.get("passer", "")) if row.get("passer") else None,
@@ -119,56 +132,78 @@ class NFLVerseSource(DataSource):
                 )
                 plays.append(play)
 
-            # Determine drive result from last play
-            result = self._infer_drive_result(plays)
+            # Determine drive result from nflverse's fixed_drive_result
+            result = self._infer_drive_result(first_play_row, plays)
+
+            # Calculate points scored on this drive
+            points_scored = sum(p.points_scored for p in plays)
+
+            # Get end field position from last play
+            end_field_position = plays[-1].yardline if plays else None
 
             possession = Possession(
                 possession_id=drive_id,
                 team=posteam,
                 plays=plays,
                 result=result,
-                quarter=int(first_play.get("qtr", 1)) if first_play.get("qtr") else 1,
-                start_field_position=int(first_play.get("yardline_100", 25)) if first_play.get("yardline_100") else None,
-                game_id=str(first_play.get("game_id", "")),
+                quarter=int(first_play_row.get("qtr", 1)) if first_play_row.get("qtr") else 1,
+                start_field_position=int(first_play_row.get("yardline_100", 25)) if first_play_row.get("yardline_100") else None,
+                end_field_position=end_field_position,
+                points_scored=points_scored,
+                game_id=str(first_play_row.get("game_id", "")),
                 sport="nfl",
             )
             possessions.append(possession)
 
         return possessions
 
-    def _infer_drive_result(self, plays: List[Play]) -> Optional[PossessionResult]:
-        """Infer the drive result from the last play."""
-        if not plays:
+    def _extract_points(self, row: dict) -> int:
+        """Extract points scored on a play."""
+        # Touchdown = 6
+        if row.get("touchdown") and row.get("td_team"):
+            return 6
+        # Field goal = 3
+        if row.get("field_goal_result") == "made":
+            return 3
+        # Safety = 2
+        if row.get("safety"):
+            return 2
+        # Extra point = 1 (not typically part of a drive's main sequence)
+        if row.get("extra_point_result") == "good":
+            return 1
+        # 2-point conversion = 2
+        if row.get("two_point_conv_result") == "success":
+            return 2
+        return 0
+
+    def _infer_drive_result(
+        self, first_play_row: Optional[dict], plays: List[Play]
+    ) -> Optional[PossessionResult]:
+        """Infer the drive result from nflverse's fixed_drive_result column."""
+        if first_play_row is None:
             return None
 
-        last_play = plays[-1]
+        result_str = first_play_row.get("fixed_drive_result", "")
+        if not result_str:
+            return None
 
-        # Check for touchdown
-        if last_play.scoring_play and last_play.points_scored >= 6:
-            return PossessionResult.TOUCHDOWN
+        result_str = str(result_str).lower().strip()
 
-        # Check for field goal
-        if last_play.scoring_play and last_play.points_scored == 3:
-            return PossessionResult.FIELD_GOAL
+        # Map nflverse drive results to PossessionResult enum
+        mapping = {
+            "touchdown": PossessionResult.TOUCHDOWN,
+            "field goal": PossessionResult.FIELD_GOAL,
+            "missed field goal": PossessionResult.TURNOVER,  # Turnover on missed FG
+            "punt": PossessionResult.PUNT,
+            "turnover": PossessionResult.TURNOVER,
+            "turnover on downs": PossessionResult.TURNOVER_ON_DOWNS,
+            "safety": PossessionResult.SAFETY,
+            "end of half": PossessionResult.END_OF_HALF,
+            "end of game": PossessionResult.END_OF_GAME,
+            "opp touchdown": PossessionResult.TURNOVER,  # Defensive/special teams TD
+        }
 
-        # Check for safety
-        if last_play.scoring_play and last_play.points_scored == 2:
-            return PossessionResult.SAFETY
-
-        # Check for turnover
-        if last_play.turnover:
-            return PossessionResult.TURNOVER
-
-        # Check for punt
-        if last_play.play_type == "punt":
-            return PossessionResult.PUNT
-
-        # Check for turnover on downs
-        if last_play.down == 4 and last_play.yards_gained is not None and last_play.distance is not None:
-            if last_play.yards_gained < last_play.distance:
-                return PossessionResult.TURNOVER_ON_DOWNS
-
-        return None
+        return mapping.get(result_str)
 
     def available_seasons(self) -> List[int]:
         """Check cache for already-downloaded seasons."""
