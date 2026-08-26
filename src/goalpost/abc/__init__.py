@@ -3,13 +3,14 @@
 from .data_source import DataSource
 from .possession_extractor import PossessionExtractor
 from .team_representation import TeamRepresentation
-from .transition_model import TransitionModel
+from .transition_model import PlayTransitionModel, DriveTransitionModel
 from .simulator import Simulator
 
 __all__ = [
     "DataSource",
     "PossessionExtractor",
     "TeamRepresentation",
-    "TransitionModel",
+    "PlayTransitionModel",
+    "DriveTransitionModel",
     "Simulator",
 ]
