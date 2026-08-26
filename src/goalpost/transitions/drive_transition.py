@@ -11,68 +11,43 @@ from ..domain.models import GameState, Transition, PossessionResult
 class EmpiricalDriveTransitionModel(DriveTransitionModel):
     """Empirical drive result transition model.
 
-    Predicts drive end result given starting state and team matchup.
+    Predicts drive end result given starting field position and team matchup.
+    This is a simpler model that just conditions on field position.
     """
 
     def __init__(self, latent_dim: int = 8):
         self.latent_dim = latent_dim
-        self._counts: Dict = defaultdict(lambda: defaultdict(int))
-        self._totals: Dict = defaultdict(int)
+        # Counts: (yardline_bucket) -> (result) -> count
+        self._counts: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
+        self._totals: Dict[str, int] = defaultdict(int)
         self._team_factors: Dict[str, Dict[str, float]] = {}
 
-    def _discretize_start_state(self, state: GameState) -> str:
-        """Convert drive start state into discrete bucket.
-
-        Key factors: field position, score differential, time/quarter.
+    def _discretize_yardline(self, state: GameState) -> str:
+        """Convert yardline into discrete bucket.
+        
+        Field position is the primary driver of drive outcomes.
         """
-        yardline = state.yardline or 25
-        score_diff = state.score_diff
-        quarter = state.quarter or 1
-
-        # Field position bucket
+        yardline = state.yardline or 50
+        
         if yardline <= 20:
-            field_pos = "own_red_zone"
+            return "own_1_20"
         elif yardline <= 40:
-            field_pos = "own_territory"
-        elif yardline <= 60:
-            field_pos = "midfield"
-        elif yardline <= 80:
-            field_pos = "opp_territory"
+            return "own_21_40"
+        elif yardline <= 50:
+            return "midfield_41_50"
+        elif yardline <= 70:
+            return "opp_51_70"
+        elif yardline <= 85:
+            return "opp_71_85"
         else:
-            field_pos = "opp_red_zone"
-
-        # Score differential bucket
-        if score_diff <= -14:
-            score_bucket = "down_big"
-        elif score_diff <= -7:
-            score_bucket = "down_td"
-        elif score_diff < 0:
-            score_bucket = "down_small"
-        elif score_diff == 0:
-            score_bucket = "tied"
-        elif score_diff <= 7:
-            score_bucket = "up_small"
-        elif score_diff <= 14:
-            score_bucket = "up_td"
-        else:
-            score_bucket = "up_big"
-
-        # Time/quarter
-        if quarter >= 4:
-            time_bucket = "late"
-        elif quarter >= 3:
-            time_bucket = "mid_late"
-        else:
-            time_bucket = "early"
-
-        return f"{field_pos}_{score_bucket}_{time_bucket}"
+            return "red_zone_86_99"
 
     def fit(
         self,
         representations: Dict[str, np.ndarray],
         transitions: List[Transition],
     ) -> "EmpiricalDriveTransitionModel":
-        """Build empirical drive result frequencies."""
+        """Build empirical drive result frequencies by field position."""
         for transition in transitions:
             # Only use drive-level transitions
             if transition.action not in ["td", "fg", "punt", "turnover",
@@ -80,13 +55,13 @@ class EmpiricalDriveTransitionModel(DriveTransitionModel):
                                           "end_of_half", "end_of_game", "unknown"]:
                 continue
 
-            state_key = self._discretize_start_state(transition.state)
+            state_key = self._discretize_yardline(transition.state)
             result = transition.action
 
             self._counts[state_key][result] += 1
             self._totals[state_key] += 1
 
-        # Extract team factors from representations
+        # Extract team factors
         for team_id, z in representations.items():
             self._team_factors[team_id] = {
                 "td_rate": z[0] if len(z) > 0 else 0.15,
@@ -108,15 +83,14 @@ class EmpiricalDriveTransitionModel(DriveTransitionModel):
         Returns: {result: probability}
         Results: td, fg, punt, turnover, turnover_on_downs, safety
         """
-        state_key = self._discretize_start_state(state)
+        state_key = self._discretize_yardline(state)
 
-        # Get empirical frequencies
+        # Get empirical frequencies for this field position
         counts = self._counts.get(state_key, {})
         total = self._totals.get(state_key, 0)
 
         if total == 0:
-            # No historical data for this state — use defaults
-            return self._default_distribution(state, z_home, z_away)
+            return self._default_distribution(state)
 
         # Build base distribution
         base_probs = {}
@@ -136,27 +110,71 @@ class EmpiricalDriveTransitionModel(DriveTransitionModel):
 
         return adjusted
 
-    def _default_distribution(
-        self, state: GameState, z_home: np.ndarray, z_away: np.ndarray
-    ) -> Dict[str, float]:
-        """Default distribution when no historical data."""
+    def _default_distribution(self, state: GameState) -> Dict[str, float]:
+        """Default distribution based on field position."""
         yardline = state.yardline or 50
-
+        
         # Field position strongly affects outcomes
-        if yardline >= 80:
-            # Opp red zone: high TD chance
-            base = {"td": 0.45, "fg": 0.25, "turnover": 0.15, "punt": 0.05, "turnover_on_downs": 0.05, "safety": 0.05}
-        elif yardline >= 60:
-            # Opp territory
-            base = {"td": 0.30, "fg": 0.20, "turnover": 0.15, "punt": 0.25, "turnover_on_downs": 0.05, "safety": 0.05}
-        elif yardline >= 40:
+        if yardline >= 86:
+            # Red zone (14 yards or less)
+            return {
+                "td": 0.45,
+                "fg": 0.25,
+                "turnover": 0.15,
+                "punt": 0.05,
+                "turnover_on_downs": 0.08,
+                "safety": 0.02,
+            }
+        elif yardline >= 71:
+            # Opponent territory close to red zone
+            return {
+                "td": 0.35,
+                "fg": 0.20,
+                "turnover": 0.15,
+                "punt": 0.15,
+                "turnover_on_downs": 0.12,
+                "safety": 0.03,
+            }
+        elif yardline >= 51:
+            # Opponent territory
+            return {
+                "td": 0.25,
+                "fg": 0.15,
+                "turnover": 0.15,
+                "punt": 0.30,
+                "turnover_on_downs": 0.12,
+                "safety": 0.03,
+            }
+        elif yardline >= 41:
             # Midfield
-            base = {"td": 0.20, "fg": 0.15, "turnover": 0.15, "punt": 0.40, "turnover_on_downs": 0.05, "safety": 0.05}
-        else:
+            return {
+                "td": 0.18,
+                "fg": 0.12,
+                "turnover": 0.15,
+                "punt": 0.40,
+                "turnover_on_downs": 0.12,
+                "safety": 0.03,
+            }
+        elif yardline >= 21:
             # Own territory
-            base = {"td": 0.10, "fg": 0.10, "turnover": 0.15, "punt": 0.55, "turnover_on_downs": 0.05, "safety": 0.05}
-
-        return self._apply_team_factors(base, z_home, z_away, state.possession)
+            return {
+                "td": 0.12,
+                "fg": 0.08,
+                "turnover": 0.15,
+                "punt": 0.50,
+                "turnover_on_downs": 0.12,
+                "safety": 0.03,
+            }
+        else:
+            # Deep in own territory
+            return {
+                "td": 0.08,
+                "fg": 0.05,
+                "turnover": 0.15,
+                "punt": 0.55,
+                "turnover_on_downs": 0.12,
+                "safety": 0.05,
+            }
 
     def _apply_team_factors(
         self,
@@ -169,7 +187,6 @@ class EmpiricalDriveTransitionModel(DriveTransitionModel):
         adjusted = dict(base_probs)
 
         # Extract team-specific rates from vectors
-        # z format: [td_rate, fg_rate, punt_rate, turnover_rate, turnover_on_downs, safety, pts/drive, yards/drive]
         home_td = z_home[0] if len(z_home) > 0 else 0.15
         home_fg = z_home[1] if len(z_home) > 1 else 0.10
         home_to = z_home[3] if len(z_home) > 3 else 0.15
@@ -181,14 +198,13 @@ class EmpiricalDriveTransitionModel(DriveTransitionModel):
         # Determine offense and defense
         if possession_team == "home":
             offense_td, offense_fg = home_td, home_fg
-            defense_to = away_to  # Opponent's turnover rate = defense's takeaway tendency
+            defense_to = away_to
         else:
             offense_td, offense_fg = away_td, away_fg
             defense_to = home_to
 
         # Adjust probabilities
-        # Better offense = higher TD, lower punt
-        td_boost = offense_td / 0.20  # Normalize around 20% baseline
+        td_boost = offense_td / 0.20
         fg_boost = offense_fg / 0.12
         to_boost = defense_to / 0.15
 
