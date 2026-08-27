@@ -1,3 +1,9 @@
+"""NFL transition model — single simulatable transition set.
+
+One matrix: play-level Markov chain that captures everything needed
+to simulate a game. No separate drive-result matrix.
+"""
+
 from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import numpy as np
@@ -7,75 +13,69 @@ from ..domain.models import Game
 
 
 class NFLTransitionModel(TransitionModel):
-    """NFL transition matrix extracted from a SINGLE game for a SINGLE team."""
+    """NFL transition matrix extracted from a SINGLE game for a SINGLE team.
 
-    # Fixed state space — these define the flatten/unflatten contract
-    PLAY_STATES = [
-        "1st_10", "1st_short",
-        "2nd_short", "2nd_medium", "2nd_long",
-        "3rd_short", "3rd_medium", "3rd_long",
-        "4th_short", "4th_medium", "4th_long",
-    ]
+    A single simulatable transition set: play-level transitions where
+    terminal outcomes are just another state transition.
 
-    DRIVE_STATES = [
-        "red_zone", "opp_40", "midfield", "own_40", "own_20",
-    ]
+    States are (down, distance, yardline_bucket). Terminal outcomes
+    are absorbing states with points attached.
+    """
 
-    TERMINAL_OUTCOMES = [
-        "td", "fg", "punt", "turnover", "turnover_on_downs", "safety",
-    ]
+    # Full state space — every state the model can be in
+    DOWNS = [1, 2, 3, 4]
+    DISTANCE_BUCKETS = ["short", "medium", "long"]  # short ≤ 3, medium ≤ 7, long > 7
+    YARDLINE_BUCKETS = ["own_20", "own_40", "midfield", "opp_40", "red_zone", "goal_line"]
+
+    TERMINAL_OUTCOMES = ["td", "fg", "punt", "turnover", "turnover_on_downs", "safety"]
+
+    @classmethod
+    def state_space(cls) -> List[str]:
+        """Return ordered list of all state keys for flatten/unflatten."""
+        states = []
+        for yardline in cls.YARDLINE_BUCKETS:
+            for down in cls.DOWNS:
+                for distance in cls.DISTANCE_BUCKETS:
+                    states.append(f"{down}d_{distance}_{yardline}")
+        states.extend(cls.TERMINAL_OUTCOMES)
+        return states
+
+    @classmethod
+    def input_dim(cls) -> int:
+        """Size of flattened probability vector."""
+        n_play_states = len(cls.DOWNS) * len(cls.DISTANCE_BUCKETS) * len(cls.YARDLINE_BUCKETS)
+        n_terminal = len(cls.TERMINAL_OUTCOMES)
+        total_states = n_play_states + n_terminal
+        # Each state transitions to terminal outcomes
+        return total_states * n_terminal
 
     def __init__(self, team_id: str, game_id: str, opponent_id: str):
         super().__init__(team_id, game_id, opponent_id)
 
-        # Play transitions: (down_distance_key) -> (next_state) -> count
-        self.play_counts: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
-        self.play_totals: Dict[str, int] = defaultdict(int)
-
-        # Drive results by field position
-        self.drive_counts: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
-        self.drive_totals: Dict[str, int] = defaultdict(int)
+        # Single transition matrix: from_state -> to_state -> count
+        self.counts: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
+        self.totals: Dict[str, int] = defaultdict(int)
 
         # Scoring
         self.total_drives = 0
         self.total_points = 0
-        self.drive_results: List[str] = []
 
     # NFL-specific state discretization
 
-    def _discretize_down_distance(self, down: Optional[int], distance: Optional[int]) -> str:
-        """NFL down/distance buckets."""
-        if down is None:
-            return "special_teams"
+    @staticmethod
+    def _discretize_distance(distance: Optional[int]) -> str:
+        """Short/medium/long buckets."""
+        if distance is None:
+            return "long"
+        if distance <= 3:
+            return "short"
+        if distance <= 7:
+            return "medium"
+        return "long"
 
-        distance = distance or 10
-
-        if down == 1:
-            return "1st_10" if distance >= 6 else "1st_short"
-        elif down == 2:
-            if distance >= 8:
-                return "2nd_long"
-            elif distance >= 4:
-                return "2nd_medium"
-            else:
-                return "2nd_short"
-        elif down == 3:
-            if distance >= 7:
-                return "3rd_long"
-            elif distance >= 4:
-                return "3rd_medium"
-            else:
-                return "3rd_short"
-        else:  # 4th
-            if distance >= 5:
-                return "4th_long"
-            elif distance >= 2:
-                return "4th_medium"
-            else:
-                return "4th_short"
-
-    def _discretize_yardline(self, yardline: Optional[int]) -> str:
-        """NFL field position buckets.
+    @staticmethod
+    def _discretize_yardline(yardline: Optional[int]) -> str:
+        """Field position buckets.
 
         nflverse: yardline = distance from opponent's goal line
         - 0 = opponent goal line
@@ -84,21 +84,30 @@ class NFLTransitionModel(TransitionModel):
         if yardline is None:
             return "midfield"
 
+        if yardline <= 5:
+            return "goal_line"
         if yardline <= 20:
             return "red_zone"
-        elif yardline <= 40:
+        if yardline <= 40:
             return "opp_40"
-        elif yardline <= 60:
+        if yardline <= 60:
             return "midfield"
-        elif yardline <= 80:
+        if yardline <= 80:
             return "own_40"
-        else:
-            return "own_20"
+        return "own_20"
+
+    def _build_state_key(self, down: int, distance: int, yardline: int) -> str:
+        """Build a state key from raw down/distance/yardline."""
+        return (
+            f"{down}d_"
+            f"{self._discretize_distance(distance)}_"
+            f"{self._discretize_yardline(yardline)}"
+        )
 
     # TransitionModel implementation
 
     def extract_from_game(self, game: Game) -> None:
-        """Extract NFL transition matrix from this team's possessions."""
+        """Extract single transition matrix from this team's possessions."""
         team_possessions = [p for p in game.possessions if p.team == self.team_id]
 
         for possession in team_possessions:
@@ -107,38 +116,61 @@ class NFLTransitionModel(TransitionModel):
 
             self.total_drives += 1
             self.total_points += possession.points_scored
-            result = possession.result.value if possession.result else "unknown"
-            self.drive_results.append(result)
 
-            # Drive result by field position
-            start_yardline = possession.plays[0].yardline if possession.plays else 50
-            yardline_bucket = self._discretize_yardline(start_yardline)
-            self.drive_counts[yardline_bucket][result] += 1
-            self.drive_totals[yardline_bucket] += 1
+            # Track each play transition within the possession
+            plays = possession.plays
+            for i in range(len(plays) - 1):
+                current = plays[i]
+                next_play = plays[i + 1]
 
-            # Play transitions
-            for i in range(len(possession.plays) - 1):
-                current = possession.plays[i]
-                next_play = possession.plays[i + 1]
+                from_state = self._build_state_key(
+                    current.down or 1,
+                    current.distance or 10,
+                    current.yardline or 50,
+                )
 
-                if current.down is None:
-                    continue
-
-                dd_key = self._discretize_down_distance(current.down, current.distance)
-
+                # Determine next state
                 if next_play.down is None:
-                    next_key = result
+                    # Terminal: use the drive result
+                    result = possession.result.value if possession.result else "unknown"
+                    to_state = self._result_to_terminal(result)
                 else:
-                    next_dd = self._discretize_down_distance(next_play.down, next_play.distance)
-                    next_key = next_dd
+                    to_state = self._build_state_key(
+                        next_play.down,
+                        next_play.distance or 10,
+                        next_play.yardline or 50,
+                    )
 
-                self.play_counts[dd_key][next_key] += 1
-                self.play_totals[dd_key] += 1
+                self.counts[from_state][to_state] += 1
+                self.totals[from_state] += 1
+
+            # Also capture the initial state of the drive
+            # (so we know where drives started)
+            first_play = plays[0]
+            start_state = self._build_state_key(
+                first_play.down or 1,
+                first_play.distance or 10,
+                first_play.yardline or 50,
+            )
+            self.counts["__start__"][start_state] += 1
+            self.totals["__start__"] += 1
+
+    def _result_to_terminal(self, result: str) -> str:
+        """Map possession result to terminal state key."""
+        mapping = {
+            "TOUCHDOWN": "td",
+            "FIELD_GOAL": "fg",
+            "PUNT": "punt",
+            "TURNOVER": "turnover",
+            "TURNOVER_ON_DOWNS": "turnover_on_downs",
+            "SAFETY": "safety",
+        }
+        return mapping.get(result, "turnover")
 
     def get_state_transition_probabilities(self, state_key: str) -> Dict[str, float]:
-        """Get P(next_state | down_distance_key)."""
-        counts = self.play_counts.get(state_key, {})
-        total = self.play_totals.get(state_key, 0)
+        """Get P(next_state | state_key)."""
+        counts = self.counts.get(state_key, {})
+        total = self.totals.get(state_key, 0)
 
         if total == 0:
             return {}
@@ -146,7 +178,10 @@ class NFLTransitionModel(TransitionModel):
         return {outcome: count / total for outcome, count in counts.items()}
 
     def simulate_drive(self, start_yardline: int = 25, max_plays: int = 20) -> Tuple[List[str], int, Optional[str]]:
-        """Simulate an NFL drive using this team's transition matrix."""
+        """Simulate an NFL drive using this team's transition matrix.
+
+        Returns: (state_sequence, points_scored, terminal_outcome)
+        """
         sequence = []
         points = 0
 
@@ -154,37 +189,38 @@ class NFLTransitionModel(TransitionModel):
         distance = 10
         yardline = start_yardline
 
-        for _ in range(max_plays):
-            dd_key = self._discretize_down_distance(down, distance)
-            sequence.append(dd_key)
+        # Start state
+        current = f"{down}d_{self._discretize_distance(distance)}_{self._discretize_yardline(yardline)}"
 
-            probs = self.get_state_transition_probabilities(dd_key)
+        for _ in range(max_plays):
+            sequence.append(current)
+
+            probs = self.get_state_transition_probabilities(current)
 
             if not probs:
-                # Fallback to drive result model
-                yardline_bucket = self._discretize_yardline(yardline)
-                drive_probs = self._get_drive_result_probabilities(yardline_bucket)
-                if drive_probs:
-                    result = self._sample(drive_probs)
-                    points = self._points_from_result(result)
-                    return sequence, points, result
+                # No data for this state — fallback to nearest observed state
+                probs = self._fallback_probabilities(current)
+                if not probs:
+                    return sequence, 0, "punt"
+
+            next_state = self._sample(probs)
+
+            # Check if terminal
+            if next_state in self.TERMINAL_OUTCOMES:
+                points = self._points_from_result(next_state)
+                return sequence, points, next_state
+
+            # Update state from next_state key
+            current = next_state
+
+            # Parse down/distance/yardline from state key
+            parsed = self._parse_state_key(current)
+            if parsed is None:
                 return sequence, 0, "punt"
 
-            next_key = self._sample(probs)
+            down, distance, yardline = parsed
 
-            # Check terminal
-            if next_key in ["td", "fg", "punt", "turnover", "turnover_on_downs", "safety"]:
-                points = self._points_from_result(next_key)
-                return sequence, points, next_key
-
-            # Update state
-            down, distance = self._parse_down_distance_key(next_key)
-            if down is None:
-                return sequence, 0, "punt"
-
-            yards = self._estimate_yards(next_key)
-            yardline = min(99, yardline + yards)
-
+            # Check for touchdown via yardline
             if yardline >= 100:
                 return sequence, 7, "td"
 
@@ -226,28 +262,71 @@ class NFLTransitionModel(TransitionModel):
 
     def get_matrix_summary(self) -> Dict:
         """Return summary of this NFL transition matrix."""
+        n_play_states = len(self.DOWNS) * len(self.DISTANCE_BUCKETS) * len(self.YARDLINE_BUCKETS)
         return {
             "team_id": self.team_id,
             "game_id": self.game_id,
             "opponent_id": self.opponent_id,
             "total_drives": self.total_drives,
             "total_points": self.total_points,
-            "play_states_observed": len(self.play_counts),
-            "drive_states_observed": len(self.drive_counts),
-            "drive_result_distribution": {k: dict(v) for k, v in self.drive_counts.items()},
+            "states_observed": len(self.counts),
+            "total_possible_states": n_play_states + len(self.TERMINAL_OUTCOMES),
+            "terminal_distribution": {
+                k: dict(v) for k, v in self.counts.items()
+                if k in self.TERMINAL_OUTCOMES or any(
+                    outcome in self.TERMINAL_OUTCOMES for outcome in v.keys()
+                )
+            },
         }
+
+    # Flatten / unflatten for encoder/decoder
+
+    def flatten_probabilities(self) -> List[float]:
+        """Flatten transition probabilities into a fixed-size vector.
+
+        Order: for each state in state_space(), probability of each terminal outcome.
+        Unobserved transitions are 0.0.
+        """
+        flat = []
+        states = self.state_space()
+        for state in states:
+            probs = self.get_state_transition_probabilities(state)
+            for outcome in self.TERMINAL_OUTCOMES:
+                flat.append(probs.get(outcome, 0.0))
+        return flat
+
+    @classmethod
+    def from_flat_probabilities(
+        cls, probs: List[float], team_id: str, game_id: str, opponent_id: str
+    ) -> "NFLTransitionModel":
+        """Reconstruct an NFLTransitionModel from a flattened probability vector.
+
+        Used at inference time when the decoder outputs predicted probabilities.
+        """
+        model = cls(team_id, game_id, opponent_id)
+        states = cls.state_space()
+        idx = 0
+        for state in states:
+            for outcome in cls.TERMINAL_OUTCOMES:
+                if idx < len(probs) and probs[idx] > 0:
+                    model.counts[state][outcome] = int(probs[idx] * 1000)
+                    model.totals[state] += int(probs[idx] * 1000)
+                idx += 1
+        return model
 
     # Helper methods
 
-    def _get_drive_result_probabilities(self, yardline_bucket: str) -> Dict[str, float]:
-        """Get P(drive_result | field_position)."""
-        counts = self.drive_counts.get(yardline_bucket, {})
-        total = self.drive_totals.get(yardline_bucket, 0)
-
-        if total == 0:
-            return {}
-
-        return {result: count / total for result, count in counts.items()}
+    def _fallback_probabilities(self, state_key: str) -> Dict[str, float]:
+        """Find nearest observed state when exact state has no data."""
+        # Try ignoring yardline bucket
+        parts = state_key.split("_")
+        if len(parts) >= 3:
+            down_dist = f"{parts[0]}_{parts[1]}"
+            # Search for any state with same down/distance
+            for observed_state in self.counts:
+                if observed_state.startswith(down_dist):
+                    return self.get_state_transition_probabilities(observed_state)
+        return {}
 
     def _sample(self, probs: Dict[str, float]) -> str:
         """Sample from probability distribution."""
@@ -271,60 +350,38 @@ class NFLTransitionModel(TransitionModel):
             return 2
         return 0
 
-    def _parse_down_distance_key(self, key: str) -> Tuple[Optional[int], Optional[int]]:
-        """Parse NFL down-distance key."""
-        mapping = {
-            "1st_10": (1, 10), "1st_short": (1, 5),
-            "2nd_short": (2, 2), "2nd_medium": (2, 5), "2nd_long": (2, 10),
-            "3rd_short": (3, 2), "3rd_medium": (3, 5), "3rd_long": (3, 10),
-            "4th_short": (4, 1), "4th_medium": (4, 3), "4th_long": (4, 8),
-        }
-        return mapping.get(key, (None, None))
+    def _parse_state_key(self, key: str) -> Optional[Tuple[int, int, int]]:
+        """Parse a state key into (down, distance, yardline).
 
-    def _estimate_yards(self, next_key: str) -> int:
-        """Estimate yards for NFL outcomes."""
-        mapping = {
-            "1st_10": 12, "1st_short": 8,
-            "2nd_short": 5, "2nd_medium": 3, "2nd_long": 0,
-            "3rd_short": 3, "3rd_medium": 1, "3rd_long": 0,
-            "4th_short": 2, "4th_medium": 1, "4th_long": 0,
-        }
-        return mapping.get(next_key, 0)
-
-    def flatten_probabilities(self) -> List[float]:
-        """Flatten transition probabilities into a fixed-size vector.
-
-        Order: for each play state, probabilities over all terminal outcomes.
-        Unobserved states get 0.0.
+        State keys look like: "1d_short_own_20", "3d_long_red_zone"
         """
-        flat = []
-        for play_state in self.PLAY_STATES:
-            probs = self.get_state_transition_probabilities(play_state)
-            for outcome in self.TERMINAL_OUTCOMES:
-                flat.append(probs.get(outcome, 0.0))
-        # Pad to fixed size if needed (defensive)
-        expected_len = len(self.PLAY_STATES) * len(self.TERMINAL_OUTCOMES)
-        while len(flat) < expected_len:
-            flat.append(0.0)
-        return flat
+        if key in self.TERMINAL_OUTCOMES:
+            return None
 
-    @classmethod
-    def from_flat_probabilities(
-        cls, probs: List[float], team_id: str, game_id: str, opponent_id: str
-    ) -> "NFLTransitionModel":
-        """Reconstruct an NFLTransitionModel from a flattened probability vector.
+        try:
+            # Split: "1d_short_own_20" -> parts
+            parts = key.split("_")
+            down = int(parts[0][0])
 
-        Used at inference time when the decoder outputs predicted probabilities.
-        """
-        model = cls(team_id, game_id, opponent_id)
-        idx = 0
-        for play_state in cls.PLAY_STATES:
-            for outcome in cls.TERMINAL_OUTCOMES:
-                if idx < len(probs) and probs[idx] > 0:
-                    model.play_counts[play_state][outcome] = int(probs[idx] * 1000)
-                    model.play_totals[play_state] += int(probs[idx] * 1000)
-                idx += 1
-        return model
+            # Distance bucket -> nominal distance
+            dist_map = {"short": 2, "medium": 5, "long": 10}
+            distance = dist_map.get(parts[1], 10)
+
+            # Yardline bucket -> nominal yardline
+            yardline_map = {
+                "own_20": 80, "own_40": 60, "midfield": 50,
+                "opp_40": 40, "red_zone": 15, "goal_line": 5,
+            }
+            # The yardline is parts[2] + "_" + parts[3] if it has two parts
+            if len(parts) >= 4:
+                yardline_key = f"{parts[2]}_{parts[3]}"
+            else:
+                yardline_key = parts[2]
+            yardline = yardline_map.get(yardline_key, 50)
+
+            return down, distance, yardline
+        except (ValueError, IndexError):
+            return None
 
 
 def extract_nfl_team_matrices(game: Game) -> Dict[str, NFLTransitionModel]:
