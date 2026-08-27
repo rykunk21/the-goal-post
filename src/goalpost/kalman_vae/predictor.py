@@ -3,8 +3,10 @@
 import torch
 import torch.nn as nn
 
+from ..abc.kalman_vae import MatchupPredictor
 
-class MatchupPredictor(nn.Module):
+
+class MatchupPredictorImpl(MatchupPredictor):
     """Mix two team latents and decode into a matchup transition set.
 
     At inference time:

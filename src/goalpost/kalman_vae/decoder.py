@@ -3,8 +3,10 @@
 import torch
 import torch.nn as nn
 
+from ..abc.kalman_vae import Decoder
 
-class TransitionDecoder(nn.Module):
+
+class TransitionDecoder(Decoder):
     """Decodes a team latent vector into transition probabilities.
 
     Input: z (team latent from Kalman filter)

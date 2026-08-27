@@ -7,9 +7,9 @@ Three classes. One training loop. That's the whole model.
 | File | Class | Purpose |
 |------|-------|---------|
 | `encoder.py` | `TransitionEncoder` | Game transitions → y_hat (observation) |
-| `kalman.py` | `KalmanFilter` | z_prev + y_hat → z_new (updated team latent) |
+| `kalman.py` | `KalmanFilterImpl` | z_prev + y_hat → z_new (updated team latent) |
 | `decoder.py` | `TransitionDecoder` | z_new → reconstructed transitions |
-| `predictor.py` | `MatchupPredictor` | z_home + z_away → predicted matchup transitions |
+| `predictor.py` | `MatchupPredictorImpl` | z_home + z_away → predicted matchup transitions |
 | `trainer.py` | `KalmanVAETrainer` | Training loop + team latent history |
 
 ## Quick Start

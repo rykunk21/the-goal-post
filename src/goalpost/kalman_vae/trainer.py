@@ -4,14 +4,14 @@ from typing import Dict, List, Optional
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from collections import defaultdict
 
+from ..abc.kalman_vae import Trainer
 from .encoder import TransitionEncoder
-from .kalman import KalmanFilter
+from .kalman import KalmanFilterImpl
 from .decoder import TransitionDecoder
 
 
-class KalmanVAETrainer:
+class KalmanVAETrainer(Trainer):
     """Train encoder + kalman + decoder on team game histories.
 
     For each team:

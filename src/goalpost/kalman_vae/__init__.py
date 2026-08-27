@@ -1,15 +1,15 @@
 """Kalman VAE for sports transition set generation."""
 
 from .encoder import TransitionEncoder
-from .kalman import KalmanFilter
+from .kalman import KalmanFilterImpl
 from .decoder import TransitionDecoder
-from .predictor import MatchupPredictor
+from .predictor import MatchupPredictorImpl
 from .trainer import KalmanVAETrainer
 
 __all__ = [
     "TransitionEncoder",
-    "KalmanFilter",
+    "KalmanFilterImpl",
     "TransitionDecoder",
-    "MatchupPredictor",
+    "MatchupPredictorImpl",
     "KalmanVAETrainer",
 ]

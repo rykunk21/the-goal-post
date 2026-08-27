@@ -3,8 +3,10 @@
 import torch
 import torch.nn as nn
 
+from ..abc.kalman_vae import KalmanFilter
 
-class KalmanFilter(nn.Module):
+
+class KalmanFilterImpl(KalmanFilter):
     """Updates team latent z_t using encoded observation y_hat.
 
     Standard Kalman filter with learnable parameters:

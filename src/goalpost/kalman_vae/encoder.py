@@ -3,8 +3,10 @@
 import torch
 import torch.nn as nn
 
+from ..abc.kalman_vae import Encoder
 
-class TransitionEncoder(nn.Module):
+
+class TransitionEncoder(Encoder):
     """Encodes a game's transition probabilities into an observation vector.
 
     Input: flat vector of P(next_state | state) for all observed states

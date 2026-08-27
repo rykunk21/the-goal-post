@@ -1,10 +1,3 @@
-"""NFL-specific transition model implementation.
-
-Implements TransitionModel with NFL state spaces:
-- Down/distance for play-level transitions
-- Field position buckets for drive results
-"""
-
 from typing import Dict, List, Tuple, Optional
 from collections import defaultdict
 import numpy as np
@@ -14,13 +7,23 @@ from ..domain.models import Game
 
 
 class NFLTransitionModel(TransitionModel):
-    """NFL transition matrix extracted from a SINGLE game for a SINGLE team.
+    """NFL transition matrix extracted from a SINGLE game for a SINGLE team."""
 
-    State space:
-    - Play states: down_distance keys (1st_10, 2nd_long, 3rd_short, etc.)
-    - Drive states: field_position buckets (red_zone, opp_40, midfield, own_40, own_20)
-    - Terminal outcomes: td, fg, punt, turnover, turnover_on_downs, safety
-    """
+    # Fixed state space — these define the flatten/unflatten contract
+    PLAY_STATES = [
+        "1st_10", "1st_short",
+        "2nd_short", "2nd_medium", "2nd_long",
+        "3rd_short", "3rd_medium", "3rd_long",
+        "4th_short", "4th_medium", "4th_long",
+    ]
+
+    DRIVE_STATES = [
+        "red_zone", "opp_40", "midfield", "own_40", "own_20",
+    ]
+
+    TERMINAL_OUTCOMES = [
+        "td", "fg", "punt", "turnover", "turnover_on_downs", "safety",
+    ]
 
     def __init__(self, team_id: str, game_id: str, opponent_id: str):
         super().__init__(team_id, game_id, opponent_id)
@@ -287,6 +290,41 @@ class NFLTransitionModel(TransitionModel):
             "4th_short": 2, "4th_medium": 1, "4th_long": 0,
         }
         return mapping.get(next_key, 0)
+
+    def flatten_probabilities(self) -> List[float]:
+        """Flatten transition probabilities into a fixed-size vector.
+
+        Order: for each play state, probabilities over all terminal outcomes.
+        Unobserved states get 0.0.
+        """
+        flat = []
+        for play_state in self.PLAY_STATES:
+            probs = self.get_state_transition_probabilities(play_state)
+            for outcome in self.TERMINAL_OUTCOMES:
+                flat.append(probs.get(outcome, 0.0))
+        # Pad to fixed size if needed (defensive)
+        expected_len = len(self.PLAY_STATES) * len(self.TERMINAL_OUTCOMES)
+        while len(flat) < expected_len:
+            flat.append(0.0)
+        return flat
+
+    @classmethod
+    def from_flat_probabilities(
+        cls, probs: List[float], team_id: str, game_id: str, opponent_id: str
+    ) -> "NFLTransitionModel":
+        """Reconstruct an NFLTransitionModel from a flattened probability vector.
+
+        Used at inference time when the decoder outputs predicted probabilities.
+        """
+        model = cls(team_id, game_id, opponent_id)
+        idx = 0
+        for play_state in cls.PLAY_STATES:
+            for outcome in cls.TERMINAL_OUTCOMES:
+                if idx < len(probs) and probs[idx] > 0:
+                    model.play_counts[play_state][outcome] = int(probs[idx] * 1000)
+                    model.play_totals[play_state] += int(probs[idx] * 1000)
+                idx += 1
+        return model
 
 
 def extract_nfl_team_matrices(game: Game) -> Dict[str, NFLTransitionModel]:
