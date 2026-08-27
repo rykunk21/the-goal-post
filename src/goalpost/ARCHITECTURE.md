@@ -51,7 +51,7 @@ Inference (upcoming game):
 ┌─────────────────────────────────────────┐
 │  Decoder                                │
 │  Input: z_matchup                      │
-│  Output: predicted transition set         │
+│  Output: predicted transition set       │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
