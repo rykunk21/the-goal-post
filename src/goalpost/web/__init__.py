@@ -1,1 +1,0 @@
-"""GoalPost web interface."""
