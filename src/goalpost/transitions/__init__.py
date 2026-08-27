@@ -1,6 +1,5 @@
 """Transition model implementations."""
 
-from .play_transition import EmpiricalPlayTransitionModel
-from .drive_transition import EmpiricalDriveTransitionModel
+from .nfl_transition_model import NFLTransitionModel, extract_nfl_team_matrices
 
-__all__ = ["EmpiricalPlayTransitionModel", "EmpiricalDriveTransitionModel"]
+__all__ = ["NFLTransitionModel", "extract_nfl_team_matrices"]
