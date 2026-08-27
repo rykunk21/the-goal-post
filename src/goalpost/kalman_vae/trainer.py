@@ -27,7 +27,7 @@ class KalmanVAETrainer(Trainer):
     def __init__(
         self,
         encoder: TransitionEncoder,
-        kalman: KalmanFilter,
+        kalman: KalmanFilterImpl,
         decoder: TransitionDecoder,
         lr: float = 1e-3,
         device: str = "cpu",
