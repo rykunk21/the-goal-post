@@ -14,16 +14,16 @@ class DataSource(ABC):
     """
 
     @abstractmethod
-    def fetch(self, **kwargs) -> List[dict]:
-        """Fetch raw records from the provider."""
+    def fetch(self, **kwargs) -> None:
+        """Fetch raw records from the provider. Store internally."""
         pass
 
     @abstractmethod
-    def parse(self, raw_records: List[dict]) -> List[Game]:
-        """Convert raw records into domain Game objects."""
+    def parse(self) -> List[Game]:
+        """Convert fetched raw records into domain Game objects."""
         pass
 
     def load(self, **kwargs) -> List[Game]:
         """Convenience: fetch + parse."""
-        raw = self.fetch(**kwargs)
-        return self.parse(raw)
+        self.fetch(**kwargs)
+        return self.parse()

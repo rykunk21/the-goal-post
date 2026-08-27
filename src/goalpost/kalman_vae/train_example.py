@@ -31,7 +31,8 @@ def build_team_games(seasons=[2023, 2024]) -> dict:
     """
     print("Fetching games from nflverse...")
     source = NFLVerseSource()
-    games = source.load(seasons=seasons)
+    source.fetch(seasons=seasons)  # Fetch data into internal cache
+    games = source.parse()          # Parse cached data into Game objects
     print(f"Loaded {len(games)} games")
 
     # Group transition vectors by team, preserving game order
