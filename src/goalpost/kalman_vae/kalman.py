@@ -59,11 +59,11 @@ class KalmanFilterImpl(KalmanFilter):
         y_pred = self.H(z_pred)
 
         # Innovation (observation residual)
-        innovation = y_hat - y_pred
+        innovation = y_hat - y_pred  # [batch, y_dim]
 
         # Variances
-        Q = torch.exp(self.log_Q)
-        R = torch.exp(self.log_R)
+        Q = torch.exp(self.log_Q)    # [z_dim]
+        R = torch.exp(self.log_R)    # [y_dim]
 
         # Simplified Kalman gain (diagonal covariance assumption)
         # In full form: K = P_pred @ H.T @ (H @ P_pred @ H.T + R)^{-1}
@@ -77,7 +77,9 @@ class KalmanFilterImpl(KalmanFilter):
 
         # Update: z_new = z_pred + K * innovation (broadcasted through H)
         # We map innovation back to z-space via H^T-like operation
-        z_update = self.H.weight.T @ (K.squeeze(0) * innovation)
+        # innovation: [batch, y_dim], K: [1, y_dim]
+        weighted_innovation = K * innovation  # [batch, y_dim]
+        z_update = weighted_innovation @ self.H.weight  # [batch, z_dim]
         z_new = z_pred + z_update
 
         return z_new
