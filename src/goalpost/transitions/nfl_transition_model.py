@@ -111,14 +111,21 @@ class NFLTransitionModel(TransitionModel):
         team_possessions = [p for p in game.possessions if p.team == self.team_id]
 
         for possession in team_possessions:
-            if not possession.plays:
+            # FILTER: Only include actual offensive plays.
+            # Kickoffs, punts, and special teams have down=None.
+            offensive_plays = [
+                p for p in possession.plays
+                if p.down is not None
+            ]
+
+            if not offensive_plays:
                 continue
 
             self.total_drives += 1
             self.total_points += possession.points_scored
 
             # Track each play transition within the possession
-            plays = possession.plays
+            plays = offensive_plays
             for i in range(len(plays) - 1):
                 current = plays[i]
                 next_play = plays[i + 1]
@@ -220,8 +227,9 @@ class NFLTransitionModel(TransitionModel):
 
             down, distance, yardline = parsed
 
-            # Check for touchdown via yardline
-            if yardline >= 100:
+            # Check for touchdown via yardline (yardline uses nflverse convention:
+            # 0 = opponent goal line, so touchdown happens when we reach the endzone)
+            if yardline <= 0:
                 return sequence, 7, "td"
 
         return sequence, 0, "punt"
@@ -368,9 +376,11 @@ class NFLTransitionModel(TransitionModel):
             distance = dist_map.get(parts[1], 10)
 
             # Yardline bucket -> nominal yardline
+            # nflverse convention: yardline = distance from opponent's goal line
+            # So 0 = opponent goal line (score), 100 = own goal line (safety if you go further back)
             yardline_map = {
-                "own_20": 80, "own_40": 60, "midfield": 50,
-                "opp_40": 40, "red_zone": 15, "goal_line": 5,
+                "own_20": 90, "own_40": 70, "midfield": 50,
+                "opp_40": 30, "red_zone": 10, "goal_line": 2,
             }
             # The yardline is parts[2] + "_" + parts[3] if it has two parts
             if len(parts) >= 4:
