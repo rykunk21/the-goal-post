@@ -132,6 +132,39 @@ class NFLVerseSource(DataSource):
                 )
                 plays.append(play)
 
+            # FIX: Recalculate down/distance for plays after first-down conversions
+            for i in range(1, len(plays)):
+                prev_play = plays[i - 1]
+                current_play = plays[i]
+                
+                # Skip if either play has no down data
+                if prev_play.down is None or current_play.down is None:
+                    continue
+                
+                # Check if previous play achieved a first down
+                first_down_achieved = (
+                    (prev_play.yards_gained is not None and prev_play.distance is not None and
+                     prev_play.yards_gained >= prev_play.distance) or
+                    bool(row.get("first_down", False))  # Use nflverse's first_down flag
+                )
+                
+                if first_down_achieved:
+                    # Next play should be 1st down
+                    if current_play.down != 1:
+                        current_play.down = 1
+                        # Distance is min(10, distance to goal line)
+                        if current_play.yardline is not None and current_play.yardline < 10:
+                            current_play.distance = max(1, current_play.yardline)
+                        else:
+                            current_play.distance = 10
+                else:
+                    # Normal down progression: check if nflverse data is correct
+                    expected_down = (prev_play.down or 0) + 1
+                    if current_play.down != expected_down and current_play.down != 1:
+                        # If current down doesn't match expected progression,
+                        # nflverse data might have issue; trust the data if it's 1st down
+                        pass  # Keep nflverse value
+
             # Determine drive result from nflverse's fixed_drive_result
             result = self._infer_drive_result(first_play_row, plays)
 
