@@ -34,7 +34,33 @@ Default tests under `tests/transitions` are offline, with small public-provider 
 
 **Current prerequisite gap:** the primary historical-data downloader is not packaged in this repository. The scripts below reproduce the dataset from supplied source data; they are not a complete download-to-simulation bootstrap. ESPN's weekly schedule cache supplies upcoming matchups, not the historical play-by-play or completed-game schedule required for extraction.
 
-Run the following steps from the repository root, stopping if any build or verification fails.
+### Recommended: standalone build (no environment variables)
+
+After installing the package (`python -m pip install -e '.[dev]'`) and supplying the source files listed below, run from the repository root:
+
+```sh
+python -m goalpost.transitions.build_artifacts --sources /absolute/path/to/raw-sources
+python -m goalpost.transitions.weekly --data artifacts/transitions/reset/data --simulations 50000
+```
+
+The build command creates `artifacts/transitions` by default, independently of `GOALPOST_TRANSITION_DATA`. It extracts both game tables, verifies them, builds the clock-reset matrices with earlier-game team/league imputation, and independently verifies the reset dataset. It does not run simulations or fetch data. The weekly command obtains its upcoming schedule through the existing ESPN cache.
+
+For a different destination or a rebuild, select a **new, nonexistent** root:
+
+```sh
+python -m goalpost.transitions.build_artifacts \
+  --sources /absolute/path/to/raw-sources \
+  --output artifacts/rebuild-01
+python -m goalpost.transitions.weekly --data artifacts/rebuild-01/reset/data --simulations 50000
+```
+
+Optional flags: `--nfl2023 /path/to/play_by_play_2023.parquet` overrides the default file inside `--sources`; `--raw-summaries /path/to/saved/espn-summaries` includes the existing college fallback. An `espn_cfb_pbp-2026.parquet` file in the source directory is included automatically, as in the original extractor.
+
+All required files are checked before starting. Builds occur in a sibling staging directory and publish the artifact root only after both verifiers pass. Existing output roots are refused. `build-report.json` records stages, source/output SHA-256 hashes, cutoff and the weekly data path; `build.log` preserves build output. Failed builds exit nonzero and retain their unpublished staging directory and diagnostics. Do not run with Python `-O`: verification requires assertions. An interrupted process can leave a `.NAME.build.lock`; remove it only after confirming no builder is running for that target. Verification establishes artifact consistency, not complete state coverage, simulation completion, or predictive accuracy.
+
+### Manual individual steps (alternative)
+
+The commands below show the equivalent lower-level sequence and source layout. The standalone command above replaces extraction, reset construction and both verification commands; it does not require the environment variables used in this manual alternative.
 
 ### 1. Install and choose an empty artifact directory
 

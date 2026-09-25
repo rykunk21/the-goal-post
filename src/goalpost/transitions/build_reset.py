@@ -57,7 +57,9 @@ def support(p,keys,starts):
         for j in ix[np.any(v>0,axis=0)]:pending.append((1-d if keys[j,2] else d,int(keys[j,1])))
     return dict(reachable_support_complete=not missing,unresolved_reachable_rows=len(missing),unresolved_reachable_row_keys=sorted(missing))
 
-def rebuild():
+def rebuild(root=ROOT, source=SOURCE):
+    ROOT = Path(root)
+    SOURCE = Path(source)
     ROOT.mkdir(parents=True,exist_ok=True)
     for name in ['raw','data']:
         out=ROOT/name
