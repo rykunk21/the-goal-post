@@ -75,7 +75,7 @@ For stored rows, `read_game_rows.unpack(row)` restores the catalog-shaped tensor
 ## Simulate the upcoming NFL week
 
 ```sh
-# Fetch the current public nflverse schedule once, then simulate each upcoming matchup:
+# Use the locally cached ESPN schedule, fetching it on a cache miss:
 python -m goalpost.transitions.weekly --simulations 50000
 
 # Reproduce a run using its saved CSV and explicit selection/cutoff:
@@ -88,7 +88,26 @@ python -m goalpost.transitions.weekly \
   --simulations 50000 --seed 20260924
 ```
 
-The default chooses the season/week/game-type of the nearest upcoming non-preseason kickoff within seven days, then considers that whole NFL week. Thus a Friday run retains Sunday/Monday matchups but reports Thursday as already played/started. Season identity is preserved through January playoffs. An explicit week requires both `--season` and `--week`. Kickoff strings use Eastern time per the [nflverse schedule dictionary](https://nflreadr.nflverse.com/articles/dictionary_schedules.html). Missing times, already-started games, recorded scores and invalid identities are exclusions; an empty/stale schedule does not produce a successful slate.
+By default the CLI reads ESPN’s current-week scoreboard through a local cache. It chooses the season/week/game-type of the nearest upcoming non-preseason kickoff within seven days in that response, then considers that whole NFL week. Thus a Friday run retains Sunday/Monday matchups but reports Thursday as already played/started. Season identity is preserved through January playoffs. An explicit week requires both `--season` and `--week`. The ESPN adapter converts UTC kickoffs to Eastern for the compatible CSV and retains the exact UTC kickoff separately. Saved nflverse-format CSVs still use Eastern kickoff strings per the [nflverse schedule dictionary](https://nflreadr.nflverse.com/articles/dictionary_schedules.html). Missing times, already-started games, recorded scores and invalid identities are exclusions; an empty/stale schedule does not produce a successful slate.
+
+### ESPN cache behavior
+
+No weekly CSV preparation is required. `python -m goalpost.transitions.weekly` uses [ESPN’s public NFL scoreboard](https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard) automatically.
+
+- Cache location: `$GOALPOST_TRANSITION_DATA/schedule-cache` (default `artifacts/transitions/schedule-cache`). `--schedule-cache PATH` overrides it.
+- Default lifetime: **3,600 seconds**. A valid hit makes no HTTP request. Missing, expired, corrupt, future-dated or incompatible entries trigger a fresh pull. `--cache-max-age-seconds 0` disables reuse.
+- `--refresh-schedule` forces a new pull regardless of age. Use it when checking a recent kickoff/status change; a cache is a snapshot, not a live guarantee.
+- Entries are keyed by provider request, separating the current-week endpoint from explicit season/week requests. Explicit postseason selections translate NFL weeks to ESPN rounds; preseason and unsupported rounds are not simulated.
+- The cache stores the raw JSON, request URL, retrieval timestamp, adapter version and content hash. A valid response is written atomically only after normalization; failed refreshes leave the prior file intact but do not use stale data. Cache age uses the real retrieval clock, never the simulation’s `--as-of` date.
+- ESPN home/away designations determine orientation. `LAR` maps to dataset ID `LA`, and `WSH` to `WAS`; unknown teams fail validation. The normalized game ID matches the NFL season/week/away/home form; ESPN’s event ID is retained separately.
+- Only explicit `STATUS_SCHEDULED` events are eligible. Their `0–0` placeholder scores become blank CSV fields. Final, in-progress, postponed and canceled events remain excluded. No missing or unknown status is assumed scheduled.
+
+```sh
+python -m goalpost.transitions.weekly --refresh-schedule
+python -m goalpost.transitions.weekly --cache-max-age-seconds 900
+```
+
+`--schedule /path/to/schedule.csv` bypasses ESPN and its cache completely for reproducible offline runs. An empty/current-week response with no upcoming games produces an explicit empty-slate result rather than inventing another week. The cache is intended for sequential local CLI runs; concurrent cold-cache invocations may each perform a pull, though atomic replacement keeps the cache valid.
 
 For each team, blend its supported own-offense rows equally across eligible **current-season** matrices, retaining their earlier-game imputation. Both matrix history and league timing samples must precede the earlier of the run's as-of day and target kickoff day (UTC); same-day and target-game observations are excluded. Missing current-season team history is a blocked matchup, never silently replaced with a different team or season. The schedule fetch does not update the underlying frozen matrices. Each result records its contributing game IDs/dates and timing population so stale or sparse history is visible. This cutoff is an added weekly-run safeguard; it does not remove the original descriptive vocabulary limitation or turn a retrospective run into a historically recorded forecast.
 
@@ -96,11 +115,11 @@ The runner reuses the existing elapsed-clock simulation and strictly-under-ten-s
 
 A new timestamped directory under `artifacts/transitions/weekly` contains:
 
-- `schedule.csv` and `report.json`: exact saved schedule, source/input hashes, selection/exclusions, per-game results and coverage limitations.
+- `schedule.csv`, `schedule-espn.json` (for ESPN runs) and `report.json`: normalized CSV, exact raw ESPN response, source/input hashes, original retrieval time, cache hit/age, selection/exclusions, per-game results and coverage limitations.
 - One directory per selected game: `scores.npy` (home then away), `simulation-outcomes.parquet`, `missing-row-events.parquet`, `result.json`, exact total and home-margin PMF CSVs, plus `distributions.png` and `.pdf` with μ and σ labeled.
 - Blocked or zero-completion matchups remain explicit in the report; no distribution is invented for them. Partially completed matchups show their full attempt/completion denominators and approximation counts.
 
-Existing output directories are refused rather than overwritten. A run exits 0 when every selected matchup has a distribution, 2 for an empty or partially blocked slate, and nonzero on a data/network/runtime failure (saved in `report.json`). No stale network cache or alternate schedule is substituted on fetch failure. This command does not access sportsbook odds, send notifications, place bets, or train a VAE.
+Existing output directories are refused rather than overwritten. A run exits 0 when every selected matchup has a distribution, 2 for an empty or partially blocked slate, and nonzero on a data/network/runtime failure (saved in `report.json`). An expired cache is never used as a fallback on fetch failure. This command does not access sportsbook odds, send notifications, place bets, or train a VAE.
 
 ## Known limitations
 

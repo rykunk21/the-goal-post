@@ -116,7 +116,7 @@ def test_empty_slate_records_no_data_and_exit_two(tmp_path):
 def test_failed_fetch_records_error_without_substituting_schedule(tmp_path, monkeypatch):
     import goalpost.transitions.weekly as w
     def fail(*args,**kwargs):raise OSError('offline')
-    monkeypatch.setattr(w.urllib.request,'urlopen',fail)
+    monkeypatch.setattr(w,'load_espn_schedule',fail)
     out=tmp_path/'failed'
     with pytest.raises(OSError,match='offline'):main(['--output',str(out),'--as-of',AT])
     assert json.loads((out/'report.json').read_text())['status']=='failed'
