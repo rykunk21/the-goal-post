@@ -1,7 +1,7 @@
 from copy import deepcopy
 import numpy as np
 import pytest
-from simulator import run
+from goalpost.transitions.simulator import run
 
 def fixture(remaining=9.):
     keys=np.array([[16,17,0,7,0],[16,17,0,3,0]])

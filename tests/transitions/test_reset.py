@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
-from build_reset import fill,History,support
-from simulate_reset import run
+from goalpost.transitions.build_reset import fill,History,support
+from goalpost.transitions.simulate_reset import run
 
 def toy():
     k=np.array([[16,16,0,7,0],[16,16,0,3,0]])

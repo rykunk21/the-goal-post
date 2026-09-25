@@ -1,8 +1,8 @@
 """Whole-game fallback using ESPN-derived raw team, score and order columns."""
 import numpy as np
 import pandas as pd
-from college_adapter import parsed_kind
-from extraction import extract_game
+from .college_adapter import parsed_kind
+from .extraction import extract_game
 
 
 def extract_espn_college(raw,meta):

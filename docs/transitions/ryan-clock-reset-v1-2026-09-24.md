@@ -1,3 +1,5 @@
+> Historical September 24 design/run record. Paths below describe the original artifact packages. Use the root README for current package commands. Generated data is not checked in.
+
 # Ryan: elapsed-clock reset v1
 
 The requested reset is implemented in a separate research dataset. **The elapsed-time clock remains. Halftime is not a physical state, and the matrix cannot sample an artificial stop transition.** Original tables and the live engine remain unchanged. This version is not yet a fully validated training/simulation release: final-play modeling and one encountered support gap remain explicit.

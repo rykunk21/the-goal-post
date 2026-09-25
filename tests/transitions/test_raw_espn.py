@@ -1,7 +1,7 @@
 import copy
 import pytest
-from test_tables import espn_fixture
-from raw_espn_college import summary_frame, extract_raw_espn
+from .test_tables import espn_fixture
+from goalpost.transitions.raw_espn_college import summary_frame, extract_raw_espn
 
 
 def raw_fixture():

@@ -5,7 +5,7 @@ NFL-equivalent snap times. This adapter validates extraction, not simulation.
 """
 import numpy as np
 import pandas as pd
-from extraction import extract_game
+from .extraction import extract_game
 
 PASS = {'Pass Completion','Pass Reception','Pass Incompletion','Passing Touchdown','Interception',
         'Interception Return','Interception Return Touchdown','Sack','Pass','Pass Interception Return'}

@@ -5,7 +5,7 @@ import json,hashlib
 import numpy as np
 import pandas as pd
 import pyarrow.parquet as pq
-ROOT=Path(__file__).resolve().parent;SOURCE=ROOT.parent/'ryan-game-tables-v3'/'data'
+from .paths import RESET as ROOT, EXTRACTED as SOURCE
 
 def verify():
     catalog=json.loads((ROOT/'data'/'transition_set.json').read_text());keys=np.array(catalog['keys']);e=len(keys);shape=(2,9,e)

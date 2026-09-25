@@ -2,8 +2,8 @@ import copy
 import numpy as np
 import pandas as pd
 import pytest
-from college_adapter import college_frame,extract_college,parsed_kind
-from build_tables import matrix
+from goalpost.transitions.college_adapter import college_frame,extract_college,parsed_kind
+from goalpost.transitions.build_tables import matrix
 
 
 def fixture():
@@ -85,7 +85,7 @@ def test_conversion_not_ordinary_down_even_with_bad_source_down():
 
 
 def test_team_view_uses_home_away_identity_and_reverses_roles():
-    from read_game_rows import team_view
+    from goalpost.transitions.read_game_rows import team_view
     r=dict(matrix_status='parsed_regulation',matrix_shape=[2,9,1],
            transition_probabilities_flat=list(range(18)),home_team_id='H',away_team_id='A')
     assert np.array_equal(team_view(r,'A'),team_view(r,'H')[::-1])
@@ -93,7 +93,7 @@ def test_team_view_uses_home_away_identity_and_reverses_roles():
 
 
 def test_loader_refuses_missing_matrix_instead_of_zero_filling():
-    from read_game_rows import unpack
+    from goalpost.transitions.read_game_rows import unpack
     with pytest.raises(ValueError,match='No usable matrix'):
         unpack(dict(matrix_status='missing_pbp',matrix_issue='awaiting source'))
 
@@ -113,7 +113,7 @@ def espn_fixture():
 
 
 def test_fallback_replays_correct_teams_and_preserves_decisions():
-    from espn_college_adapter import extract_espn_college
+    from goalpost.transitions.espn_college_adapter import extract_espn_college
     raw,meta=espn_fixture();g=extract_espn_college(raw,meta)
     assert g.regulation==(14,0) and g.final==(14,0)
     assert len(g.events)==5
@@ -121,7 +121,7 @@ def test_fallback_replays_correct_teams_and_preserves_decisions():
 
 
 def test_fallback_rejects_order_reversal_and_wrong_score():
-    from espn_college_adapter import extract_espn_college
+    from goalpost.transitions.espn_college_adapter import extract_espn_college
     raw,meta=espn_fixture();raw.loc[3,'period.number']=2
     with pytest.raises(ValueError,match='period order'):extract_espn_college(raw,meta)
     raw,meta=espn_fixture();meta['home_final_score']=17

@@ -1,3 +1,5 @@
+> Historical September 24 design/run record. Paths below describe the original artifact packages. Use the root README for current package commands. Generated data is not checked in.
+
 # One-game transition tables — version 3
 
 September 23, 2026. This version adds a raw ESPN summary fallback for current college games. It recovers 27 additional matrices, including 19 standalone FCS games. See `RYAN-READOUT.md` for results and remaining limits.

@@ -1,5 +1,3 @@
-"""Simulator implementations."""
-
-from .game_simulator import MonteCarloSimulator
-
-__all__ = ["MonteCarloSimulator"]
+"""Elapsed-clock simulation entry point; old latent/drive API was retired."""
+from goalpost.transitions.simulator import run
+__all__ = ["run"]

@@ -4,7 +4,7 @@ Never sort IDs, clocks or scores. Never splice feeds or repair score/clock
 reversals. Keep a source-row map so canonical event ordinals are traceable.
 """
 import pandas as pd
-from espn_college_adapter import extract_espn_college
+from .espn_college_adapter import extract_espn_college
 
 
 def summary_frame(payload, meta):

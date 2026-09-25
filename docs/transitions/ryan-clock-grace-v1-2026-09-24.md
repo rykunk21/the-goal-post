@@ -1,3 +1,5 @@
+> Historical September 24 design/run record. Paths below describe the original artifact packages. Use the root README for current package commands. Generated data is not checked in.
+
 # Under-10-second completion approximation
 
 The owner authorized accepting near-expiration simulations in the score distributions. The new simulator applies this at a **missing probability row with 0 < remaining half-clock < 10 seconds**. Exactly 10 seconds does not qualify. Supported transitions continue normally, including within the final 10 seconds. No terminal football state was added.

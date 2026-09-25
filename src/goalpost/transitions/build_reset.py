@@ -11,8 +11,7 @@ import numpy as np
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-ROOT=Path(__file__).resolve().parent
-SOURCE=ROOT.parent/'ryan-game-tables-v3'/'data'
+from .paths import RESET as ROOT, EXTRACTED as SOURCE
 VERSION='football-only-elapsed-clock-v1'
 
 def save(path,x):path.write_text(json.dumps(x,indent=2,allow_nan=False)+'\n')
@@ -59,6 +58,7 @@ def support(p,keys,starts):
     return dict(reachable_support_complete=not missing,unresolved_reachable_rows=len(missing),unresolved_reachable_row_keys=sorted(missing))
 
 def rebuild():
+    ROOT.mkdir(parents=True,exist_ok=True)
     for name in ['raw','data']:
         out=ROOT/name
         if out.exists() and any(out.iterdir()):raise ValueError('Refusing to overwrite dataset')

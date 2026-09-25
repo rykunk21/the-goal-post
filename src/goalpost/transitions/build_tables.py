@@ -9,10 +9,10 @@ import numpy as np
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-from extraction import extract_game, replay, N_STATES, Event, ExtractedGame
-from college_adapter import extract_college
-from espn_college_adapter import extract_espn_college
-from raw_espn_college import extract_raw_espn
+from .extraction import extract_game, replay, N_STATES, Event, ExtractedGame
+from .college_adapter import extract_college
+from .espn_college_adapter import extract_espn_college
+from .raw_espn_college import extract_raw_espn
 
 CFB_COLUMNS=['game_id','game_row_number','id_play','year','week','home','away',
  'home_team_id','away_team_id','pos_team','def_pos_team','pos_team_score','def_pos_team_score',

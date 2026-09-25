@@ -3,14 +3,14 @@ from pathlib import Path
 import importlib.util,json,hashlib
 import numpy as np
 import pandas as pd
-from simulator import run
-ROOT=Path(__file__).resolve().parent
-BASE=ROOT.parent/'ryan-clock-reset-v1-2026-09-24'
-spec=importlib.util.spec_from_file_location('baseline_module',BASE/'simulate_reset.py');base=importlib.util.module_from_spec(spec);spec.loader.exec_module(base)
+from .simulator import run
+from .paths import GRACE as ROOT, RESET as BASE
+from . import simulate_reset as base
 
 def save(name,x):(ROOT/name).write_text(json.dumps(x,indent=2,allow_nan=False)+'\n')
 
 def main():
+    ROOT.mkdir(parents=True,exist_ok=True)
     keys,p,t,details=base.prepare('data');states=[]
     strict,ds,es,rs=run(keys,p,t,grace_seconds=0,capture_states=states)
     np.testing.assert_array_equal(strict,np.load(BASE/'matchup/imputed-scores.npy'))
@@ -34,7 +34,7 @@ def main():
     save('comparison.json',comparison);save('results.json',summaries)
     save('settings.json',dict(teams=details,seed=20260924,n=50000,grace_seconds=10,
         default_applies_to='Missing-row termination only, independently at each half',
-        source_files={str(f.relative_to(BASE)):hashlib.sha256(f.read_bytes()).hexdigest() for f in [BASE/'simulate_reset.py',BASE/'data/transition_set.json',BASE/'data/nfl_games.parquet',BASE/'data/parsed_segments.parquet',BASE/'matchup/imputed-scores.npy']},
+        source_files={(str(f.relative_to(BASE)) if f.is_relative_to(BASE) else f.name):hashlib.sha256(f.read_bytes()).hexdigest() for f in [Path(base.__file__),BASE/'data/transition_set.json',BASE/'data/nfl_games.parquet',BASE/'data/parsed_segments.parquet',BASE/'matchup/imputed-scores.npy']},
         dataset_changed=False,live_engine_changed=False))
     valid=tolerant[tv]
     for name,v in [('total',valid.sum(1)),('home_minus_away',valid[:,0]-valid[:,1])]:

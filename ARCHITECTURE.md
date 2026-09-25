@@ -1,3 +1,5 @@
+> Scaffold design document. The active transition implementation now lives in `goalpost.transitions`; see the root README for its tensor format and elapsed-clock API. Former terminal-state/training examples referenced below are retired and this scaffold is not yet integrated with the replacement.
+
 # GoalPost — Four-Layer Architecture
 
 ```

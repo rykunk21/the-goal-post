@@ -10,7 +10,7 @@ from collections import defaultdict,Counter
 import json,hashlib
 import numpy as np
 import pandas as pd
-ROOT=Path(__file__).resolve().parent
+from .paths import RESET as ROOT
 OUT=ROOT/'matchup'
 N=50000;SEED=20260924
 
@@ -107,7 +107,7 @@ def summarize(scores,diag):
     return r
 
 def main():
-    OUT.mkdir(exist_ok=True)
+    OUT.mkdir(parents=True,exist_ok=True)
     settings={'home':'Green Bay Packers','away':'Atlanta Falcons','n':N,'seed':SEED,'probability_blend':'Equal weights per supported row across two 2026 own-offense matrices per team',
         'clock':'Two 1800-second halves; elapsed time from observed NFL segments, exact context or same time bucket. No terminal stop edge.',
         'imputation':'Earlier UTC dates; team then league within same clock bucket, pooled lead categories',
