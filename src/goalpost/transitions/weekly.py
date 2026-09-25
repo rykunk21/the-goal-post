@@ -7,7 +7,6 @@ import argparse
 import hashlib
 import json
 import re
-import urllib.request
 
 import numpy as np
 import pandas as pd
@@ -16,7 +15,7 @@ from .paths import ARTIFACTS, RESET
 from .simulator import run, context
 from .simulate_reset import summarize
 
-SCHEDULE_URL = 'https://raw.githubusercontent.com/nflverse/nfldata/master/data/games.csv'
+from .espn_schedule import load as load_espn_schedule
 META = ['game_id', 'game_date', 'home_team_id', 'away_team_id', 'season',
         'matrix_status', 'matrix_shape']
 
@@ -57,10 +56,13 @@ def select_week(frame, as_of, season=None, week=None, game_type='REG'):
     # nflverse gametime is Eastern local time, including international games.
     local = pd.to_datetime(data.gameday.astype(str) + ' ' + data.gametime.astype(str), errors='coerce')
     data['kickoff'] = local.dt.tz_localize('America/New_York', ambiguous='NaT', nonexistent='NaT').dt.tz_convert('UTC')
+    if 'kickoff_utc' in data:
+        data['kickoff'] = pd.to_datetime(data.kickoff_utc,utc=True,errors='coerce')
     if season is None:
         future = data[data.game_type.ne('PRE') & data.kickoff.gt(at) &
                       data.kickoff.le(at + pd.Timedelta(days=7)) &
-                      data.home_score.isna() & data.away_score.isna()].sort_values(['kickoff', 'game_id'])
+                      data.home_score.isna() & data.away_score.isna() &
+                      (data.source_status.eq('scheduled') if 'source_status' in data else True)].sort_values(['kickoff', 'game_id'])
         if future.empty:
             return [], [], {'status': 'no_upcoming_week_within_seven_days'}
         first = future.iloc[0]
@@ -69,7 +71,9 @@ def select_week(frame, as_of, season=None, week=None, game_type='REG'):
     games, excluded = [], []
     for row in selected.sort_values(['kickoff','game_id']).itertuples():
         reason = None
-        if pd.notna(row.home_score) or pd.notna(row.away_score):
+        if hasattr(row,'source_status') and row.source_status != 'scheduled':
+            reason = 'provider_status_' + str(row.source_status)
+        elif pd.notna(row.home_score) or pd.notna(row.away_score):
             reason = 'score_recorded_already_played_or_in_progress'
         elif pd.isna(row.kickoff):
             reason = 'missing_or_invalid_kickoff'
@@ -234,7 +238,10 @@ def run_slate(dataset, games, output, as_of, n=50000, seed=20260924):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--schedule',type=Path,help='Frozen nflverse schedule CSV; omitted downloads current public CSV once')
+    parser.add_argument('--schedule',type=Path,help='Frozen compatible schedule CSV; omitted uses cached ESPN schedule')
+    parser.add_argument('--schedule-cache',type=Path,default=ARTIFACTS/'schedule-cache')
+    parser.add_argument('--cache-max-age-seconds',type=float,default=3600)
+    parser.add_argument('--refresh-schedule',action='store_true')
     parser.add_argument('--data',type=Path,default=RESET/'data')
     parser.add_argument('--output',type=Path)
     parser.add_argument('--as-of',default=datetime.now(timezone.utc).isoformat())
@@ -253,17 +260,18 @@ def main(argv=None):
                   regulation_only=True,betting_admitted=False,requested_simulations=args.simulations,
                   root_seed=args.seed,score_labels_loaded_for_simulation=False,
                   code_sha256={name: digest(Path(__file__).with_name(name)) for name in
-                               ['weekly.py','simulator.py','simulate_reset.py']})
+                               ['weekly.py','espn_schedule.py','simulator.py','simulate_reset.py']})
     try:
         if args.schedule:
-            raw = args.schedule.read_bytes(); source = str(args.schedule.resolve())
+            raw = args.schedule.read_bytes()
+            report['schedule'] = dict(source=str(args.schedule.resolve()),sha256=hashlib.sha256(raw).hexdigest(),
+                retrieved_at_utc=datetime.now(timezone.utc).isoformat(),freshness='local_snapshot_age_unknown')
         else:
-            with urllib.request.urlopen(SCHEDULE_URL,timeout=30) as response:
-                raw = response.read()
-            source = SCHEDULE_URL
+            raw,espn_raw,metadata = load_espn_schedule(args.schedule_cache,args.season,args.week,args.game_type,
+                max_age_seconds=args.cache_max_age_seconds,refresh=args.refresh_schedule)
+            report['schedule'] = metadata
+            (output/'schedule-espn.json').write_bytes(espn_raw)
         (output/'schedule.csv').write_bytes(raw)
-        report['schedule'] = dict(source=source,sha256=hashlib.sha256(raw).hexdigest(),
-            retrieved_at_utc=datetime.now(timezone.utc).isoformat(),freshness='live_download' if not args.schedule else 'local_snapshot_age_unknown')
         games,excluded,selection = select_week(pd.read_csv(BytesIO(raw)),at,args.season,args.week,args.game_type)
         report.update(selection=selection,excluded_games=excluded,selected_games=games)
         if not games:
