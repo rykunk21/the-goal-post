@@ -72,6 +72,36 @@ The strict baseline is written under `reset/matchup`; the paired current-policy 
 
 For stored rows, `read_game_rows.unpack(row)` restores the catalog-shaped tensor and `team_view(row, team_id)` puts the requested team first without discarding the opponent. The removed `NFLTransitionModel` class and its 468-element flattened representation must not be used for these tables.
 
+## Simulate the upcoming NFL week
+
+```sh
+# Fetch the current public nflverse schedule once, then simulate each upcoming matchup:
+python -m goalpost.transitions.weekly --simulations 50000
+
+# Reproduce a run using its saved CSV and explicit selection/cutoff:
+python -m goalpost.transitions.weekly \
+  --schedule /path/to/saved/schedule.csv \
+  --season 2026 --week 3 --game-type REG \
+  --as-of 2026-09-25T14:00:00Z \
+  --data "$GOALPOST_TRANSITION_DATA/reset/data" \
+  --output "$GOALPOST_TRANSITION_DATA/weekly/replay-week-3" \
+  --simulations 50000 --seed 20260924
+```
+
+The default chooses the season/week/game-type of the nearest upcoming non-preseason kickoff within seven days, then considers that whole NFL week. Thus a Friday run retains Sunday/Monday matchups but reports Thursday as already played/started. Season identity is preserved through January playoffs. An explicit week requires both `--season` and `--week`. Kickoff strings use Eastern time per the [nflverse schedule dictionary](https://nflreadr.nflverse.com/articles/dictionary_schedules.html). Missing times, already-started games, recorded scores and invalid identities are exclusions; an empty/stale schedule does not produce a successful slate.
+
+For each team, blend its supported own-offense rows equally across eligible **current-season** matrices, retaining their earlier-game imputation. Both matrix history and league timing samples must precede the earlier of the run's as-of day and target kickoff day (UTC); same-day and target-game observations are excluded. Missing current-season team history is a blocked matchup, never silently replaced with a different team or season. The schedule fetch does not update the underlying frozen matrices. Each result records its contributing game IDs/dates and timing population so stale or sparse history is visible. This cutoff is an added weekly-run safeguard; it does not remove the original descriptive vocabulary limitation or turn a retrospective run into a historically recorded forecast.
+
+The runner reuses the existing elapsed-clock simulation and strictly-under-ten-second missing-row rule. The seed is derived independently from the root seed and game ID, so changing slate order does not change another game's random sequence. It runs 50,000 attempts **per matchup** by default; use a smaller number for engineering smoke tests, not final probability estimates.
+
+A new timestamped directory under `artifacts/transitions/weekly` contains:
+
+- `schedule.csv` and `report.json`: exact saved schedule, source/input hashes, selection/exclusions, per-game results and coverage limitations.
+- One directory per selected game: `scores.npy` (home then away), `simulation-outcomes.parquet`, `missing-row-events.parquet`, `result.json`, exact total and home-margin PMF CSVs, plus `distributions.png` and `.pdf` with μ and σ labeled.
+- Blocked or zero-completion matchups remain explicit in the report; no distribution is invented for them. Partially completed matchups show their full attempt/completion denominators and approximation counts.
+
+Existing output directories are refused rather than overwritten. A run exits 0 when every selected matchup has a distribution, 2 for an empty or partially blocked slate, and nonzero on a data/network/runtime failure (saved in `report.json`). No stale network cache or alternate schedule is substituted on fetch failure. This command does not access sportsbook odds, send notifications, place bets, or train a VAE.
+
 ## Known limitations
 
 Censored final-segment scoring is preserved as evidence but not completely learned by the fitted transition matrix. Segment-duration censoring and the under-ten-second approximation can omit late scoring. Incomplete simulations are excluded explicitly, so displayed distributions are conditional on completion. College clocks and standalone FCS coverage remain incomplete. The descriptive vocabulary was built on the full frozen snapshot rather than a train-only split; chronological imputation alone does not make this a leakage-free forecasting evaluation. There is no opponent-defense adjustment, home-field model, overtime model or demonstrated out-of-sample edge in this implementation.
