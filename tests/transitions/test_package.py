@@ -8,7 +8,7 @@ import sys
 import numpy as np
 import pytest
 
-@pytest.mark.parametrize('module', ['build_tables', 'verify_tables', 'fetch_raw_snapshot', 'audit_v3'])
+@pytest.mark.parametrize('module', ['build_tables', 'verify_tables', 'fetch_raw_snapshot', 'audit_v3', 'build_artifacts'])
 def test_cli_help_without_data_or_network(module, tmp_path):
     result = subprocess.run([sys.executable, '-m', 'goalpost.transitions.' + module, '--help'],
                             cwd=tmp_path, capture_output=True, text=True)

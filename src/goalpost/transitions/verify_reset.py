@@ -7,7 +7,9 @@ import pandas as pd
 import pyarrow.parquet as pq
 from .paths import RESET as ROOT, EXTRACTED as SOURCE
 
-def verify():
+def verify(root=ROOT, source=SOURCE):
+    ROOT = Path(root)
+    SOURCE = Path(source)
     catalog=json.loads((ROOT/'data'/'transition_set.json').read_text());keys=np.array(catalog['keys']);e=len(keys);shape=(2,9,e)
     assert np.all((keys[:,:2]>=0)&(keys[:,:2]<72))
     assert json.loads((ROOT/'raw'/'transition_set.json').read_text())==catalog
