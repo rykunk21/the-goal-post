@@ -97,3 +97,25 @@ def test_source_mutation_blocks_publication(sources, tmp_path, monkeypatch):
     with pytest.raises(RuntimeError, match='Source input changed'):
         builder.build(sources, tmp_path/'result')
     assert not (tmp_path/'result').exists()
+
+
+def test_build_coalesces_zero_time_segment_and_publishes_v2(sources, tmp_path):
+    """Fresh-machine source -> extracted -> corrected raw/imputed -> verifier."""
+    path = sources/'nfl-2026.parquet'
+    plays = pd.read_parquet(path)
+    penalty = plays.iloc[[0]].copy()
+    penalty['play_id'] = 0
+    penalty['play_type'] = 'no_play'
+    pd.concat([penalty, plays], ignore_index=True).to_parquet(path, index=False)
+    output = builder.build(sources, tmp_path/'corrected')
+    extracted = pd.read_parquet(output/'extracted/parsed_segments.parquet')
+    normal = pd.read_parquet(output/'reset/data/parsed_segments.parquet')
+    boundary = pd.read_parquet(output/'reset/data/boundary_evidence.parquet')
+    mapping = json.loads((output/'reset/coalesced-segment-map.json').read_text())
+    assert any(len(group) == 2 for group in mapping)
+    assert len(normal) + len(boundary) == len(extracted) - 1
+    assert sum(normal.raw_rows) + sum(boundary.raw_rows) == sum(extracted.raw_rows)
+    catalog = json.loads((output/'reset/data/transition_set.json').read_text())
+    assert catalog['version'] == 'football-only-elapsed-clock-v2'
+    assert json.loads((output/'reset/verification.json').read_text())['passed']
+    assert Dataset(output/'reset/data').meta.matrix_status.tolist() == ['parsed_regulation']

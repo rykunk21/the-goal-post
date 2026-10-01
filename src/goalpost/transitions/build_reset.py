@@ -12,7 +12,8 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 from .paths import RESET as ROOT, EXTRACTED as SOURCE
-VERSION='football-only-elapsed-clock-v1'
+from .clock_progress import coalesce
+VERSION='football-only-elapsed-clock-v2'
 
 def save(path,x):path.write_text(json.dumps(x,indent=2,allow_nan=False)+'\n')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -72,7 +73,9 @@ def rebuild(root=ROOT, source=SOURCE):
         termination='Elapsed clock only; no terminal football state or sampled stop edge.',
         boundary_observations='Censored successor states retained separately, excluded from transition likelihood.',
         provenance='Subset of the preserved global descriptive catalog, not a train-only vocabulary.')
-    seg=pd.read_parquet(SOURCE/'parsed_segments.parquet');normal=seg[seg.destination.ge(0)].copy();boundary=seg[seg.destination.lt(0)].copy()
+    seg,mapping=coalesce(pd.read_parquet(SOURCE/'parsed_segments.parquet'))
+    save(ROOT/'coalesced-segment-map.json',mapping)
+    normal=seg[seg.destination.ge(0)].copy();boundary=seg[seg.destination.lt(0)].copy()
     assert boundary.destination.eq(-1).all()
     boundary['destination']=pd.array([None]*len(boundary),dtype='Int64')
     boundary['successor_observed']=False;boundary['censor_reason']='no_next_decision_in_same_half'
@@ -82,6 +85,8 @@ def rebuild(root=ROOT, source=SOURCE):
         normal.to_parquet(ROOT/name/'parsed_segments.parquet',index=False,compression='zstd')
         boundary.to_parquet(ROOT/name/'boundary_evidence.parquet',index=False,compression='zstd')
     bgroup={k:g for k,g in boundary.groupby(['league','game_id'])}
+    ngroup={k:g for k,g in normal.groupby(['league','game_id'])}
+    index={tuple(k):j for j,k in enumerate(keys)}
     provenance=[];historylog=[];audit=[];summary={}
     for league in ['nfl','college']:
         src=SOURCE/f'{league}_games.parquet';schema=pq.read_schema(src);hist=History(e);pending=[];daynow=None;stats=Counter();buffers=[[],[]]
@@ -104,7 +109,11 @@ def rebuild(root=ROOT, source=SOURCE):
                         raw=dict(row);filledrow=dict(row);stats['null_games']+=1
                     else:
                         oldc=np.asarray(row['transition_counts_flat'],dtype=np.int64).reshape(2,9,len(oldkeys))
-                        counts=oldc[:,:,keep];totals=np.zeros((2,9,72),dtype=np.int64)
+                        counts=np.zeros(shape,dtype=np.int64)
+                        for r in ngroup.get((league,gid),normal.iloc[:0]).itertuples():
+                            c=(0 if r.remaining>120 else 1 if r.remaining>30 else 2)*3+(0 if r.lead<0 else 1 if r.lead==0 else 2)
+                            counts[int(not r.home_offense),c,index[(r.source,r.destination,int(r.switch),r.own_points,r.opponent_points)]]+=1
+                        totals=np.zeros((2,9,72),dtype=np.int64)
                         for s in range(72):totals[:,:,s]=counts[:,:,keys[:,0]==s].sum(2)
                         den=totals[:,:,keys[:,0]]
                         p=np.divide(counts,den,out=np.zeros(shape,dtype=np.float32),where=den>0)

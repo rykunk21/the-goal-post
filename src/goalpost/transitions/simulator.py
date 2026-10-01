@@ -31,6 +31,8 @@ def run(keys,p,records,n=50000,seed=20260924,grace_seconds=10.,start_states=None
                             else:raise ValueError('No timing evidence in the same time bucket')
                             if not np.isfinite(times).all() or np.any(np.array(times)<0):raise ValueError('Invalid duration')
                             timing[j,c]=times
+    from .clock_progress import validate_clock_progress
+    validate_clock_progress(keys,rows,timing)
     rng=np.random.default_rng(seed);scores=np.full((n,2),-1,dtype=np.int32)
     events=[];outcomes=[]
     diag=dict(grace_seconds=grace_seconds,strict_clock_completed_games=0,grace_completed_games=0,grace_halves=0,grace_seconds_forgone_sum=0.,failed_missing_rows=0,attempted=n,completed=0,failed=0,missing_probability_rows=0,cap_exhaustions=0,

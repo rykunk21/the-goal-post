@@ -246,3 +246,50 @@ Existing output directories are refused rather than overwritten. A run exits 0 w
 Censored final-segment scoring is preserved as evidence but not completely learned by the fitted transition matrix. Segment-duration censoring and the under-ten-second approximation can omit late scoring. Incomplete simulations are excluded explicitly, so displayed distributions are conditional on completion. College clocks and standalone FCS coverage remain incomplete. The descriptive vocabulary was built on the full frozen snapshot rather than a train-only split; chronological imputation alone does not make this a leakage-free forecasting evaluation. There is no opponent-defense adjustment, home-field model, overtime model or demonstrated out-of-sample edge in this implementation.
 
 Historical design decisions and original large-run results are in `docs/transitions`; their paths refer to the original artifact packages. This package refactor preserves the algorithms and adds importable modules, external artifact paths and offline CI. No production betting service is changed.
+
+
+## Rebuild artifacts with the zero-time correction (v2)
+
+The reset builder now combines zero-duration, zero-point transitions back to the
+same coarse state and possession with their actual observed successor. This
+prevents those segments from becoming reusable zero-time self-loops. It does not
+discard all penalties or all `no_play` records: a penalty can change exact yardage
+while remaining in the same modeled bucket. Source records stay unchanged.
+
+Successor links must match game, half, possession, state, clock, score lead and
+play identity. Chains may end in preserved boundary evidence. The builder
+recomputes transition counts, probabilities and earlier-game donor defaults from
+the combined segments. `reset/coalesced-segment-map.json` maps each resulting
+segment to its original extracted segment indices; the reset verifier checks
+coverage, elapsed/scoring evidence and donor reconstruction. The representation
+version is `football-only-elapsed-clock-v2`.
+
+From a fresh checkout with the package installed, run:
+
+```sh
+python -m goalpost.transitions.fetch_sources
+python -m goalpost.transitions.build_artifacts --sources artifacts/sources --output artifacts/transitions-v2
+python -m goalpost.transitions.weekly --data artifacts/transitions-v2/reset/data --simulations 50000
+```
+
+Use a new output directory; existing artifacts and forecasts are not overwritten.
+Existing verified sources can be reused by skipping `fetch_sources`. NFL and
+college source files are both still required. Download caching and the fixed
+September 23, 2026 extraction cutoff are unchanged; this is not a live dataset
+refresh. Identical reproduction requires identical source inputs.
+
+The VAE preparation table is `artifacts/transitions-v2/reset/data/nfl_games.parquet`,
+with both teams' flattened probabilities and game metadata. Keep its matching
+`transition_set.json`. `reset/raw` contains corrected **pre-imputation** matrices;
+`reset/data` contains corrected **post-imputation** matrices. Neither directory
+contains untouched provider data. Markings and donor logs remain separate;
+observed counts are not replaced by synthetic imputed counts.
+
+Both simulation entry points also reject supported closed transition classes
+with zero elapsed time and zero rewards before sampling. This check is
+conservative across supported states, including potentially unreachable states.
+It does not guarantee complete support or prevent every kind of incomplete path.
+Legacy v1 artifacts can fail this check and should be rebuilt, not relabeled.
+The elapsed clock, under-ten-second approximation and separately preserved final
+boundary scoring remain unchanged. No experimental clock model, VAE training,
+state-space redesign or alternate extraction ordering is introduced here.

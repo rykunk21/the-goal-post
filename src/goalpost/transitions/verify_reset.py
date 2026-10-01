@@ -15,6 +15,21 @@ def verify(root=ROOT, source=SOURCE):
     assert json.loads((ROOT/'raw'/'transition_set.json').read_text())==catalog
     srcseg=pd.read_parquet(SOURCE/'parsed_segments.parquet');normal=pd.read_parquet(ROOT/'data'/'parsed_segments.parquet')
     boundary=pd.read_parquet(ROOT/'data'/'boundary_evidence.parquet')
+    mapping=json.loads((ROOT/'coalesced-segment-map.json').read_text())
+    assert [i for group in mapping for i in group]==list(range(len(srcseg)))
+    reconstructed=[]
+    original_rows=srcseg.to_dict('records')
+    for group in mapping:
+        first=original_rows[group[0]];last=original_rows[group[-1]]
+        for left,right in zip(group,group[1:]):
+            a,b=original_rows[left],original_rows[right]
+            assert a['elapsed']==0 and a['own_points']==0 and a['opponent_points']==0 and not a['switch'] and a['source']==a['destination']
+            assert a['next_play_id']==b['play_id']
+            for field in ['league','game_id','half','offense','defense','home_offense','source','remaining','lead']:assert a[field]==b[field]
+        row=dict(last);row['play_id']=first['play_id'];row['raw_rows']=sum(original_rows[i]['raw_rows'] for i in group);reconstructed.append(row)
+    original_segments=srcseg
+    srcseg=pd.DataFrame(reconstructed,columns=srcseg.columns)
+    merged_by_game=original_segments.groupby(['league','game_id']).size()-srcseg.groupby(['league','game_id']).size()
     pd.testing.assert_frame_equal(normal.reset_index(drop=True),srcseg[srcseg.destination.ge(0)].reset_index(drop=True))
     ob=srcseg[srcseg.destination.eq(-1)].reset_index(drop=True)
     pd.testing.assert_frame_equal(boundary[ob.columns.drop('destination')].reset_index(drop=True),ob.drop(columns='destination'))
@@ -77,7 +92,7 @@ def verify(root=ROOT, source=SOURCE):
             h,a=rewards(g);bh,ba=rewards(b);h+=bh+sum(x['home_points'] for x in starts);a+=ba+sum(x['away_points'] for x in starts)
             assert (h,a)==(old['home_regulation_score'],old['away_regulation_score'])
             ar=audit.loc[league,gid];assert ar.regulation_home_points==h and ar.regulation_away_points==a and ar.score_evidence_reconciled
-            assert raw['segment_count']==len(g) and len(g)+len(b)==old['segment_count']
+            assert raw['segment_count']==len(g) and len(g)+len(b)+int(merged_by_game.loc[league,gid])==old['segment_count']
             pending.append((gid,day,old['home_team_id'],old['away_team_id'],c));checked+=1
         assert count_rows==len(meta)
         print('Verified',league,count_rows,flush=True)
