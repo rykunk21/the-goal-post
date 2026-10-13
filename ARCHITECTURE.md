@@ -164,3 +164,16 @@ Each training example:
 ```
 
 The GameModel learns to predict this label from the features.
+
+## Downstream market comparison
+
+`SimulationGame` and `Market` in `goalpost.abc.markets` define the probabilistic
+output/contract interface. `NFLGame` implements it with exported regulation score
+PMFs; NFL moneyline, spread and total subclasses return win/push/loss mass.
+`AmericanOdds` converts that mass into hypothetical EV and Kelly sizing.
+
+`QuoteSource` has live `OddsAPISource` and opt-in read-only `SQLiteQuoteSource`
+implementations. `NFLComparison` handles event matching, latest-pair selection and
+freshness; `MarketTableJob` handles the CLI and CSV/JSON output. See the root README
+for environment gates and commands. This consumer does not change the modeling
+layers, database schema, production alerts or betting admission.

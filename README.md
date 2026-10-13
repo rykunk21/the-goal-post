@@ -293,3 +293,63 @@ Legacy v1 artifacts can fail this check and should be rebuilt, not relabeled.
 The elapsed clock, under-ten-second approximation and separately preserved final
 boundary scoring remain unchanged. No experimental clock model, VAE training,
 state-space redesign or alternate extraction ordering is introduced here.
+
+## Price exported NFL distributions
+
+`goalpost.markets` consumes a standard weekly export: `report.json`, `schedule.csv`,
+`schedule-espn.json`, and each game's `total-pmf.csv` / `home_minus_away-pmf.csv`
+(`points,count,probability`). It does not run or alter the simulator.
+
+`SimulationGame` and `Market` are abstract interfaces. `NFLGame` holds the total
+and home-minus-away distributions; `NFLMoneyline`, `NFLSpread` and `NFLTotal`
+implement settlement. The data-ingestion `domain.Game` remains a separate input.
+
+```python
+from pathlib import Path
+from goalpost.markets.export import WeeklyExport
+from goalpost.markets import AmericanOdds, NFLTotal
+
+games = WeeklyExport.load(Path(export_directory)).games
+mass = games[0].mass(NFLTotal(line, "Over"))  # .win = P(total > line); .push = P(total = line)
+sizing = AmericanOdds(american_odds).size(mass)
+```
+
+The CLI (also installed as `goalpost-market-sizing`) writes full `ev-kelly.csv`
+and JSON, a fresh-only EV-sorted `current-market-sizing.csv` and JSON, matchup
+coverage, quote exclusions and a compact report. Failed/stale/missing inputs are
+kept explicit. No Markdown is generated and existing output directories are
+never overwritten. `--bankroll` optionally enables hypothetical dollar amounts.
+
+```bash
+python -m goalpost.markets --export /path/to/export --validate-only
+python -m goalpost.markets --export /path/to/export --live
+python -m goalpost.markets --export /path/to/export --database /path/to/betting.db
+```
+
+Live refresh requires the key in **`ODDS_API`**, supplied by your shell or secret
+manager. Every explicit `--live` run makes one NFL main-market request through
+[Odds API v4](https://the-odds-api.com/liveapi/guides/v4/#get-odds), with no retries,
+background polling or persisted key. Reported charge headers remain unknown when
+absent. Never put a key in source code, command arguments or a committed file.
+
+Local database access requires **`GOALPOST_LOCAL_DB_ENABLED=true`** (default false).
+It opens an existing engine schema read-only: `games`, `markets`, `odds_snapshots`
+with game identity, market family/participant/line, American odds, capture/provider
+timestamps, book/source and optional quote event context. There is no database
+creation, migration or demo path. Existing stores are never updated by this command.
+
+Before pricing, [nflreadpy.load_schedules](https://nflreadpy.nflverse.com/api/load_functions/)
+checks reported current-season simulation donors against completed prior-date games.
+This is a coverage check, not a new model fit, file-integrity seal or calibration claim.
+Exported schedule event IDs bind team orientation without a local alias table.
+`--book`, `--max-quote-age-minutes` (30) and `--kickoff-tolerance-seconds` (600)
+configure the comparison. Only uniquely matched upcoming events and complete
+latest main-market pairs qualify; no older-line or alternate-market fallback.
+Both capture and provider timestamps must be fresh.
+
+Outputs are **hypothetical regulation-only research EV/Kelly**. The model is
+uncalibrated, missing simulation paths can bias the distribution, and overtime
+is unmodeled. Actual sportsbook-contract EV/Kelly remains null; regulation ties
+are void only for the hypothetical calculation. This package has no admission,
+alert, ledger or bet-placement integration. Single-contract Kelly fractions
+must not be added together as a portfolio stake.
