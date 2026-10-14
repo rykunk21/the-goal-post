@@ -1,6 +1,12 @@
-# Purpose: check reported simulation donors against the maintained NFLverse schedule.
+# Purpose: check reported historical input games against the maintained NFLverse schedule.
 # Public API: NFLHistory.check loads evidence; assess accepts an existing DataFrame.
-# Consumers: MarketTableJob gates quote acquisition on completed-game donor coverage.
+# Consumers: MarketTableJob checks this coverage before requesting live or stored quotes.
+# Terminology: a "donor" is a historical game that the imported simulation report lists
+# as a source of input data, under results[].provenance.teams[team].games[].game_id.
+# For example, if Cleveland has a completed game that is missing from Cleveland's list,
+# the report is blocked even if the upcoming matchup and current odds are available.
+# This adapter compares game IDs; it does not choose or weight inputs, run simulations,
+# inspect their underlying plays, or prove that the model actually consumed each game.
 
 from datetime import datetime
 from typing import Any
@@ -11,8 +17,10 @@ import pandas as pd
 from goalpost.data.base.odds import timestamp
 
 
-# Purpose: keep stale donor coverage from being mistaken for current-season modeling.
-# Consumers: the shared CLI/TUI report job; this is a coverage check, not calibration.
+# Purpose: detect missing completed same-season games in each team's reported input history.
+# Consumers: the shared CLI/TUI report job; passing verifies reported coverage only.
+# The schedule supplies the comparison set; the imported report supplies the claimed inputs.
+# Neither this comparison nor a passing result establishes model calibration or an edge.
 class NFLHistory:
     # Purpose: fetch schedule evidence only when imported simulations are still upcoming.
     # Callers: MarketTableJob.run; failures stop the job before a paid odds request.
@@ -29,8 +37,10 @@ class NFLHistory:
         schedule = nflreadpy.load_schedules(seasons=seasons).to_pandas()
         return self.assess(schedule, results, now)
 
-    # Purpose: compare reported donors with completed games while preserving unknown finals.
+    # Purpose: compare reported historical input IDs with completed same-season team games.
     # Callers: check and offline tests; supplied schedule evidence is never regraded.
+    # Both matchup teams are checked separately. Only schedule gameday values before the
+    # current UTC date enter the prior-game set; missing scores are not inferred here.
     def assess(
         self, schedule: pd.DataFrame, results: list[dict[str, Any]], now: datetime
     ) -> dict[str, Any]:
@@ -75,6 +85,7 @@ class NFLHistory:
                 errors.append({"reason": "prior_date_result_unknown", "game_id": game["game_id"]})
         for result in results:
             game = result["game"]
+            # "donors" retains the export's terminology for the reported per-team source games.
             donors = result.get("provenance", {}).get("teams", {})
             for team in (game["home"], game["away"]):
                 expected = completed[
