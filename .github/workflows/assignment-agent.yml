@@ -86,6 +86,7 @@ jobs:
           GH_TOKEN: ${{ secrets.ASSIGNMENT_GH_TOKEN }}
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          codex-version: '0.162.1'
           model: ${{ vars.ASSIGNMENT_CODEX_MODEL }}
           working-directory: ${{ github.workspace }}/task
           prompt-file: ${{ runner.temp }}/assignment-control/prompt.txt
