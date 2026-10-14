@@ -1,0 +1,100 @@
+# Purpose: replace model polling with hosted, assignment-triggered Codex work.
+# Activation: merge to main, add OPENAI_API_KEY and ASSIGNMENT_GH_TOKEN secrets,
+# then set ASSIGNMENT_AUTOMATION_ENABLED=true. The GitHub token must be DeclanK3's
+# credential, with contents/issues/pull-requests read/write and Actions read access.
+# Fork PRs also require access to the actual fork head repository; one fine-grained
+# PAT cannot span different resource owners. Do not copy a local login token here.
+# Set ASSIGNMENT_CODEX_MODEL to an API model available to the OpenAI project.
+# Keep the desktop poller paused. No webhook server or TLS certificate is needed.
+# Recovery: dispatch a dry run first; resume_run must match the previous claim's
+# run ID, whose GitHub job must have stopped. Never restart an uncertain run blindly.
+name: Assignment agent
+on:
+  issues:
+    types: [assigned]
+  pull_request_target:
+    types: [assigned]
+  pull_request:
+    paths: [.github/workflows/assignment-agent.yml, tools/assignment_workflow.py]
+  workflow_dispatch:
+    inputs:
+      number:
+        description: Issue or PR number (must still be assigned to DeclanK3)
+        required: true
+        type: string
+      dry_run:
+        description: Validate eligibility without a model call or GitHub writes
+        default: true
+        type: boolean
+      resume_run:
+        description: Previous stopped run ID; leave blank for a new assignment cycle
+        default: ''
+        type: string
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  actions: read
+jobs:
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - run: python tools/assignment_workflow.py --self-test
+  assignment:
+    if: >-
+      github.repository == 'rykunk21/the-goal-post' &&
+      (github.actor == 'rykunk21' || github.actor == 'DeclanK3') &&
+      ((github.event_name == 'workflow_dispatch' &&
+        (inputs.dry_run || vars.ASSIGNMENT_AUTOMATION_ENABLED == 'true')) ||
+       ((github.event_name == 'issues' || github.event_name == 'pull_request_target') &&
+        github.event.action == 'assigned' && github.event.assignee.login == 'DeclanK3' &&
+        vars.ASSIGNMENT_AUTOMATION_ENABLED == 'true'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    concurrency:
+      group: assignment-${{ github.repository }}-${{ github.event.issue.number || github.event.pull_request.number || inputs.number }}
+      cancel-in-progress: false
+    steps:
+      # Privileged dispatch code always comes from main, never from the assigned PR.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+          path: control
+      - name: Preserve the trusted dispatcher outside the writable agent workspace
+        run: |
+          mkdir -p "$RUNNER_TEMP/assignment-control" "$GITHUB_WORKSPACE/task"
+          cp control/tools/assignment_workflow.py "$RUNNER_TEMP/assignment-control/runner.py"
+          python "$RUNNER_TEMP/assignment-control/runner.py" --self-test
+      - name: Validate identity, assignment cycle, and durable claim
+        id: gate
+        env:
+          GH_TOKEN: ${{ secrets.ASSIGNMENT_GH_TOKEN || github.token }}
+          HAS_GH_SECRET: ${{ secrets.ASSIGNMENT_GH_TOKEN != '' }}
+          HAS_OPENAI_SECRET: ${{ secrets.OPENAI_API_KEY != '' }}
+          ASSIGNMENT_MODEL: ${{ vars.ASSIGNMENT_CODEX_MODEL }}
+        run: python "$RUNNER_TEMP/assignment-control/runner.py" --prepare
+      - name: Run the assigned work in an isolated hosted checkout
+        if: steps.gate.outputs.run == 'true'
+        id: codex
+        uses: openai/codex-action@bdf19a4a223ec2549a3e2274a0cf61556bc07675 # v1
+        env:
+          GH_TOKEN: ${{ secrets.ASSIGNMENT_GH_TOKEN }}
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: ${{ vars.ASSIGNMENT_CODEX_MODEL }}
+          working-directory: ${{ github.workspace }}/task
+          prompt-file: ${{ runner.temp }}/assignment-control/prompt.txt
+          codex-home: ${{ runner.temp }}/assignment-codex-home
+          permission-profile: assignment
+          safety-strategy: drop-sudo
+      - name: Record execution status without claiming implementation readiness
+        if: always() && steps.gate.outputs.run == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.ASSIGNMENT_GH_TOKEN }}
+          AGENT_OUTCOME: ${{ steps.codex.outcome }}
+        run: python "$RUNNER_TEMP/assignment-control/runner.py" --finish
