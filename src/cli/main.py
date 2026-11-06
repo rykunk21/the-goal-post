@@ -11,7 +11,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from transitions.paths import ARTIFACTS
+from transitions.paths import ARTIFACTS, RESET
 
 logging.basicConfig(
     level=logging.INFO,
@@ -84,7 +84,7 @@ def _run_pipeline():
     else:
         logger.info("Transitions verified.")
 
-    data_path = RESET
+    data_path = RESET / "data"
 
     # --- Step 3: Weekly simulations ---
     export_path = _find_latest_weekly()

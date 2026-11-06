@@ -1,5 +1,6 @@
 """Build and verify all weekly input artifacts without environment configuration."""
 import argparse
+import os
 from contextlib import redirect_stdout, redirect_stderr
 from datetime import datetime, timezone
 import hashlib
@@ -25,7 +26,7 @@ def save(path, value):
     path.write_text(json.dumps(value, indent=2, allow_nan=False) + '\n')
 
 
-def build(sources, output='artifacts/transitions', nfl2023=None, raw_summaries=None):
+def build(sources, output: str | os.PathLike = 'artifacts/transitions', nfl2023=None, raw_summaries=None):
     """Publish a new artifact root only after both independent verifiers pass.
 
     Failed work and its log remain in a sibling staging directory for diagnosis.
