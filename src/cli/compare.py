@@ -11,7 +11,10 @@ All artifacts are written under artifacts/market-sizing/<timestamp>/.
 """
 
 import argparse
+import csv
+import io
 import json
+import logging
 import os
 import sys
 from collections import Counter
@@ -24,33 +27,42 @@ from markets.comparison import ComparisonSettings, MarketRow, NFLComparison
 from markets.export import WeeklyExport
 from markets.history import NFLHistory
 from markets.quotes import OddsAPISource, QuoteSnapshot
-from markets.nfl import NFLGame, NFLSpread
+from markets.nfl import NFLGame
 from transitions.weekly import main as weekly_main
 from transitions.paths import ARTIFACTS
 
 import numpy as np
-import pandas as pd
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    datefmt="%H:%M:%S",
+)
+logger = logging.getLogger("compare")
 
 
 def _find_latest_export() -> Path | None:
     """Return the most recent valid weekly simulation export directory."""
     weekly_dir = ARTIFACTS / "weekly"
     if not weekly_dir.exists():
+        logger.info("No weekly export directory found at %s", weekly_dir)
         return None
     candidates = [
         d for d in weekly_dir.iterdir()
         if d.is_dir() and (d / "report.json").exists()
     ]
     if not candidates:
+        logger.info("No candidate export directories with report.json")
         return None
-    # Sort by directory name (ISO timestamps) descending
     candidates.sort(key=lambda p: p.name, reverse=True)
     for cand in candidates:
         try:
             report = json.loads((cand / "report.json").read_text())
             if report.get("status") in ("complete", "incomplete"):
+                logger.info("Found valid export: %s (status=%s)", cand.name, report.get("status"))
                 return cand
-        except (ValueError, OSError):
+        except (ValueError, OSError) as exc:
+            logger.warning("Skipping invalid export %s: %s", cand.name, exc)
             continue
     return None
 
@@ -61,9 +73,6 @@ def _run_simulations(
     simulations: int = 50000,
 ) -> Path:
     """Delegate to the weekly simulation runner and return the export path."""
-    import io
-    import sys
-
     argv = ["--simulations", str(simulations)]
     if season is not None:
         argv.extend(["--season", str(season)])
@@ -101,7 +110,6 @@ def _print_comparison_table(current_rows: list[dict], games: list[NFLGame]) -> N
 
     game_map = {g.game_id: g for g in games}
 
-    # Group rows by game
     games_data = {}
     for row in current_rows:
         gid = row["game_id"]
@@ -180,31 +188,63 @@ def run_compare(
     if export_path is None:
         export_path = _find_latest_export()
         if export_path is None:
-            print("No existing simulation export found. Running simulations...")
+            logger.info("No existing simulation export found. Running simulations...")
             export_path = _run_simulations(season=season, week=week, simulations=simulations)
-            print(f"Simulation export written to: {export_path}\n")
+            logger.info("Simulation export written to: %s", export_path)
         else:
-            print(f"Using existing simulation export: {export_path}\n")
+            logger.info("Using existing simulation export: %s", export_path)
 
     # --- Step 2: Load the export ---
+    logger.info("Loading export from %s ...", export_path)
     export = WeeklyExport.load(export_path)
+    logger.info("Loaded %d games from export", len(export.games))
     now = datetime.now(timezone.utc)
 
     # --- Step 3: History check ---
+    logger.info("Running history check ...")
     history = NFLHistory().check(export.report, now)
+    logger.info("History check result: %s", history["status"])
     if history["status"] == "blocked":
-        raise RuntimeError("Simulation history is incomplete; inspect history.json")
+        logger.warning("History is blocked — donors are stale.")
+        for err in history.get("errors", []):
+            logger.warning("  -> %s: %s", err.get("reason"), err.get("game_id", err.get("team", "")))
+        if history.get("missing_games"):
+            logger.warning("Missing completed games: %s", history["missing_games"])
+        logger.info("Rebuilding simulations with fresh data ...")
+        export_path = _run_simulations(season=season, week=week, simulations=simulations)
+        logger.info("Fresh simulation export written to: %s", export_path)
+        export = WeeklyExport.load(export_path)
+        logger.info("Re-running history check on fresh export ...")
+        history = NFLHistory().check(export.report, now)
+        logger.info("Fresh history check result: %s", history["status"])
+        if history["status"] == "blocked":
+            raise RuntimeError("Fresh simulation export still has incomplete history")
+    elif history["status"] == "not_required":
+        logger.info("History check not required: %s", history.get("reason"))
+    else:
+        logger.info("History check passed (%d completed games)", history.get("completed_games", 0))
 
     # --- Step 4: Fetch live quotes ---
-    if any(game.kickoff > now for game in export.games):
+    upcoming = [g for g in export.games if g.kickoff > now]
+    logger.info("Upcoming games: %d", len(upcoming))
+    if upcoming:
+        logger.info("Fetching live quotes from Odds API (book=%s) ...", book)
         source = OddsAPISource(book)
         snapshot = source.load()
+        logger.info(
+            "Odds API response: %d events, credits_used=%s, credits_remaining=%s",
+            len(snapshot.events),
+            snapshot.credits_used,
+            snapshot.credits_remaining,
+        )
     else:
+        logger.info("No upcoming games; skipping odds request.")
         snapshot = QuoteSnapshot((), "not_requested")
 
     now = datetime.now(timezone.utc)
 
     # --- Step 5: Run comparison ---
+    logger.info("Running market comparison ...")
     settings = ComparisonSettings(
         book=book,
         max_quote_age_seconds=max_quote_age_minutes * 60,
@@ -213,12 +253,17 @@ def run_compare(
     )
     comparison = NFLComparison(settings).run(export.games, snapshot, now)
     rows, current = comparison["rows"], comparison["current"]
+    logger.info(
+        "Comparison complete: %d evaluated rows, %d fresh rows",
+        len(rows), len(current),
+    )
 
     # --- Step 6: Write artifacts under artifacts/market-sizing/ ---
     output_dir = ARTIFACTS / "market-sizing" / datetime.now(timezone.utc).strftime(
         "%Y%m%dT%H%M%S%fZ"
     )
     output_dir.mkdir(parents=True, exist_ok=False)
+    logger.info("Writing artifacts to %s", output_dir)
 
     columns = [field.name for field in fields(MarketRow)]
     for name, values in (("ev-kelly", rows), ("current-market-sizing", current)):
@@ -270,8 +315,6 @@ def run_compare(
 
 
 def _to_csv(rows: List[dict], columns: List[str]) -> str:
-    import csv
-    import io
     buf = io.StringIO()
     writer = csv.DictWriter(buf, fieldnames=columns)
     writer.writeheader()
@@ -301,7 +344,11 @@ def main():
     parser.add_argument(
         "--kickoff-tolerance-seconds", type=float, default=600, help="Kickoff tolerance in seconds"
     )
+    parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
 
     try:
         summary = run_compare(
@@ -316,6 +363,7 @@ def main():
         )
         print(json.dumps(summary, indent=2, allow_nan=False))
     except Exception as error:
+        logger.exception("Comparison failed")
         message = str(error)
         key = os.environ.get("ODDS_API")
         if key:
