@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.scripts]
-goalpost-market-sizing = "goalpost.markets.bridge:main"
+goalpost = "cli.main:main"
 
 [project.optional-dependencies]
 dev = [
@@ -34,7 +34,7 @@ select = ["E", "F", "I", "N", "W"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = [".", "src"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/goalpost"]
+packages = ["src"]
